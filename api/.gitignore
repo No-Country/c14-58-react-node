@@ -1,0 +1,27 @@
+# Carpeta node_modules generada por npm
+node_modules/
+
+# Archivos de configuración de entorno 
+.env
+
+# Carpetas y archivos generados por IDEs o editores de texto
+.vscode/
+.idea/
+*.code-workspace
+
+# Archivos de registro
+npm-debug.log*
+
+# Archivo de dependencias 
+package-lock.json
+
+
+# Archivo de caché de eslint
+.eslintcache
+
+
+# Carpeta de configuración de Prettier
+.prettierrc
+
+# Carpetas y archivos de almacenamiento local
+.local/
