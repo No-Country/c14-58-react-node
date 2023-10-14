@@ -1,0 +1,156 @@
+.card__container {
+  max-width: 1072px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  column-gap: 4.25rem;
+  row-gap: 2rem;
+  justify-content: center;
+  /* justify-content: end; */
+  margin: auto;
+  /* box-sizing: content-box; */
+}
+
+.card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 500px;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-radius: 7px;
+  overflow: hidden;
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
+}
+
+.card__photo {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}
+
+.card__content {
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.card__price-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 2rem;
+}
+.card__price {
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.card__apartament-container {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.card__apartament {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.card__descriptions {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.card__address {
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.15px;
+  min-height: 4rem;
+  text-align: start;
+}
+.card__footer {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+.card__description {
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+}
+
+.card__footer span {
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.5px;
+  font-family: "Inter", sans-serif;
+}
+
+.card__border {
+  height: 7px;
+  background: var(--DarkPink, #bf5f82);
+}
+.card__type {
+  position: absolute;
+  right: 0;
+  padding: 0.25rem 0.5rem;
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+  background: var(--Pink, #f48fb1);
+}
+
+.card__type {
+  color: var(--White, #fff);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.25px;
+}
+
+/* Actions */
+
+.card__actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--DarkPink, #bf5f82);
+  color: var(--White, #fff);
+  gap: 2rem;
+  height: 40px;
+}
+
+.card__action-container {
+  margin-top: 0.5rem;
+  display: flex;
+  padding: 0.25rem 0.5rem;
+  gap: 0.5rem;
+}
+.card__action {
+  text-transform: uppercase;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 1.25px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+}
