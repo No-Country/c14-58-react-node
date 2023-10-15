@@ -1,9 +1,9 @@
 const { Model } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
-  class Pets extends Model {}
+  class User extends Model {}
 
-  Pets.init(
+  User.init(
     {
       id: {
         type: DataTypes.UUID,
@@ -11,29 +11,32 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         primaryKey: true,
       },
-      title: {
+      first_name: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      description: {
-        type: DataTypes.TEXT,
+      surname: {
+        type: DataTypes.STRING,
         allowNull: false,
       },
-      post_date: {
-        type: DataTypes.DATE,
+      email: {
+        type: DataTypes.STRING,
         allowNull: false,
       },
-      images: {
-        type: DataTypes.TEXT,
+      password: {
+        type: DataTypes.STRING,
         allowNull: false,
+      },
+      role: {
+        type: DataTypes.ENUM("client", "special"),
       },
     },
     {
       // Other model options go here
-      modelName: "Pets",
+      modelName: "User",
       sequelize,
     }
   );
 
-  return Pets;
+  return User;
 };

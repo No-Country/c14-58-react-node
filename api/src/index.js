@@ -8,7 +8,8 @@ const { sequelize, dbInit } = require("./db");
 const { errorLogger, errorHandler } = require("./middlewares/errors/errors");
 
 // Routers
-const exampleRouter = require("./web/example");
+// const exampleRouter = require("./web/example");
+const userRouter = require("./web/users");
 
 const corsOptions = {
   origin: process.env.APP_DOMAIN || "*",
@@ -37,7 +38,7 @@ function initializeApp() {
     res.status(200).send("Stable");
   });
 
-  app.use("/example", exampleRouter);
+  app.use("/users", userRouter);
 
   // Error middlewares
   app.use(errorLogger);

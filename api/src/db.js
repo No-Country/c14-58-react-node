@@ -10,32 +10,27 @@ const sequelize = new Sequelize({
   port: process.env.DATABASE_PORT,
   password: process.env.DATABASE_PASSWORD,
   username: process.env.DATABASE_USERNAME,
-  database: `${process.env.DATABASE_NAME}_${process.env.NODE_ENV}`,
+  database: process.env.DATABASE_NAME,
   define: { timestamps: false },
-  logging: !(
-    process.env.NODE_ENV === "test" || process.env.NODE_ENV === "production"
-  ),
 });
 
-const Example = require("./lib/examples/examples.model")(
-  sequelize,
-  Sequelize.DataTypes
-);
+const User = require("./lib/users/users.model")(sequelize, Sequelize.DataTypes);
+const Pets = require("./lib/pets/pets.model")(sequelize, Sequelize.DataTypes);
 
-db.Example = Example;
+db.User = User;
+db.Pets = Pets;
 
-const models = [Example];
+// Relations
+User.hasMany(Pets);
+Pets.belongsTo(User);
 
-models.forEach((model) => {
-  if (model.associate) {
-    model.associate(db);
-  }
-});
-
-const dbInit = () => Promise.all([Example.sync({ alter: true })]);
+const dbInit = () =>
+  Promise.all([User.sync({ alter: false }), Pets.sync({ alter: false })]);
 
 module.exports = {
   dbInit,
   sequelize,
   Sequelize,
+  User,
+  Pets,
 };
