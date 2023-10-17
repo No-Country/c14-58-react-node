@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import Button from "../../ui/Button";
 import { Card } from "./Card/Card";
+import { Link } from "react-router-dom";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -90,7 +91,7 @@ function ListCards() {
 
         
       </CardContainer>
-      <Button type="primary" size="large">Otras mascostas perdidas</Button>
+      <Button type="primary" size="large"><Link to="/pets">Otras mascostas perdidas</Link></Button>
       <CardContainer2>
         <Card data={data4} />
 

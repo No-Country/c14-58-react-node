@@ -1,11 +1,5 @@
 
 import { IconContext } from "react-icons";
-import {
-  RiUploadLine,
-  RiDeleteBin6Line,
-} from "react-icons/ri";
-import {  BiEdit } from "react-icons/bi";
-import { AiOutlineCloseCircle } from "react-icons/ai";
 import { FaPaw } from "react-icons/fa";
 import "./card.css";
 
