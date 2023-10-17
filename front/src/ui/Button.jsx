@@ -29,7 +29,7 @@ function typeStyle(type = "default") {
       color: #616161;
       &:hover{
         background-color: #F48FB115 ;
-        border-color: #BF5F82;
+  
       }
       cursor: pointer;
     `;
@@ -70,7 +70,6 @@ const StyledButton = styled.button`
 `;
 
 function Button({ children, icon, ...props }) {
-  console.log(props);
   return (
     <StyledButton {...props}>
       {icon}
