@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
-import { DiRuby, DiReact } from "react-icons/di";
+import { DiReact } from "react-icons/di";
 const Container = styled.div`
   background-color: #f5f5f6;
   width: 100%;
-  
+  margin-top: auto;
 `;
 const FooterContainer = styled.div`
 max-width: 1200px;
