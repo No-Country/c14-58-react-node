@@ -1,10 +1,12 @@
-var express = require("express");
-var usersRouter = express.Router();
-var { UserService } = require("../../lib/users/");
+const express = require("express");
+const usersRouter = express.Router();
+const { UserService } = require("../../lib/users/");
+const withResponse = require("../../middlewares/utils/withResponse");
+
 // Home page route.
 
-usersRouter.get("/", async (req, res) => {
-  res.send(await UserService.getAll(req, res));
+usersRouter.get("/", async (req, res, next) => {
+  withResponse({ req, res, next }, UserService.getAll);
 });
 
 module.exports = usersRouter;
