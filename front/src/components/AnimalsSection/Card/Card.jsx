@@ -2,12 +2,13 @@
 import { IconContext } from "react-icons";
 import { FaPaw } from "react-icons/fa";
 import "./card.css";
+import { useNavigate } from "react-router-dom";
 
 export function Card({ data }) {
-
+  const navigate = useNavigate()
 
   return (
-    <div className="card" style={{cursor:"pointer"}}>
+    <div className="card" style={{cursor:"pointer"}} onClick={()=>navigate('/pets/2')}>
       <img src={data.photo} alt="pet" className="card__photo" />
       <div className="card__type" style={{background:`${data.type == "Found" ? "green" : "red"}`}}>
         <IconContext.Provider value={{ size: "1.25rem" }}>
