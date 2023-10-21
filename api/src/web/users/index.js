@@ -1,7 +1,6 @@
 const express = require("express");
 const usersRouter = express.Router();
 const { UserService } = require("../../lib/users/");
-const withResponse = require("../../middlewares/utils/withResponse");
 
 // Home page route.
 
