@@ -1,6 +1,7 @@
 const { Pets, User } = require("../../db");
 const { BadRequest } = require("../../errorClasses");
 const { petSchema } = require("./pets.validations");
+const jwt = require("jsonwebtoken");
 
 class PetService {
   static async getAllPets(req, res, next) {
@@ -8,7 +9,7 @@ class PetService {
       const all_pets = await Pets.findAll({
         include: User,
       });
-      return all_pets;
+      return res.json(all_pets);
     } catch (err) {
       next(err);
     }
@@ -28,7 +29,7 @@ class PetService {
         userId: decodedToken.userId,
       });
 
-      return pet;
+      return res.json(pet);
     } catch (err) {
       next(err);
     }
