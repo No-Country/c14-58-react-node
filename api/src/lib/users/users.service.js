@@ -10,7 +10,7 @@ class UserService {
       const users = await User.findAll({
         include: Pets,
       });
-      return users;
+      return res.json(users);
     } catch (err) {
       next(err);
     }
@@ -51,12 +51,12 @@ class UserService {
         }
       );
 
-      return {
+      return res.json({
         name: user.first_name,
         surname: user.surname,
         email: user.email,
         token,
-      };
+      });
     } catch (err) {
       return next(err);
     }
@@ -75,12 +75,12 @@ class UserService {
       if (!user) {
         throw new NotFound("User not found");
       }
-      return {
+      return res.json({
         name: user.first_name,
         surname: user.surname,
         email: user.email,
         Pets: user.Pets,
-      };
+      });
     } catch (err) {
       return next(err);
     }

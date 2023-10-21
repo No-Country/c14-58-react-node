@@ -7,7 +7,9 @@ class PetService {
   static async getAllPets(req, res, next) {
     try {
       const all_pets = await Pets.findAll({
-        include: User,
+        include: [
+          { model: User, attributes: ["id", "first_name", "surname", "email"] },
+        ],
       });
       return res.json(all_pets);
     } catch (err) {
@@ -24,10 +26,9 @@ class PetService {
         throw new BadRequest("LogIn to upload a pet");
       }
 
-      const pet = await Pets.create({
-        ...value,
-        userId: decodedToken.userId,
-      });
+      const pet = await Pets.create({ ...value });
+
+      pet.setUser(decodedToken.userId);
 
       return res.json(pet);
     } catch (err) {
