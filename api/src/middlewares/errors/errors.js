@@ -1,6 +1,5 @@
 const errorHandler = (error, req, res, next) => {
-  res.header("Content-Type", "application/json");
-  res.status(error.statusCode || 500).send({
+  res.status(error.statusCode || 500).json({
     error: true,
     message: error.message || "Something went wrong",
     code: error.statusCode || 500,

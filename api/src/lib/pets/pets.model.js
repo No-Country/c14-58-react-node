@@ -20,12 +20,21 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       post_date: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
+        defaultValue: new Date().toISOString().split("T")[0],
+      },
+      image: {
+        type: DataTypes.TEXT,
+        defaultValue:
+          "https://maikaipets.com/wp-content/uploads/MAIKAI-HOME-DEF.jpg",
+      },
+      status: {
+        type: DataTypes.ENUM("lost", "found"),
         allowNull: false,
       },
-      images: {
-        type: DataTypes.TEXT,
-        allowNull: false,
+      completed: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
       },
     },
     {

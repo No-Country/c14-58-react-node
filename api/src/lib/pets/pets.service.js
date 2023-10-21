@@ -1,17 +1,38 @@
-const { Pet } = require('../../db');
-const validations = require('./pets.validations');
+const { Pets, User } = require("../../db");
+const { BadRequest } = require("../../errorClasses");
+const { petSchema } = require("./pets.validations");
 
 class PetService {
-  static async example(attributes) {
-    console.log('example!');
+  static async getAllPets(req, res, next) {
     try {
-      await validations.example.validateAsync(attributes);
-
-      // call db methods after validations have passed
+      const all_pets = await Pets.findAll({
+        include: User,
+      });
+      return all_pets;
     } catch (err) {
-      throw new Error(err);
+      next(err);
+    }
+  }
+  static async createPet(req, res, next) {
+    try {
+      const token = req.headers.authorization.split(" ")[1]; // "Bearer <token>"
+      const decodedToken = jwt.verify(token, process.env.SECRET);
+
+      const { error, value } = petSchema.validate(req.body);
+      if (error) {
+        throw new BadRequest("LogIn to upload a pet");
+      }
+
+      const pet = await Pets.create({
+        ...value,
+        userId: decodedToken.userId,
+      });
+
+      return pet;
+    } catch (err) {
+      next(err);
     }
   }
 }
 
-module.exports = PetService ;
+module.exports = PetService;

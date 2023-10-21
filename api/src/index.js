@@ -10,6 +10,7 @@ const { errorHandler } = require("./middlewares/errors/errors");
 // Routers
 // const exampleRouter = require("./web/example");
 const userRouter = require("./web/users");
+const petsRouter = require("./web/pets")
 
 const corsOptions = {
   origin: process.env.APP_DOMAIN || "*",
@@ -39,8 +40,9 @@ function initializeApp() {
   });
 
   app.use("/users", userRouter);
+  app.use("/pets", petsRouter)
 
-  // Error middlewares
+  // Error middleware
   app.use(errorHandler);
 
   return app;

@@ -93,27 +93,27 @@ class UserService {
       const user = await User.findOne({ where: { email } });
 
       if (!user) {
-        throw new NotFound("User not found"); // Usuario no encontrado
+        throw new Error("User not found"); // Usuario no encontrado
       }
 
       const passwordMatch = await bcrypt.compare(password, user.password);
 
       if (!passwordMatch) {
-        throw new BadRequest("Invalid credentials");
+        throw new Error("Invalid credentials");
       }
 
       const token = jwt.sign({ userId: user.id }, process.env.SECRET, {
         expiresIn: "3h",
       });
 
-      return {
+      res.status(202).json({
         name: user.first_name,
         surname: user.surname,
         email: user.email,
         token,
-      };
+      });
     } catch (err) {
-      return next(err);
+      next(err);
     }
   }
 }

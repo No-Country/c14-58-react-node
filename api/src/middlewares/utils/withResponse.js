@@ -4,7 +4,7 @@ module.exports = async function withResponseMiddleware(
 ) {
   try {
     const flowResult = await service(req, res, next);
-    res.status(200).send({ msg: "Ok", data: flowResult });
+    res.status(200).json({ msg: "Ok", data: flowResult });
   } catch (error) {
     next(error);
   }
