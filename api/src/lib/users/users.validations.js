@@ -7,4 +7,5 @@ const userSchema = Joi.object({
   password: Joi.string().required(),
 });
 
+
 module.exports = { userSchema };

@@ -25,7 +25,7 @@ User.hasMany(Pets);
 Pets.belongsTo(User);
 
 const dbInit = () =>
-  Promise.all([User.sync({ alter: false }), Pets.sync({ alter: false })]);
+  Promise.all([User.sync({ alter: true }), Pets.sync({ alter: true })]);
 
 module.exports = {
   dbInit,

@@ -5,7 +5,7 @@ const morgan = require("morgan");
 const cors = require("cors");
 const { sequelize, dbInit } = require("./db");
 
-const { errorLogger, errorHandler } = require("./middlewares/errors/errors");
+const { errorHandler } = require("./middlewares/errors/errors");
 
 // Routers
 // const exampleRouter = require("./web/example");
@@ -41,7 +41,6 @@ function initializeApp() {
   app.use("/users", userRouter);
 
   // Error middlewares
-  app.use(errorLogger);
   app.use(errorHandler);
 
   return app;

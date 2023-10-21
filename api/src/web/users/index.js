@@ -9,4 +9,16 @@ usersRouter.get("/", async (req, res, next) => {
   withResponse({ req, res, next }, UserService.getAll);
 });
 
+usersRouter.post("/signup", async (req, res, next) => {
+  withResponse({ req, res, next }, UserService.signUp);
+});
+
+usersRouter.post("/signin", async (req, res, next) => {
+  withResponse({ req, res, next }, UserService.logIn);
+});
+
+usersRouter.get("/find", async (req, res, next) => {
+  withResponse({ req, res, next }, UserService.getUser);
+});
+
 module.exports = usersRouter;
