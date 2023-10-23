@@ -9,7 +9,6 @@ export default function usePets() {
   const error = useSelector((state) => state.pets.error);
 
   useEffect(() => {
-    // solicitud al back
     dispatch(fetchPets());
   }, [dispatch]);
 
