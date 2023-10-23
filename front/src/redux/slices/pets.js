@@ -16,6 +16,7 @@ const petSlice = createSlice({
     list: [],
     loading: false,
     error: null,
+    detail: {},
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -33,6 +34,7 @@ const petSlice = createSlice({
     });
   },
 });
+
 
 export default petSlice.reducer;
 

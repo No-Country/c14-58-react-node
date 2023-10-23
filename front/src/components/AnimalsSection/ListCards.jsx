@@ -2,6 +2,8 @@ import styled from "@emotion/styled";
 import Button from "../../ui/Button";
 import { Card } from "./Card/Card";
 import { Link } from "react-router-dom";
+// import usePets from "../../hooks/usePets";
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -86,9 +88,24 @@ const data5 = {
   active: false,
 };
 
-function ListCards({ error, loading, pets }) {
+function ListCards() {
+  // const { pets, loading } = usePets();
+
   return (
     <Container>
+      {/* {loading ? (
+        <div>Loading</div>
+      ) : (
+        pets.map((pet) => {
+          return (
+            <div key={pet.id}>
+              <h3>{pet.title}</h3>
+              <img alt={pet.title} src={pet.image} />
+              <p> {pet.description} </p>
+            </div>
+          );
+        })
+      )} */}
       <CardContainer>
         <Card data={data1} />
         <Card data={data2} />

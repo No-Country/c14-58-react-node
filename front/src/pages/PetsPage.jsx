@@ -51,6 +51,7 @@ function PetsPage() {
   const max = 6;
   const pages = 1 + parseInt(petsData.length / 6);
   const numbers = Array.from({ length: pages }, (_, index) => index + 1);
+
   return (
     <>
       <Header />
