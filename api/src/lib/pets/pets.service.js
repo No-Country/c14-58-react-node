@@ -23,7 +23,7 @@ class PetService {
 
       const { error, value } = petSchema.validate(req.body);
       if (error) {
-        throw new BadRequest("LogIn to upload a pet");
+        throw new BadRequest(error.details[0].message);
       }
 
       const pet = await Pets.create({ ...value });
