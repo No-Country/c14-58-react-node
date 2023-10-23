@@ -86,7 +86,7 @@ const data5 = {
   active: false,
 };
 
-function ListCards() {
+function ListCards({ error, loading, pets }) {
   return (
     <Container>
       <CardContainer>
