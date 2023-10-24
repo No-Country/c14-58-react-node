@@ -5,12 +5,12 @@ const morgan = require("morgan");
 const cors = require("cors");
 const { sequelize, dbInit } = require("./db");
 
-const { errorHandler } = require("./middlewares/errors/errors");
+const { errorHandler, errorLogger } = require("./middlewares/errors/errors");
 
 // Routers
 // const exampleRouter = require("./web/example");
 const userRouter = require("./web/users");
-const petsRouter = require("./web/pets")
+const petsRouter = require("./web/pets");
 
 const corsOptions = {
   origin: process.env.APP_DOMAIN || "*",
@@ -40,9 +40,10 @@ function initializeApp() {
   });
 
   app.use("/users", userRouter);
-  app.use("/pets", petsRouter)
+  app.use("/pets", petsRouter);
 
-  // Error middleware
+  // Errors middleware
+  app.use(errorLogger);
   app.use(errorHandler);
 
   return app;
