@@ -10,12 +10,13 @@ const fetchPets = createAsyncThunk("pets/getAll", async () => {
   }
 });
 
-export const postPet = createAsyncThunk('pets/postPet',
-  async (petCredentials, { rejectWithValue })=>{
-    try{
-      const token = localStorage.getItem('token');
-      const cleanedToken = token.replace(/^"(.*)"$/, '$1');
-      
+export const postPet = createAsyncThunk(
+  "pets/postPet",
+  async (petCredentials, { rejectWithValue }) => {
+    try {
+      const token = localStorage.getItem("token");
+      const cleanedToken = token.replace(/^"(.*)"$/, "$1");
+
       const config = {
         method: "post",
         url: "http://localhost:3000/pets",
@@ -31,7 +32,8 @@ export const postPet = createAsyncThunk('pets/postPet',
     } catch (error) {
       return rejectWithValue(error.message);
     }
-})
+  }
+);
 
 const petSlice = createSlice({
   name: "pets",
@@ -69,7 +71,6 @@ const petSlice = createSlice({
     });
   },
 });
-
 
 export default petSlice.reducer;
 

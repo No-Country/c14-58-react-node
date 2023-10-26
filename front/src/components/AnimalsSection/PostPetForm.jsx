@@ -2,9 +2,10 @@ import styled from "@emotion/styled";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Button from "../../ui/Button";
-import {  useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { postPet } from "../../redux/slices/pets";
+import { getUser } from "../../redux/slices/user";
 
 const ContainerSignup = styled.div`
   width: 100%;
@@ -99,7 +100,8 @@ function PostPetForm() {
       document.getElementById("my_modal_4").showModal();
     } else {
       dispatch(postPet(data));
-      navigate("/home")
+      navigate("/home");
+      window.location.reload();
     }
   };
 
@@ -111,11 +113,17 @@ function PostPetForm() {
           <Form onSubmit={handleSubmit(handleFormSubmit)}>
             <Input>
               <label htmlFor="title">Name</label>
-              <input {...register("title")} id="title" placeholder="Enter a name" />
+              <input
+                {...register("title")}
+                id="title"
+                placeholder="Enter a name"
+              />
             </Input>
 
             <Input>
-              <label htmlFor="description">Description (Max 150 characters)</label>
+              <label htmlFor="description">
+                Description (Max 150 characters)
+              </label>
               <textarea
                 {...register("description")}
                 id="description"
@@ -130,11 +138,21 @@ function PostPetForm() {
             <Input>
               <label>Choose Status:</label>
               <label>
-                <input type="radio" {...register("status")} value="found" id="status-option1" />
+                <input
+                  type="radio"
+                  {...register("status")}
+                  value="found"
+                  id="status-option1"
+                />
                 Found
               </label>
               <label>
-                <input type="radio" {...register("status")} value="lost" id="status-option2" />
+                <input
+                  type="radio"
+                  {...register("status")}
+                  value="lost"
+                  id="status-option2"
+                />
                 Lost
               </label>
             </Input>
@@ -154,39 +172,39 @@ function PostPetForm() {
               </p>
             )}
           </Form>
-          </FormContainer>
-          </ContainerSignup>
-          {!token && (
-            <>
-
-              <dialog id="my_modal_4" className="modal">
-                <div className="modal-box w-11/12 max-w-5xl">
-                  <h3 className="font-bold text-lg">You need an account to post a pet</h3>
-                  <p className="py-4">Please Login or signup to start your post</p>
-                  <div className="flex justify-center gap-4 py-4 ">
-
-                  <Link to="/login">
-                      <Button type="secondary" size="small">
-                        Login
-                      </Button>
-                    </Link>
-                    <Link to="/signup">
-                      <Button type="primary" size="small">
-                        Signup
-                      </Button>
-                    </Link>
-                  </div>
-                  <div className="modal-action">
-                    <form method="dialog">
-                      <button className="btn">Close</button>
-                    </form>
-                  </div>
-                </div>
-              </dialog>
-            </>
-          )}
+        </FormContainer>
+      </ContainerSignup>
+      {!token && (
+        <>
+          <dialog id="my_modal_4" className="modal">
+            <div className="modal-box w-11/12 max-w-5xl">
+              <h3 className="font-bold text-lg">
+                You need an account to post a pet
+              </h3>
+              <p className="py-4">Please Login or signup to start your post</p>
+              <div className="flex justify-center gap-4 py-4 ">
+                <Link to="/login">
+                  <Button type="secondary" size="small">
+                    Login
+                  </Button>
+                </Link>
+                <Link to="/signup">
+                  <Button type="primary" size="small">
+                    Signup
+                  </Button>
+                </Link>
+              </div>
+              <div className="modal-action">
+                <form method="dialog">
+                  <button className="btn">Close</button>
+                </form>
+              </div>
+            </div>
+          </dialog>
         </>
-      );
-      }
-      
-      export default PostPetForm;
+      )}
+    </>
+  );
+}
+
+export default PostPetForm;
