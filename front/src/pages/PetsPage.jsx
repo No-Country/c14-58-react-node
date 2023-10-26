@@ -2,11 +2,11 @@ import styled from "@emotion/styled";
 import { useState } from "react";
 import { BsCaretLeftSquareFill, BsCaretRightSquareFill } from "react-icons/bs";
 import { Card } from "../components/AnimalsSection/Card/Card";
-import { pets } from "../data/pets";
+// import { pets } from "../data/pets";
 import Footer from "../components/Footer/Footer";
 import Header from "../components/Header";
 import Filters from "../components/Filters";
-
+import usePets from "../hooks/usePets";
 const Container = styled.div`
   /* width: 100vw; */
   height: auto;
@@ -46,7 +46,8 @@ const PetsWrapper = styled.div`
 `;
 
 function PetsPage() {
-  const petsData = pets();
+  const { pets, loading } = usePets();
+  const petsData = pets;
   const [page, setPage] = useState(1);
   const max = 6;
   const pages = 1 + parseInt(petsData.length / 6);
