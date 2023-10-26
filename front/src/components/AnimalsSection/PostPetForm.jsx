@@ -99,9 +99,10 @@ function PostPetForm() {
     if (!token) {
       document.getElementById("my_modal_4").showModal();
     } else {
-      dispatch(postPet(data));
+      dispatch(postPet(data)).then(() => {
+        dispatch(getUser());
+      });
       navigate("/home");
-      window.location.reload();
     }
   };
 

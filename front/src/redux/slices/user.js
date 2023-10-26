@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { getUserBack } from "../getUserBack";
 
 export const loginUser = createAsyncThunk(
   "user/loginUser",
@@ -42,7 +41,16 @@ export const getUser = createAsyncThunk(
   "user/getUser",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await getUserBack();
+      const token = localStorage.getItem("token");
+      const cleanedToken = token.replace(/^"(.*)"$/, "$1");
+      const config = {
+        method: "get",
+        url: "http://localhost:3000/users/find",
+        headers: {
+          Authorization: `Bearer ${cleanedToken}`,
+        },
+      };
+      const response = await axios(config);
       if (response.status !== 200) {
         const errorMessage = response.data.message;
 
