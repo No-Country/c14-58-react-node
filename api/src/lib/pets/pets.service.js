@@ -25,12 +25,16 @@ class PetService {
       if (error) {
         throw new BadRequest(error.details[0].message);
       }
-
+      const prevPets = await Pets.findAll({
+        include: [
+          { model: User, attributes: ["id", "first_name", "surname", "email"] },
+        ],
+      });
       const pet = await Pets.create({ ...value });
 
       pet.setUser(decodedToken.userId);
 
-      return res.json(pet);
+      return res.json([pet, ...prevPets]);
     } catch (err) {
       next(err);
     }
