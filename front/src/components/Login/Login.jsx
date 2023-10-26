@@ -91,7 +91,6 @@ function Login() {
               dispatch(loginUser(data)).then(result => {
                 if(result.payload.token){
                   navigate('/home')
-                  // console.log(result)
                 } 
               })
             })}
