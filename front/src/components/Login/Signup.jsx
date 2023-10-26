@@ -86,12 +86,11 @@ function Signup() {
           <TitleForm>Create your Account</TitleForm>
           <Form
             onSubmit={handleSubmit((data) => {
-              console.log(data)
-              dispatch(createUser(data).then(result => {
-                if(result.payload){
-                  navigate('/')
-                }
-              }))
+              dispatch(createUser(data)).then(result => {
+                if(result.payload.token){
+                  navigate('/home')
+                } 
+              })
             })}
           >
             <Input>
@@ -108,7 +107,7 @@ function Signup() {
             </Input>
             <Input>
               <label htmlFor="">PASSWORD</label>
-              <input {...register("password")} placeholder="******" />
+              <input {...register("password")} type="password" placeholder="******" />
             </Input>
             {/* <Input>
               <label htmlFor="">PASSWORD CONFIRMATION</label>
