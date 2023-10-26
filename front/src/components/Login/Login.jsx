@@ -1,8 +1,11 @@
 import styled from "@emotion/styled";
-import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
 import Button from "../../ui/Button";
+
+import { useDispatch, useSelector } from "react-redux"
+import { loginUser } from "../../redux/slices/user";
+import { useEffect } from "react";
 
 const ContainerSignup = styled.div`
   
@@ -63,29 +66,49 @@ const TitleForm = styled.h1`
   margin-bottom: 50px;
 `;
 function Login() {
-  let { state } = useLocation();
   const { register, handleSubmit } = useForm();
-  const [data, setData] = useState("");
+  const {loading} = useSelector(state => state.user)
+  const {error} = useSelector(state => state.user)
+  
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const token = localStorage.getItem("token");
+  // // console.log(token)
+  useEffect(()=>{
+    if (token) {
+      navigate("/home");
+    }
+  },[])
+
   return (
     <>
       <ContainerSignup>
         <FormContainer>
           <TitleForm>Login Account</TitleForm>
           <Form
-            onSubmit={handleSubmit((data) => setData(JSON.stringify(data)))}
+            onSubmit={handleSubmit((data) => {
+              dispatch(loginUser(data)).then(result => {
+                if(result.payload.token){
+                  navigate('/home')
+                  // console.log(result)
+                } 
+              })
+            })}
           >
             <Input>
               <label htmlFor="">EMAIL</label>
-              <input {...register("EMAIL")} placeholder="user@mail.com" />
+              <input {...register("email")} placeholder="user@mail.com" />
             </Input>
 
             <Input>
               <label htmlFor="">PASSWORD</label>
-              <input {...register("phone")} placeholder="******" />
+              <input {...register("password") } type="password" placeholder="******" />
             </Input>
 
 
-            <Button type="primary">LOGIN</Button>
+            <Button type="primary">{loading ? 'Loading...' : 'LOGIN'}</Button>
+            {error && (<p style={{background:"#ccc",padding:"4px 8px", color:"red", textAlign: "center", marginTop: "8px"}}>{error}</p>)}
           </Form>
         </FormContainer>
       </ContainerSignup>

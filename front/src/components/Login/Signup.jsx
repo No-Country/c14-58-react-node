@@ -1,8 +1,10 @@
 import styled from "@emotion/styled";
-import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useEffect } from "react";
 import Button from "../../ui/Button";
+import { useDispatch, useSelector } from "react-redux";
+import { createUser } from "../../redux/slices/user";
 
 const ContainerSignup = styled.div`
   padding: 0 16px;
@@ -62,39 +64,59 @@ const TitleForm = styled.h1`
   letter-spacing: 0px;
 `;
 function Signup() {
-  let { state } = useLocation();
+
+  const token = localStorage.getItem("token");
+  // // console.log(token)
+  useEffect(()=>{
+    if (token) {
+      navigate("/home");
+    }
+  },[])
   const { register, handleSubmit } = useForm();
-  const [data, setData] = useState("");
+  const {loading} = useSelector(state => state.user)
+  const {error} = useSelector(state => state.user)
+
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
   return (
     <>
       <ContainerSignup>
         <FormContainer>
           <TitleForm>Create your Account</TitleForm>
           <Form
-            onSubmit={handleSubmit((data) => setData(JSON.stringify(data)))}
+            onSubmit={handleSubmit((data) => {
+              console.log(data)
+              dispatch(createUser(data).then(result => {
+                if(result.payload){
+                  navigate('/')
+                }
+              }))
+            })}
           >
             <Input>
-              <label htmlFor="">NAME</label>
-              <input {...register("name")} placeholder="John Doe" />
+              <label htmlFor="">FIRST NAME</label>
+              <input {...register("first_name")} placeholder="John" />
+            </Input>
+            <Input>
+              <label htmlFor="">SURNAME</label>
+              <input {...register("surname")} placeholder="Doe" />
             </Input>
             <Input>
               <label htmlFor="">EMAIL</label>
-              <input {...register("EMAIL")} placeholder="user@mail.com" />
-            </Input>
-            <Input>
-              <label htmlFor="">PHONE</label>
-              <input {...register("phone")} placeholder="999-999-999" />
+              <input {...register("email")} placeholder="user@mail.com" />
             </Input>
             <Input>
               <label htmlFor="">PASSWORD</label>
-              <input {...register("phone")} placeholder="******" />
+              <input {...register("password")} placeholder="******" />
             </Input>
-            <Input>
+            {/* <Input>
               <label htmlFor="">PASSWORD CONFIRMATION</label>
-              <input {...register("phone")} placeholder="******" />
-            </Input>
+              <input {...register("password_confirmation")} placeholder="******" />
+            </Input> */}
 
-            <Button type="primary">CREATE ACCOUNT</Button>
+            <Button type="primary">{loading ? 'Loading...' : 'CREATE ACCOUNT'}</Button>
+            {error && (<p style={{background:"#ccc",padding:"4px 8px", color:"red", textAlign: "center", marginTop: "8px"}}>{error}</p>)}
           </Form>
         </FormContainer>
       </ContainerSignup>
