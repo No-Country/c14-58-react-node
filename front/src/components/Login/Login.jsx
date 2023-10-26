@@ -3,12 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Button from "../../ui/Button";
 
-import { useDispatch, useSelector } from "react-redux"
-import { loginUser } from "../../redux/slices/user";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser, loginUser } from "../../redux/slices/user";
 import { useEffect } from "react";
 
 const ContainerSignup = styled.div`
-  
   width: 100%;
   display: flex;
   align-items: center;
@@ -67,19 +66,19 @@ const TitleForm = styled.h1`
 `;
 function Login() {
   const { register, handleSubmit } = useForm();
-  const {loading} = useSelector(state => state.user)
-  const {error} = useSelector(state => state.user)
-  
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const { loading } = useSelector((state) => state.user);
+  const { error } = useSelector((state) => state.user);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
   // // console.log(token)
-  useEffect(()=>{
+  useEffect(() => {
     if (token) {
       navigate("/home");
     }
-  },[])
+  }, []);
 
   return (
     <>
@@ -88,11 +87,12 @@ function Login() {
           <TitleForm>Login Account</TitleForm>
           <Form
             onSubmit={handleSubmit((data) => {
-              dispatch(loginUser(data)).then(result => {
-                if(result.payload.token){
-                  navigate('/home')
-                } 
-              })
+              dispatch(loginUser(data)).then((result) => {
+                dispatch(getUser());
+                if (result.payload.token) {
+                  navigate("/home");
+                }
+              });
             })}
           >
             <Input>
@@ -102,12 +102,27 @@ function Login() {
 
             <Input>
               <label htmlFor="">PASSWORD</label>
-              <input {...register("password") } type="password" placeholder="******" />
+              <input
+                {...register("password")}
+                type="password"
+                placeholder="******"
+              />
             </Input>
 
-
-            <Button type="primary">{loading ? 'Loading...' : 'LOGIN'}</Button>
-            {error && (<p style={{background:"#ccc",padding:"4px 8px", color:"red", textAlign: "center", marginTop: "8px"}}>{error}</p>)}
+            <Button type="primary">{loading ? "Loading..." : "LOGIN"}</Button>
+            {error && (
+              <p
+                style={{
+                  background: "#ccc",
+                  padding: "4px 8px",
+                  color: "red",
+                  textAlign: "center",
+                  marginTop: "8px",
+                }}
+              >
+                {error}
+              </p>
+            )}
           </Form>
         </FormContainer>
       </ContainerSignup>

@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 import Button from "../../ui/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { createUser } from "../../redux/slices/user";
+import { createUser, getUser } from "../../redux/slices/user";
 
 const ContainerSignup = styled.div`
   padding: 0 16px;
@@ -64,20 +64,19 @@ const TitleForm = styled.h1`
   letter-spacing: 0px;
 `;
 function Signup() {
-
   const token = localStorage.getItem("token");
   // // console.log(token)
-  useEffect(()=>{
+  useEffect(() => {
     if (token) {
       navigate("/home");
     }
-  },[])
+  }, []);
   const { register, handleSubmit } = useForm();
-  const {loading} = useSelector(state => state.user)
-  const {error} = useSelector(state => state.user)
+  const { loading } = useSelector((state) => state.user);
+  const { error } = useSelector((state) => state.user);
 
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -86,11 +85,12 @@ function Signup() {
           <TitleForm>Create your Account</TitleForm>
           <Form
             onSubmit={handleSubmit((data) => {
-              dispatch(createUser(data)).then(result => {
-                if(result.payload.token){
-                  navigate('/home')
-                } 
-              })
+              dispatch(createUser(data)).then((result) => {
+                dispatch(getUser());
+                if (result.payload.token) {
+                  navigate("/home");
+                }
+              });
             })}
           >
             <Input>
@@ -107,15 +107,33 @@ function Signup() {
             </Input>
             <Input>
               <label htmlFor="">PASSWORD</label>
-              <input {...register("password")} type="password" placeholder="******" />
+              <input
+                {...register("password")}
+                type="password"
+                placeholder="******"
+              />
             </Input>
             {/* <Input>
               <label htmlFor="">PASSWORD CONFIRMATION</label>
               <input {...register("password_confirmation")} placeholder="******" />
             </Input> */}
 
-            <Button type="primary">{loading ? 'Loading...' : 'CREATE ACCOUNT'}</Button>
-            {error && (<p style={{background:"#ccc",padding:"4px 8px", color:"red", textAlign: "center", marginTop: "8px"}}>{error}</p>)}
+            <Button type="primary">
+              {loading ? "Loading..." : "CREATE ACCOUNT"}
+            </Button>
+            {error && (
+              <p
+                style={{
+                  background: "#ccc",
+                  padding: "4px 8px",
+                  color: "red",
+                  textAlign: "center",
+                  marginTop: "8px",
+                }}
+              >
+                {error}
+              </p>
+            )}
           </Form>
         </FormContainer>
       </ContainerSignup>

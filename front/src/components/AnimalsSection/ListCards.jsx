@@ -16,26 +16,31 @@ const Container = styled.div`
   padding: 16px 100px;
 `;
 
-
 function ListCards() {
   const { loading } = useSelector((state) => state.user);
   const data = useSelector((state) => state.user.user);
   const token = localStorage.getItem("token");
   const { pets } = usePets();
-  console.log(pets);
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (token) {
-      dispatch(fetchPets()); 
+      dispatch(fetchPets());
     }
   }, [token, dispatch]);
 
   return (
     <Container>
-      {token && <h1 className="text-3xl font-extrabold">Your Pets</h1>}
+      {token && (
+        <h1 className="text-3xl font-extrabold">
+          {data?.Pets.length > 0 ? "Your Pets" : "Recent Pets"}
+          {/* Your Pets */}
+        </h1>
+      )}
       <div className="flex gap-2 justify-center">
-      {token ? data?.Pets.map((pet) => <Card key={pet.id} data={pet} />) : pets.slice(0,4).map((pet) => <Card key={pet.id} data={pet} />)}
+        {token && data?.Pets.length > 0
+          ? data?.Pets.map((pet) => <Card key={pet.id} data={pet} />)
+          : pets.slice(0, 4).map((pet) => <Card key={pet.id} data={pet} />)}
       </div>
 
       <Button type="primary" size="large">

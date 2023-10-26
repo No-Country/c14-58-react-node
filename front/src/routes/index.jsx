@@ -10,7 +10,6 @@ import ContactPage from "../pages/ContactPage";
 import PostPetPage from "../pages/PostPetPage";
 import HomePage from "../pages/HomePage";
 
-
 const router = createBrowserRouter([
   {
     errorElement: <div>Not Found 404</div>,
