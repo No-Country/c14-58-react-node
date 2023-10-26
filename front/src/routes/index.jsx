@@ -7,6 +7,8 @@ import PetsPage from "../pages/PetsPage";
 import SignupPage from "../pages/SignupPage";
 import AboutPage from "../pages/AboutPage";
 import ContactPage from "../pages/ContactPage";
+import PostPetPage from "../pages/PostPetPage";
+import HomePage from "../pages/HomePage";
 
 
 const router = createBrowserRouter([
@@ -36,6 +38,14 @@ const router = createBrowserRouter([
       {
         path: "/pets",
         element: <PetsPage />,
+      },
+      {
+        path: "/post",
+        element: <PostPetPage />,
+      },
+      {
+        path: "/home",
+        element: <HomePage />,
       },
       {
         path: "/pets/:id",
