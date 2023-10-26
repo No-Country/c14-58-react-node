@@ -10,11 +10,35 @@ const fetchPets = createAsyncThunk("pets/getAll", async () => {
   }
 });
 
+export const postPet = createAsyncThunk('pets/postPet',
+  async (petCredentials, { rejectWithValue })=>{
+    try{
+      const token = localStorage.getItem('token');
+      const cleanedToken = token.replace(/^"(.*)"$/, '$1');
+      
+      const config = {
+        method: "post",
+        url: "http://localhost:3000/pets",
+        headers: {
+          Authorization: `Bearer ${cleanedToken}`,
+          "Content-Type": "application/json",
+        },
+        data: petCredentials,
+      };
+      const response = await axios(config);
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+})
+
 const petSlice = createSlice({
   name: "pets",
   initialState: {
     list: [],
     loading: false,
+    created: false,
     error: null,
     detail: {},
   },
@@ -28,6 +52,17 @@ const petSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(fetchPets.rejected, (state, action) => {
+      state.list = [];
+      state.loading = false;
+      state.error = action.error.message;
+    });
+    builder.addCase(postPet.fulfilled, (state) => {
+      state.created = true;
+    });
+    builder.addCase(postPet.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(postPet.rejected, (state, action) => {
       state.list = [];
       state.loading = false;
       state.error = action.error.message;
