@@ -1,12 +1,12 @@
 import styled from '@emotion/styled'
-import React from 'react'
 import imgUrl from "../../assets/images/perritos.png"
 import Button from '../../ui/Button'
+import { Link } from 'react-router-dom'
 
 const Container = styled.div`
-  padding: 96px 16px;
+  padding: 64px 16px;
   @media(max-width:1000px){
-    padding: 64px 16px;
+    padding: 32px 16px;
 }
 `
 const HeroContainer = styled.div`
@@ -69,7 +69,9 @@ function HeroSection() {
           </TitleContainer>
           <img src={imgUrl} alt="animalitos" />
           <p>Sabemos lo difícil que es perder a tu mascota, ¡por eso queremos ayudarte!</p>
-          <Button type="primary" size="small">Create Post</Button>
+          <Link to={"/post"}>
+            <Button type="primary" size="small" >Create Post</Button>
+          </Link>
         </LeftContainer>
         <RightContainer>
           <img src={imgUrl} alt="animalitos" />
