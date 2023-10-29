@@ -25,16 +25,36 @@ class PetService {
       if (error) {
         throw new BadRequest(error.details[0].message);
       }
-      const prevPets = await Pets.findAll({
-        include: [
-          { model: User, attributes: ["id", "first_name", "surname", "email"] },
-        ],
-      });
+
       const pet = await Pets.create({ ...value });
 
       pet.setUser(decodedToken.userId);
 
-      return res.json([pet, ...prevPets]);
+      return res.json(pet);
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  static async editPet(req, res, next) {
+    try {
+      const token = req.headers.authorization.split(" ")[1];
+      const decodedToken = jwt.verify(token, process.env.SECRET);
+
+      const pet = await Pets.findByPk(req.body.id);
+
+      if (!pet) {
+        throw new BadRequest("Pet not found");
+      }
+
+      if (pet.dataValues.UserId !== decodedToken.userId) {
+        throw new BadRequest("You are not allowed to edit this pet");
+      }
+
+      Object.assign(pet, req.body.pet);
+      await pet.save();
+
+      return res.json(pet);
     } catch (err) {
       next(err);
     }
