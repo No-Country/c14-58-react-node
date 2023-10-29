@@ -5,6 +5,7 @@ import Footer from '../components/Footer/Footer'
 import usePets from '../hooks/usePets';
 import { Link, useParams } from 'react-router-dom';
 import Button from '../ui/Button';
+import WhatsAppModal from '../components/WhatsAppModal';
 
 
 function PetPage() {
@@ -44,6 +45,7 @@ function PetPage() {
       
       </div>
       <br/>
+      <WhatsAppModal number={pet?.title}/>
       <Footer/>
 
     </>
