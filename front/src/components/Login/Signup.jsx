@@ -121,19 +121,7 @@ function Signup() {
             <Button type="primary">
               {loading ? "Loading..." : "CREATE ACCOUNT"}
             </Button>
-            {error && (
-              <p
-                style={{
-                  background: "#ccc",
-                  padding: "4px 8px",
-                  color: "red",
-                  textAlign: "center",
-                  marginTop: "8px",
-                }}
-              >
-                {error}
-              </p>
-            )}
+            {error !== "Cannot read properties of null (reading 'replace')" && (<p style={{background:"#ccc",padding:"4px 8px", color:"red", textAlign: "center", marginTop: "8px"}}>{error}</p>)}
           </Form>
         </FormContainer>
       </ContainerSignup>
