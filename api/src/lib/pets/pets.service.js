@@ -2,6 +2,7 @@ const { Pets, User } = require("../../db");
 const { BadRequest } = require("../../errorClasses");
 const { petSchema } = require("./pets.validations");
 const jwt = require("jsonwebtoken");
+const { cloudinary } = require("../../helpers/cloudinaryConfig");
 
 class PetService {
   static async getAllPets(req, res, next) {
