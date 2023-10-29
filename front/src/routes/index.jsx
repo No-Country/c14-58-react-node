@@ -9,6 +9,7 @@ import AboutPage from "../pages/AboutPage";
 import ContactPage from "../pages/ContactPage";
 import PostPetPage from "../pages/PostPetPage";
 import HomePage from "../pages/HomePage";
+import TestFile from "../components/AnimalsSection/Testfile";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
       {
         path: "/pets/:id",
         element: <PetPage />,
+      },
+      {
+        path: "test-file",
+        element: <TestFile />,
       },
     ],
   },

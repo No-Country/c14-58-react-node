@@ -6,4 +6,6 @@ petsRouter.get("/", PetService.getAllPets);
 
 petsRouter.post("/", PetService.createPet);
 
+petsRouter.patch("/", PetService.editPet)
+
 module.exports = petsRouter;

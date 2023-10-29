@@ -36,6 +36,14 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
       },
+      genre: {
+        type: DataTypes.ENUM("male", "female", "unknown"),
+        allowNull: false,
+      },
+      specie: {
+        type: DataTypes.ENUM("cat", "dog", "unknown"),
+        allowNull: false,
+      },
     },
     {
       // Other model options go here
