@@ -5,6 +5,8 @@ const petSchema = Joi.object({
   description: Joi.string().required(),
   status: Joi.string().valid("lost", "found").required(),
   image: Joi.string().required(),
+  specie: Joi.string().valid("dog", "cat", "unknown").required(),
+  genre: Joi.string().valid("male", "female", "unknown").required(),
 });
 
 module.exports = { petSchema };

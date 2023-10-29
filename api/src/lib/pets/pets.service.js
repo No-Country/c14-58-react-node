@@ -27,6 +27,15 @@ class PetService {
         throw new BadRequest(error.details[0].message);
       }
 
+      // Upload image
+      const uploadResponse = await cloudinary.uploader.upload(req.body.image, {
+        resource_type: "auto",
+        folder: "mascotopia",
+      });
+
+      // Set image URL
+      value.image = uploadResponse.secure_url;
+
       const pet = await Pets.create({ ...value });
 
       pet.setUser(decodedToken.userId);
