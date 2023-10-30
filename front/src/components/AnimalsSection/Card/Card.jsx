@@ -6,11 +6,12 @@ import "./card.css";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import {PiCatLight, PiDogFill} from "react-icons/pi"
 import {BiFemaleSign, BiMaleSign} from "react-icons/bi"
+import { convertDate } from "../../../../utils/convertDate";
 
 export function Card({ data }) {
   const navigate = useNavigate();
   const location = useLocation();
-
+  
   return (
     <Link to={`/pets/${data.id}`}>
       <div className="card" style={{ cursor: "pointer" }}>
@@ -40,7 +41,7 @@ export function Card({ data }) {
                       {location.pathname === "/home"
                       
                       ? `${data.description.slice(0, 20)} ...`
-                      : data.post_date}
+                      : convertDate(data.post_date)}
                   </p>
                 </div>
                 <div>
