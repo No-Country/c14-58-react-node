@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Button from "../../ui/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { postPet } from "../../redux/slices/pets";
 import { getUser } from "../../redux/slices/user";
@@ -12,7 +12,7 @@ const ContainerSignup = styled.div`
   display: flex;
   align-items: center;
   justify-content: start;
-  padding-top: 100px;
+  padding-top: 50px;
 `;
 
 const Input = styled.div`
@@ -82,7 +82,7 @@ const TitleForm = styled.h1`
 `;
 
 function PostPetForm() {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, setValue } = useForm();
   const [characterCount, setCharacterCount] = useState(0);
   const { loading } = useSelector((state) => state.user);
   const { error } = useSelector((state) => state.user);
@@ -97,15 +97,28 @@ function PostPetForm() {
 
   const handleFormSubmit = (data) => {
     if (!token) {
+      console.log(data)
+      localStorage.setItem('petPost', JSON.stringify(data))
       document.getElementById("my_modal_4").showModal();
     } else {
       dispatch(postPet(data)).then(() => {
         dispatch(getUser());
       });
+      localStorage.removeItem('petPost')
       navigate("/home");
     }
   };
+  useEffect(()=>{
+    const storedPetData = JSON.parse(localStorage.getItem('petPost'));
 
+    if (storedPetData) {
+      setValue('title', storedPetData.title);
+      setValue('description', storedPetData.description);
+      setValue('status', storedPetData.status);
+      setCharacterCount(storedPetData.description.length)
+    }
+
+  },[setValue])
   return (
     <>
       <ContainerSignup>
@@ -133,7 +146,7 @@ function PostPetForm() {
                 onChange={handleDescriptionChange}
                 style={{ width: "100%", height: "250px" }}
               />
-              <p>Character Count: {characterCount}/150</p>
+              <p className="text-end text-xs">Character Count: {characterCount}/150</p>
             </Input>
 
             <Input>
