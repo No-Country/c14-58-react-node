@@ -4,6 +4,7 @@ import { IconContext } from "react-icons";
 import { FaPaw } from "react-icons/fa";
 import "./card.css";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import {PiCatLight, PiDogFill} from "react-icons/pi"
 
 export function Card({ data }) {
   const navigate = useNavigate();
@@ -31,12 +32,18 @@ export function Card({ data }) {
               className="card__descriptions"
               style={{ display: "flex", gap: "0px" }}
             >
-              <h4 className="font-semibold text-2xl">{data.title}</h4>
-              <p>
-                {location.pathname === "/home"
-                  ? `${data.description.slice(0, 20)} ...`
-                  : data.post_date}
-              </p>
+              <div className="flex items-center justify-between">
+                <div>
+                  <h4 className="font-semibold text-2xl">{data.title}</h4>
+                  <p>
+                      {location.pathname === "/home"
+                      
+                      ? `${data.description.slice(0, 20)} ...`
+                      : data.post_date}
+                  </p>
+                </div>
+                {(data.specie === "cat")?<PiCatLight size={32}/> :<PiDogFill size={32}/>}
+              </div>
             </div>
           </div>
           <div className="card__border"></div>
