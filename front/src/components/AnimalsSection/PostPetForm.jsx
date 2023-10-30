@@ -1,11 +1,12 @@
 import styled from "@emotion/styled";
 import { Link, useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import Button from "../../ui/Button";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { postPet } from "../../redux/slices/pets";
 import { getUser } from "../../redux/slices/user";
+import ImageInput from "../../ui/ImageInput";
 
 const ContainerSignup = styled.div`
   width: 100%;
@@ -82,7 +83,17 @@ const TitleForm = styled.h1`
 `;
 
 function PostPetForm() {
-  const { register, handleSubmit, setValue } = useForm();
+  const specieOptions = [
+    { label: 'Choose a specie', value: '' },
+    {label: "Cat", value: "cat"},
+    {label: "Dog", value: "dog"},
+  ]
+  const genderOptions = [
+    { label: 'Choose a gender', value: '' },
+    {label: "Male", value: "male"},
+    {label: "Female", value: "female"},
+  ]
+  const { control, register, handleSubmit, setValue } = useForm();
   const [characterCount, setCharacterCount] = useState(0);
   const { loading } = useSelector((state) => state.user);
   const { error } = useSelector((state) => state.user);
@@ -169,6 +180,58 @@ function PostPetForm() {
                 />
                 Lost
               </label>
+            </Input>
+            <div className="flex gap-6">
+
+              <Input className="w-full">
+                <label>Choose Specie:</label>
+                <Controller
+                  name="specie"
+                  control={control}
+                  render={({ field }) => (
+                    <select {...field} className="border p-2">
+                      {specieOptions.map((option) => (
+                        <option 
+                        key={option.value} 
+                        value={option.value}
+                        disabled={option.value === ''}
+                        selected={option.value === ''}
+                        >
+                          {option.label}
+                        </option>
+                      ))}
+                    </select>
+                  )}
+                  />
+              </Input>
+
+              <Input className="w-full">
+                <label>Choose Gender:</label>
+                <Controller
+                  name="gender"
+                  control={control}
+                  render={({ field }) => (
+                    <select {...field} className="border p-2">
+                      {genderOptions.map((option) => (
+                        <option 
+                        key={option.value} 
+                        value={option.value}
+                        disabled={option.value === ''}
+                        selected={option.value === ''}
+                        >
+                          {option.label}
+                        </option>
+                      ))}
+                    </select>
+                  )}
+                  />
+              </Input>
+            </div>
+
+
+            <Input>
+              <label>Attach a photo:</label>
+            <ImageInput/>
             </Input>
 
             <Button type="primary">{loading ? "Loading..." : "POST"}</Button>
