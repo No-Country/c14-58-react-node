@@ -58,16 +58,16 @@ function Filters() {
   return (
     <Container >
 
-      <form 
-        className='max-w-7xl flex justify-between m-auto'
+      <form  
+        className='max-w-7xl  m-auto flex flex-col gap-2 md:flex-row md:justify-between'
         onSubmit={handleSubmit}>
-          <div className="dropdown">
+          <div className="dropdown md: bg-red-400">
             <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
               <li><a>Item 1</a></li>
               <li><a>Item 2</a></li>
             </ul>
           </div>
-          <div className='flex border border-gray-300 rounded-lg px-2 items-center'>
+          <div className='flex border justify-between p-2 border-gray-300 rounded-lg px-2 items-center'>
           
           <input 
             type="text"
@@ -78,10 +78,10 @@ function Filters() {
             onChange={handleInputTextChange}
             /> <AiOutlineSearch className="text-gray-400" size={24}/>
             </div>
-          <div className='flex gap-3'>
+          <div className='flex justify-between gap-3'>
             
             <select name="specie"
-              className="select select-bordered w-full max-w-[160px]"
+              className="select select-bordered w-full md:max-w-[160px]"
               value={filterValues.specie}  
               onChange={handleInputChange}
             >
@@ -91,7 +91,7 @@ function Filters() {
             </select>
             <select 
               name="gender"
-              className="select select-bordered w-full max-w-[160px]"
+              className="select select-bordered w-full md:max-w-[160px]"
               value={filterValues.gender}  
               onChange={handleInputChange}
             >
@@ -101,7 +101,7 @@ function Filters() {
             </select>
             
           </div>
-          <Select options={statusOptions} setSearchParams={setSearchParams}/>
+          <Select className="w-full" options={statusOptions} setSearchParams={setSearchParams}/>
         
       </form>
     
