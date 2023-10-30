@@ -66,8 +66,7 @@ const TitleForm = styled.h1`
 `;
 function Login() {
   const { register, handleSubmit } = useForm();
-  const { loading } = useSelector((state) => state.user);
-  const { error } = useSelector((state) => state.user);
+  const { error, loading } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -87,12 +86,13 @@ function Login() {
           <TitleForm>Login Account</TitleForm>
           <Form
             onSubmit={handleSubmit((data) => {
-              dispatch(loginUser(data)).then((result) => {
-                dispatch(getUser());
-                if (result.payload.token) {
-                  navigate("/home");
+              dispatch(loginUser(data))
+              .then(result => {
+                dispatch(getUser())
+                if(result.payload.token){
+                  navigate("/home")
                 }
-              });
+              })
             })}
           >
             <Input>
@@ -110,7 +110,7 @@ function Login() {
             </Input>
 
             <Button type="primary">{loading ? "Loading..." : "LOGIN"}</Button>
-            {error !== "Cannot read properties of null (reading 'replace')" && (<p style={{background:"#ccc",padding:"4px 8px", color:"red", textAlign: "center", marginTop: "8px"}}>{error}</p>)}
+            {error && (<p style={{background:"#ccc",padding:"4px 8px", color:"red", textAlign: "center", marginTop: "8px"}}>{error}</p>)}
           </Form>
         </FormContainer>
       </ContainerSignup>

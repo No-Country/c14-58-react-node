@@ -41,24 +41,26 @@ export const getUser = createAsyncThunk(
   "user/getUser",
   async (_, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem("token") || "";
       const cleanedToken = token.replace(/^"(.*)"$/, "$1");
-      const config = {
-        method: "get",
-        url: "http://localhost:3000/users/find",
-        headers: {
-          Authorization: `Bearer ${cleanedToken}`,
-        },
-      };
-      const response = await axios(config);
-      if (response.status !== 200) {
-        const errorMessage = response.data.message;
+      if(token.length > 0){
 
-        return rejectWithValue(errorMessage);
+        const config = {
+          method: "get",
+          url: "http://localhost:3000/users/find",
+          headers: {
+            Authorization: `Bearer ${cleanedToken}`,
+          },
+        };
+        const response = await axios(config);
+        if (response.status !== 200) {
+          const errorMessage = response.data.message;
+          return rejectWithValue(errorMessage);
+        }
+        return response.data;
       }
-      return response.data;
     } catch (error) {
-      return rejectWithValue(error.message);
+      console.log(error)
     }
   }
 );
@@ -81,12 +83,10 @@ const userSlice = createSlice({
     builder.addCase(getUser.fulfilled, (state, action) => {
       state.loading = false;
       state.user = action.payload;
-      state.error = null;
     });
     builder.addCase(getUser.pending, (state) => {
       state.loading = true;
       state.user = null;
-      state.error = null;
     });
     builder.addCase(getUser.rejected, (state, action) => {
       state.loading = false;
