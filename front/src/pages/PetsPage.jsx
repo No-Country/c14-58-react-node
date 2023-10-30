@@ -51,13 +51,23 @@ function PetsPage() {
   const { pets, loading } = usePets();
   const petsData = pets;
   
-  const nameFilter = searchParams.get("name");
+  const nameFilter = searchParams.get("name") || "";
+  const specieFilter = searchParams.get("specie") || "";
+  const genderFilter = searchParams.get("gender") || "";
+  const statusFilter = searchParams.get("status") || "";
   
   const petsDataFiltered = petsData.filter((pet) => {
-    if (!nameFilter) {
-      return true;
-    }
-    return pet.title.toLowerCase().includes(nameFilter.toLowerCase());
+    const petName = pet.title.toLowerCase();
+    const petSpecie = pet.specie.toLowerCase();
+    const petGender = pet.genre.toLowerCase();
+    const petStatus = pet.status.toLowerCase();
+
+    const nameMatch = petName.includes(nameFilter.toLowerCase());
+    const specieMatch = specieFilter === "" || petSpecie === specieFilter.toLowerCase();
+    const genderMatch = genderFilter === "" || petGender === genderFilter.toLowerCase();
+    const statusMatch = statusFilter === "" || petStatus === statusFilter.toLowerCase();
+    
+    return nameMatch && specieMatch && genderMatch && statusMatch;
   });
   
   const [page, setPage] = useState(1);

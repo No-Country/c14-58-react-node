@@ -5,6 +5,7 @@ import { FaPaw } from "react-icons/fa";
 import "./card.css";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import {PiCatLight, PiDogFill} from "react-icons/pi"
+import {BiFemaleSign, BiMaleSign} from "react-icons/bi"
 
 export function Card({ data }) {
   const navigate = useNavigate();
@@ -42,7 +43,10 @@ export function Card({ data }) {
                       : data.post_date}
                   </p>
                 </div>
-                {(data.specie === "cat")?<PiCatLight size={32}/> :<PiDogFill size={32}/>}
+                <div>
+                  {(data.specie === "cat")?<PiCatLight size={32}/> :<PiDogFill size={32}/>}
+                  {(data.genre === "male")?<BiMaleSign size={32}/> :<BiFemaleSign size={32}/>}
+                </div>
               </div>
             </div>
           </div>

@@ -3,12 +3,14 @@ import { useEffect, useState } from 'react';
 
 import { AiOutlineSearch } from "react-icons/ai"
 import { useSearchParams } from 'react-router-dom';
+import Select from '../ui/Select';
 const Container = styled.div`
   background-color: white;
   padding: 20px;
 
 `
 function Filters() {
+  const statusOptions = ["Lost", "Found"];
   let [searchParams, setSearchParams] = useSearchParams();
   const [filterValues, setFilterValues] = useState({
     specie: '',
@@ -59,6 +61,12 @@ function Filters() {
       <form 
         className='max-w-7xl flex justify-between m-auto'
         onSubmit={handleSubmit}>
+          <div className="dropdown">
+            <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+              <li><a>Item 1</a></li>
+              <li><a>Item 2</a></li>
+            </ul>
+          </div>
           <div className='flex border border-gray-300 rounded-lg px-2 items-center'>
           
           <input 
@@ -93,54 +101,8 @@ function Filters() {
             </select>
             
           </div>
-          <select 
-            name="status" 
-            className="select select-bordered w-full max-w-[160px]"
-            value={filterValues.status}
-            onChange={handleInputChange}
-          >
-            <option disabled={filterValues.status}>Status...</option>
-            <option>Lost</option>
-            <option>Found</option>
-          </select>
-        {/* <div className='flex items-center input gap-1 '>
-        <AiOutlineSearch/>
-        <input type="text" placeholder="Search by address.." className="border-none  w-full max-w-xs" /> 
-        </div>
-        <div className='flex gap-3'>
-          
-          <select name="specie"
-            className="select select-bordered w-full max-w-[160px]"
-            value={filterValues.specie}  
-            onChange={handleInputChange}
-          >
-            <option disabled={filterValues.gender}>Species...</option>
-            <option>Cat</option>
-            <option>Dog</option>
-          </select>
-          <select 
-            name="gender"
-            className="select select-bordered w-full max-w-[160px]"
-            value={filterValues.gender}  
-            onChange={handleInputChange}
-          >
-            <option disabled={filterValues.gender}>Gender...</option>
-            <option>Male</option>
-            <option>Female</option>
-          </select>
-          
-        </div> */}
+          <Select options={statusOptions} setSearchParams={setSearchParams}/>
         
-        {/* <select 
-          name="status" 
-          className="select select-bordered w-full max-w-[160px]"
-          value={filterValues.status}
-          onChange={handleInputChange}
-        >
-          <option disabled={filterValues.status}>Status...</option>
-          <option>Lost</option>
-          <option>Found</option>
-        </select> */}
       </form>
     
     </Container>
