@@ -5,6 +5,7 @@ import Footer from "../components/Footer/Footer";
 import Header from "../components/Header";
 import HeroSection from "../components/HeroSection";
 import { useNavigate } from "react-router-dom";
+import TopNav from "../components/TopNav";
 
 function LandingPage() {
   const token = localStorage.getItem("token");

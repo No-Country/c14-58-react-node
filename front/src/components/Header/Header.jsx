@@ -1,9 +1,14 @@
 import styled from "@emotion/styled";
 import Button from "../../ui/Button";
 import { Link, useNavigate } from "react-router-dom";
-import { FaBars } from "react-icons/fa"; // Importa el ícono de hamburguesa
+import { FaBars, FaGoogleWallet } from "react-icons/fa"; // Importa el ícono de hamburguesa
 import { useDispatch, useSelector } from "react-redux"
 import { logoutUser } from "../../redux/slices/user";
+import { useState } from "react";
+import { AiOutlineClose } from "react-icons/ai";
+import { BsPerson } from "react-icons/bs";
+import { TbTruckReturn } from "react-icons/tb";
+import { MdHelp, MdOutlineFavorite } from "react-icons/md";
 
 
 const Container = styled.div`
@@ -48,6 +53,8 @@ const HamburgerMenu = styled.div`
 `;
 
 export default function Header() {
+  const [sideNav, setSideNav] = useState(false);
+
   const {user} = useSelector(state => state.user)
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -60,9 +67,9 @@ export default function Header() {
   return (
     <Container>
       <Navbar>
-        <Logo><Link to="/">MascoTopia</Link></Logo>
+        <Link to="/"><h2 className='text-2xl p-4'>Mascotopia 🐾</h2></Link>
         
-        <HamburgerMenu>
+        <HamburgerMenu onClick={() => setSideNav(!sideNav)} className="cursor-pointer">
           <FaBars size={30} /> 
         </HamburgerMenu>
 
@@ -108,6 +115,70 @@ export default function Header() {
           </li>
         </Options>
       </Navbar>
+      {sideNav ? (
+        <div className="bg-black/60 fixed w-full h-screen z-10 top-0 left-0"
+        onClick={() => setSideNav(!sideNav)} 
+        ></div>
+      ) : (
+        ""
+      )}
+
+      <div
+        className={
+          sideNav
+            ? "fixed top-0 left-0 w-[300px] h-screen bg-white z-10 duration-300"
+            : "fixed top-0 left-[-100%] w-[300px] h-screen bg-white z-10 duration-300"
+        }
+      >
+        <AiOutlineClose onClick={() => setSideNav(!sideNav)} size={25}
+        className='absolute right-4 top-4 cursor-pointer'
+        />
+        <h2 className='text-2xl p-4'>Mascotopia 🐾</h2>
+          <nav>
+            <ul className="flex flex-col p-4 text-gray-900">
+               
+               <li className="text-xl py-4 flex">
+                <TbTruckReturn size={25}
+                className='mr-4 text-white bg-black rounded-full'
+                />
+                About Us
+               </li>
+               <li className="text-xl py-4 flex">
+                <TbTruckReturn size={25}
+                className='mr-4 text-white bg-black rounded-full'
+                />
+                Contact
+               </li>
+
+               <li className="text-xl py-4 flex">
+                <TbTruckReturn size={25}
+                className='mr-4 text-white bg-black rounded-full'
+                />
+                My Pets
+               </li>
+  <hr className="h-[2px] bg-gray-400 border-0 rounded"/>
+
+               <li className="text-xl py-4 flex">
+                <MdHelp size={25}
+                className='mr-4 text-white bg-black rounded-full'
+                />
+                Contact
+               </li>
+               <li className="text-xl py-4 flex">
+                <BsPerson size={25}
+                className='mr-4 text-white bg-black rounded-full'
+                />
+                My Account
+               </li>
+               <li className="text-xl py-4 flex">
+                <BsPerson size={25}
+                className='mr-4 text-white bg-black rounded-full'
+                />
+                Logout
+               </li>
+            </ul>
+          </nav>
+      </div>
     </Container>
   );
 }
