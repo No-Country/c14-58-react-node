@@ -1,14 +1,13 @@
 import styled from "@emotion/styled";
 import Button from "../../ui/Button";
 import { Link, useNavigate } from "react-router-dom";
-import { FaBars, FaGoogleWallet } from "react-icons/fa"; // Importa el ícono de hamburguesa
+import { FaBars } from "react-icons/fa"; // Importa el ícono de hamburguesa
 import { useDispatch, useSelector } from "react-redux"
 import { logoutUser } from "../../redux/slices/user";
 import { useState } from "react";
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose, AiOutlinePoweroff } from "react-icons/ai";
 import { BsPerson } from "react-icons/bs";
-import { TbTruckReturn } from "react-icons/tb";
-import { MdHelp, MdOutlineFavorite } from "react-icons/md";
+import { MdHelp, MdOutlinePets } from "react-icons/md";
 
 
 const Container = styled.div`
@@ -26,10 +25,7 @@ const Navbar = styled.div`
   justify-content: space-between;
 `;
 
-const Logo = styled.div`
-  font-size: 36px;
-  font-weight: 600;
-`;
+
 
 const Options = styled.ul`
   display: flex;
@@ -89,7 +85,7 @@ export default function Header() {
                     Hi {user.name.charAt(0).toUpperCase() + user.name.slice(1)} 
                   </p>
                   <button
-                    onClick={() => handleLogout()} // Llama a la función handleLogout al hacer clic
+                    onClick={() => handleLogout()}
                     style={{ cursor: "pointer" }}
                   >
                     Logout
@@ -133,29 +129,28 @@ export default function Header() {
         <AiOutlineClose onClick={() => setSideNav(!sideNav)} size={25}
         className='absolute right-4 top-4 cursor-pointer'
         />
-        <h2 className='text-2xl p-4'>Mascotopia 🐾</h2>
+        <Link to="/">
+          <h2 className='text-2xl p-4'>Mascotopia 🐾</h2>
+        </Link>
           <nav>
             <ul className="flex flex-col p-4 text-gray-900">
-               
+               <Link to="/about">
                <li className="text-xl py-4 flex">
-                <TbTruckReturn size={25}
+                <MdOutlinePets size={25}
                 className='mr-4 text-white bg-black rounded-full'
                 />
                 About Us
                </li>
-               <li className="text-xl py-4 flex">
-                <TbTruckReturn size={25}
-                className='mr-4 text-white bg-black rounded-full'
-                />
-                Contact
-               </li>
+              </Link>
 
+              <Link to="/pets">
                <li className="text-xl py-4 flex">
-                <TbTruckReturn size={25}
+                <MdOutlinePets size={25}
                 className='mr-4 text-white bg-black rounded-full'
                 />
-                My Pets
+                More Pets
                </li>
+                </Link>
   <hr className="h-[2px] bg-gray-400 border-0 rounded"/>
 
                <li className="text-xl py-4 flex">
@@ -171,7 +166,7 @@ export default function Header() {
                 My Account
                </li>
                <li className="text-xl py-4 flex">
-                <BsPerson size={25}
+                <AiOutlinePoweroff size={25}
                 className='mr-4 text-white bg-black rounded-full'
                 />
                 Logout
