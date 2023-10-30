@@ -71,6 +71,8 @@ function Login() {
   const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
+  const petPost = localStorage.getItem("petPost");
+
   const [showPassword, setShowPassword] = useState(false);
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword)
@@ -91,7 +93,9 @@ function Login() {
               dispatch(loginUser(data))
               .then(result => {
                 dispatch(getUser())
-                if(result.payload.token){
+                if(petPost) {navigate("/post")}
+                else if(result.payload.token){
+                  
                   navigate("/home")
                 }
               })
