@@ -9,7 +9,7 @@ import AboutPage from "../pages/AboutPage";
 import ContactPage from "../pages/ContactPage";
 import PostPetPage from "../pages/PostPetPage";
 import HomePage from "../pages/HomePage";
-import TestFile from "../components/AnimalsSection/Testfile";
+import ImageInput from "../ui/ImageInput";
 
 const router = createBrowserRouter([
   {
@@ -53,7 +53,7 @@ const router = createBrowserRouter([
       },
       {
         path: "test-file",
-        element: <TestFile />,
+        element: <ImageInput />,
       },
     ],
   },
