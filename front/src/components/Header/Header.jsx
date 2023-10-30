@@ -67,7 +67,7 @@ export default function Header() {
         
         <HamburgerMenu onClick={() => setSideNav(!sideNav)} className="cursor-pointer">
           <FaBars size={30} /> 
-        </HamburgerMenu>
+        </HamburgerMenu>  
 
         <Options>
           <li>
@@ -159,18 +159,36 @@ export default function Header() {
                 />
                 Contact
                </li>
-               <li className="text-xl py-4 flex">
+               
+               {user && (
+                <>
+                <li className="text-xl py-4 flex">
                 <BsPerson size={25}
                 className='mr-4 text-white bg-black rounded-full'
                 />
                 My Account
                </li>
-               <li className="text-xl py-4 flex">
+               <li className="text-xl py-4 flex cursor-pointer" onClick={() => handleLogout()}>
                 <AiOutlinePoweroff size={25}
                 className='mr-4 text-white bg-black rounded-full'
                 />
                 Logout
                </li>
+                </>
+               )}
+
+               {!user && <div className="flex justify-around">
+                    <Link to="/login">
+                      <Button type="secondary" size="small">
+                        Login
+                      </Button>
+                    </Link>
+                    <Link to="/signup">
+                      <Button type="primary" size="small">
+                        Signup
+                      </Button>
+                    </Link>
+                </div>}
             </ul>
           </nav>
       </div>
