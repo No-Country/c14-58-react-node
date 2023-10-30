@@ -2,10 +2,11 @@ import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Button from "../../ui/Button";
+import {BsEyeFill, BsEyeSlashFill} from "react-icons/bs"
 
 import { useDispatch, useSelector } from "react-redux";
 import { getUser, loginUser } from "../../redux/slices/user";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const ContainerSignup = styled.div`
   width: 100%;
@@ -51,9 +52,7 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 4px;
-  button {
-    margin: 16px auto 0;
-  }
+
 `;
 const TitleForm = styled.h1`
   text-align: center;
@@ -72,7 +71,10 @@ function Login() {
   const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
-  // // console.log(token)
+  const [showPassword, setShowPassword] = useState(false);
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword)
+  }
   useEffect(() => {
     if (token) {
       navigate("/home");
@@ -102,14 +104,21 @@ function Login() {
 
             <Input>
               <label htmlFor="">PASSWORD</label>
-              <input
+              <div className="flex justify-between items-center p-2 border-[#f48fb1] border-[1px] rounded-[8px] ">
+
+              <input className="border-none w-full p-0"
                 {...register("password")}
-                type="password"
                 placeholder="******"
-              />
+                type={showPassword ? 'text' : 'password'}
+                />
+
+                <button className="mt-0 border-none p-0 text-gray-500" type="button" onClick={togglePasswordVisibility}>
+                  {showPassword ? (<BsEyeSlashFill size={24}/>): (<BsEyeFill size={24}/>)}
+                </button>
+              </div>
             </Input>
 
-            <Button type="primary">{loading ? "Loading..." : "LOGIN"}</Button>
+            <Button className = "mt-4 mx-auto" type="primary">{loading ? "Loading..." : "LOGIN"}</Button>
             {error && (<p style={{background:"#ccc",padding:"4px 8px", color:"red", textAlign: "center", marginTop: "8px"}}>{error}</p>)}
           </Form>
         </FormContainer>
