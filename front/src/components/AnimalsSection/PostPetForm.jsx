@@ -60,7 +60,7 @@ const FormContainer = styled.div`
   width: 200%;
   background-color: white;
   padding: 32px;
-  margin: 0 auto;
+  margin: 32px auto;
 `;
 
 const Form = styled.form`
@@ -95,6 +95,7 @@ function PostPetForm() {
   ]
   const { control, register, handleSubmit, setValue } = useForm();
   const [characterCount, setCharacterCount] = useState(0);
+  const { user } = useSelector((state) => state.user)
   const { loading } = useSelector((state) => state.user);
   const { error } = useSelector((state) => state.user);
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -181,58 +182,63 @@ function PostPetForm() {
                 Lost
               </label>
             </Input>
-            <div className="flex gap-6">
+            {user && (
+              <>
+                <div className="flex gap-6">
 
-              <Input className="w-full">
-                <label>Choose Specie:</label>
-                <Controller
-                  name="specie"
-                  control={control}
-                  render={({ field }) => (
-                    <select {...field} className="border p-2">
-                      {specieOptions.map((option) => (
-                        <option 
-                        key={option.value} 
-                        value={option.value}
-                        disabled={option.value === ''}
-                        selected={option.value === ''}
-                        >
-                          {option.label}
-                        </option>
-                      ))}
-                    </select>
-                  )}
-                  />
-              </Input>
+                  <Input className="w-full">
+                    <label>Choose Specie:</label>
+                    <Controller
+                      name="specie"
+                      control={control}
+                      render={({ field }) => (
+                        <select {...field} className="border p-2">
+                          {specieOptions.map((option) => (
+                            <option 
+                            key={option.value} 
+                            value={option.value}
+                            disabled={option.value === ''}
+                            selected={option.value === ''}
+                            >
+                              {option.label}
+                            </option>
+                          ))}
+                        </select>
+                      )}
+                      />
+                  </Input>
 
-              <Input className="w-full">
-                <label>Choose Gender:</label>
-                <Controller
-                  name="gender"
-                  control={control}
-                  render={({ field }) => (
-                    <select {...field} className="border p-2">
-                      {genderOptions.map((option) => (
-                        <option 
-                        key={option.value} 
-                        value={option.value}
-                        disabled={option.value === ''}
-                        selected={option.value === ''}
-                        >
-                          {option.label}
-                        </option>
-                      ))}
-                    </select>
-                  )}
-                  />
-              </Input>
-            </div>
+                  <Input className="w-full">
+                    <label>Choose Gender:</label>
+                    <Controller
+                      name="gender"
+                      control={control}
+                      render={({ field }) => (
+                        <select {...field} className="border p-2">
+                          {genderOptions.map((option) => (
+                            <option 
+                            key={option.value} 
+                            value={option.value}
+                            disabled={option.value === ''}
+                            selected={option.value === ''}
+                            >
+                              {option.label}
+                            </option>
+                          ))}
+                        </select>
+                      )}
+                      />
+                  </Input>
+                  </div>
 
 
-            <Input>
-              <label>Attach a photo:</label>
-            <ImageInput/>
-            </Input>
+                  <Input>
+                  <label>Attach a photo:</label>
+                  <ImageInput/>
+                  </Input>
+              </>
+            )}
+            
 
             <Button type="primary">{loading ? "Loading..." : "POST"}</Button>
             {error && token && (
