@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BsCaretLeftSquareFill, BsCaretRightSquareFill } from "react-icons/bs";
 import { Card } from "../components/AnimalsSection/Card/Card";
 // import { pets } from "../data/pets";
@@ -7,6 +7,7 @@ import Footer from "../components/Footer/Footer";
 import Header from "../components/Header";
 import Filters from "../components/Filters";
 import usePets from "../hooks/usePets";
+import { useSearchParams } from "react-router-dom";
 const Container = styled.div`
   /* width: 100vw; */
   height: auto;
@@ -46,13 +47,23 @@ const PetsWrapper = styled.div`
 `;
 
 function PetsPage() {
+  let [searchParams, setSearchParams] = useSearchParams();
   const { pets, loading } = usePets();
   const petsData = pets;
+  
+  const nameFilter = searchParams.get("name");
+  
+  const petsDataFiltered = petsData.filter((pet) => {
+    if (!nameFilter) {
+      return true;
+    }
+    return pet.title.toLowerCase().includes(nameFilter.toLowerCase());
+  });
+  
   const [page, setPage] = useState(1);
   const max = 6;
-  const pages = 1 + parseInt(petsData.length / 6);
+  const pages = 1 + parseInt(petsDataFiltered.length / 6);
   const numbers = Array.from({ length: pages }, (_, index) => index + 1);
-
   return (
     <>
       <Header />
@@ -60,7 +71,7 @@ function PetsPage() {
         <Filters />
         <MainWrapper>
           <PetsWrapper>
-            {petsData.slice((page - 1) * max, page * max).map((data) => {
+            {petsDataFiltered.slice((page - 1) * max, page * max).map((data) => {
               return <Card key={data.id} data={data} />;
             })}
           </PetsWrapper>

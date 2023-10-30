@@ -48,9 +48,6 @@ function Filters() {
     setSearchParams(params);
   };
   const handleInputTextChange = (e) => {
-    console.log(e)  
-      // const params = serializeFilters({ ...filterValues, [name]: value });
-      // setSearchParams(params);
     const { name, value } = e.target;
     setFilterValues({ ...filterValues, [name]: value });
 
