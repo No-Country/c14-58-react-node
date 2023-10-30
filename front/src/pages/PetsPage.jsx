@@ -23,6 +23,7 @@ const MainWrapper = styled.div`
   align-items: center;
   flex-direction: column;
   gap: 20px;
+
   padding-top: 32px;
   .disable-button {
     pointer-events: none;
@@ -38,12 +39,14 @@ const PetsWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(3, minmax(320px, 1fr));
   @media (max-width: 1000px) {
-    grid-template-columns: repeat(2, minmax(320px, 1fr));
+    grid-template-columns: repeat(2, minmax(290px, 1fr));
+    gap: 10px
+  }
+  @media (max-width: 600px) {
+    grid-template-columns: repeat(1, minmax(290px, 1fr));
   }
   place-items: center;
-  /* flex-direction: row; */
   gap: 16px;
-  /* flex-wrap: wrap; */
 `;
 
 function PetsPage() {
