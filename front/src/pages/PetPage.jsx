@@ -22,7 +22,7 @@ function PetPage() {
       <Header/>
       <div className='mx-auto max-w-7xl px-8'>
 
-      <Link to={'/home'}>
+      <Link to={'/pets'}>
         <Button>Atrás</Button>
       </Link>
       <h1 className='text-6xl'>{pet?.title}</h1>
