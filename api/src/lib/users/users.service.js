@@ -22,7 +22,7 @@ class UserService {
         throw new BadRequest("Missing parameters");
       }
 
-      const { first_name, surname, email, password } = value;
+      const { first_name, surname, email, password, tel } = value;
       const hashedPassword = await bcrypt.hash(password, 10);
 
       // Primero, define las condiciones de búsqueda
@@ -34,6 +34,7 @@ class UserService {
           email,
           password: hashedPassword,
           role: "client",
+          tel,
         },
       });
 
