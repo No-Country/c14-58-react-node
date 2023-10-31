@@ -129,10 +129,10 @@ function Login() {
             {error && (<p style={{background:"#ccc",padding:"4px 8px", color:"red", textAlign: "center", marginTop: "8px"}}>{error}</p>)}
           </Form>
           <span className="absolute right-4 bottom-2 text-sm">
-            ¿No tienes una cuenta? <Link to="/signup" className="text-[#1b74e4] font-semibold text-sm">
-                        Regístrate
-                      </Link>
-          </span>
+  Don&rsquo;t have an account? <Link to="/signup" className="text-[#1b74e4] font-semibold text-sm">
+    Create one
+  </Link>
+</span>
         </FormContainer>
       </ContainerSignup>
     </>
