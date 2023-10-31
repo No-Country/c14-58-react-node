@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 import Button from "../../ui/Button";
@@ -44,7 +44,8 @@ const FormContainer = styled.div`
   max-width: 600px;
   width: 200%;
   background-color: white;
-  padding: 16px;
+  padding: 32px;
+  padding-bottom: 48px;
   margin: 0 auto;
 `;
 const Form = styled.form`
@@ -81,7 +82,7 @@ function Signup() {
   return (
     <>
       <ContainerSignup>
-        <FormContainer>
+        <FormContainer className="relative">
           <TitleForm>Create your Account</TitleForm>
           <Form
             onSubmit={handleSubmit((data) => {
@@ -121,8 +122,14 @@ function Signup() {
             <Button type="primary">
               {loading ? "Loading..." : "CREATE ACCOUNT"}
             </Button>
-            {error !== "Cannot read properties of null (reading 'replace')" && (<p style={{background:"#ccc",padding:"4px 8px", color:"red", textAlign: "center", marginTop: "8px"}}>{error}</p>)}
+            {error && (<p style={{background:"#ccc",padding:"4px 8px", color:"red", textAlign: "center", marginTop: "8px"}}>{error}</p>)}
+
           </Form>
+          <span className="absolute right-4 bottom-2 text-sm">
+            ¿Ya tienes una cuenta? <Link to="/login" className="text-[#1b74e4] font-semibold text-sm">
+                        Iniciar sesión
+                      </Link>
+          </span>
         </FormContainer>
       </ContainerSignup>
     </>

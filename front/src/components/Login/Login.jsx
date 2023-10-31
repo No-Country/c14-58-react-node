@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Button from "../../ui/Button";
 import {BsEyeFill, BsEyeSlashFill} from "react-icons/bs"
@@ -46,6 +46,8 @@ const FormContainer = styled.div`
   width: 200%;
   background-color: white;
   padding: 32px;
+  padding-bottom: 48px;
+
   margin: 0 auto;
 `;
 const Form = styled.form`
@@ -86,7 +88,7 @@ function Login() {
   return (
     <>
       <ContainerSignup>
-        <FormContainer>
+        <FormContainer className="relative">
           <TitleForm>Login Account</TitleForm>
           <Form
             onSubmit={handleSubmit((data) => {
@@ -108,7 +110,7 @@ function Login() {
 
             <Input>
               <label htmlFor="">PASSWORD</label>
-              <div className="flex justify-between items-center p-2 border-[#f48fb1] border-[1px] rounded-[8px] ">
+              <div className="flex justify-between items-center border-[#f48fb1] border-[1px] rounded-[8px] ">
 
               <input className="border-none w-full p-0"
                 {...register("password")}
@@ -116,15 +118,21 @@ function Login() {
                 type={showPassword ? 'text' : 'password'}
                 />
 
-                <button className="mt-0 border-none p-0 text-gray-500" type="button" onClick={togglePasswordVisibility}>
+                <button className="mt-0 border-none pr-2 text-gray-500" type="button" onClick={togglePasswordVisibility}>
                   {showPassword ? (<BsEyeSlashFill size={24}/>): (<BsEyeFill size={24}/>)}
                 </button>
               </div>
             </Input>
 
             <Button className = "mt-4 mx-auto" type="primary">{loading ? "Loading..." : "LOGIN"}</Button>
+            
             {error && (<p style={{background:"#ccc",padding:"4px 8px", color:"red", textAlign: "center", marginTop: "8px"}}>{error}</p>)}
           </Form>
+          <span className="absolute right-4 bottom-2 text-sm">
+            ¿No tienes una cuenta? <Link to="/signup" className="text-[#1b74e4] font-semibold text-sm">
+                        Regístrate
+                      </Link>
+          </span>
         </FormContainer>
       </ContainerSignup>
     </>
