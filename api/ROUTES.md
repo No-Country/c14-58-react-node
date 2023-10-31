@@ -15,7 +15,8 @@ Body: Se espera un objeto JSON con los siguientes campos:
   "first_name": "Pepe",
   "surname": "Argento",
   "email": "pepe@hotmail.com",
-  "password": "puertadebaño"
+  "password": "puertadebaño",
+  "tel": "099333999", 
 }
 ```
 

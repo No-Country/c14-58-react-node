@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import styled from '@emotion/styled';
-import Header from '../components/Header';
-import Footer from '../components/Footer/Footer';
-import Button from '../ui/Button';
+import { useRef, useState } from "react";
+import styled from "@emotion/styled";
+import Header from "../components/Header";
+import Footer from "../components/Footer/Footer";
+import Button from "../ui/Button";
+import emailjs from "@emailjs/browser";
 
 const ContactPageContainer = styled.div`
   max-width: 800px;
@@ -41,10 +42,11 @@ const SubmitButton = styled(Button)`
 `;
 
 export default function ContactPage() {
+  const form = useRef();
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
+    name: "",
+    email: "",
+    message: "",
   });
 
   const handleChange = (e) => {
@@ -54,43 +56,58 @@ export default function ContactPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Aquí puedes agregar lógica para enviar el formulario, por ejemplo, mediante una solicitud HTTP a tu servidor.
+    emailjs
+      .sendForm(
+        "service_n87kcll",
+        "template_l1d1ogn",
+        form.current,
+        "EejymWz7DpIzWSaiy"
+      )
+      .then(() => {
+        setFormData({
+          name: "",
+          email: "",
+          message: "",
+        });
+        alert("Gracias, mensaje enviado");
+      })
+      .catch((e) => console.error(e));
   };
 
   return (
     <>
-    <Header />
-    <ContactPageContainer>
-      <h1>Contact Us</h1>
-      <p>Feel free to get in touch with us using the form below.</p>
-      <ContactForm onSubmit={handleSubmit}>
-        <FormLabel>Name:</FormLabel>
-        <FormInput
-          type="text"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          required
+      <Header />
+      <ContactPageContainer>
+        <h1>Contact Us</h1>
+        <p>Feel free to get in touch with us using the form below.</p>
+        <ContactForm ref={form} onSubmit={handleSubmit}>
+          <FormLabel>Name:</FormLabel>
+          <FormInput
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            required
           />
-        <FormLabel>Email:</FormLabel>
-        <FormInput
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          required
+          <FormLabel>Email:</FormLabel>
+          <FormInput
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
           />
-        <FormLabel>Message:</FormLabel>
-        <FormTextarea
-          name="message"
-          value={formData.message}
-          onChange={handleChange}
-          required
+          <FormLabel>Message:</FormLabel>
+          <FormTextarea
+            name="message"
+            value={formData.message}
+            onChange={handleChange}
+            required
           />
-        <SubmitButton type="primary" >Submit</SubmitButton>
-      </ContactForm>
-    </ContactPageContainer>
-    <Footer/>
-  </>
+          <SubmitButton type="primary">Submit</SubmitButton>
+        </ContactForm>
+      </ContactPageContainer>
+      <Footer />
+    </>
   );
 }
