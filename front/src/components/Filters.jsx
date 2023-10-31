@@ -37,7 +37,6 @@ function Filters({ setPage }) {
   useEffect(() => {
     setFilterValues(deserializeFilters(searchParams));
   }, [searchParams]);
-  useEffect(() => {}, [filterValues]);
   const handleSubmit = (e) => {
     setPage(1);
     e.preventDefault();
@@ -114,6 +113,19 @@ function Filters({ setPage }) {
           serializeFilters={serializeFilters}
           deserializeFilters={deserializeFilters}
         />
+        {/* 
+        <button
+          onClick={() => {
+            setPage(1);
+            setFilterValues({
+              ...filterValues,
+              specie: null,
+              gender: null,
+            });
+          }}
+        >
+          Reset Filters
+        </button> */}
       </form>
     </Container>
   );

@@ -67,6 +67,7 @@ const StyledButton = styled.button`
   font-weight: 400;
   align-items: center;
   width: max-content;
+  margin-top: 20px;
 `;
 
 function Button({ children, icon, ...props }) {
