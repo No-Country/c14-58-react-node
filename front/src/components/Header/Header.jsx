@@ -53,7 +53,6 @@ export default function Header() {
 
   const {user} = useSelector(state => state.user)
   const location = useLocation()
-  console.log(location.pathname)
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const handleLogout = () =>{
