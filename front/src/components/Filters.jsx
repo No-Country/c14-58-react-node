@@ -86,7 +86,7 @@ function Filters({ setPage }) {
         <div className="flex justify-between gap-3">
           <select
             name="specie"
-            className="select select-bordered w-full md:max-w-[160px]"
+            className="select select-bordered w-full md:max-w-[160px] bg-white"
             value={filterValues.specie}
             onChange={handleInputChange}
           >
@@ -97,7 +97,7 @@ function Filters({ setPage }) {
 
           <select
             name="gender"
-            className="select select-bordered w-full md:max-w-[160px]"
+            className="select select-bordered w-full md:max-w-[160px] bg-white"
             value={filterValues.gender}
             onChange={handleInputChange}
           >
