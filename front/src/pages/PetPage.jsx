@@ -16,6 +16,7 @@ function PetPage() {
     const petFiltered = pets.find(pet => pet.id === id);
     setPet(petFiltered);
     console.log(petFiltered)
+    // console.log(petFiltered)
   }, [pets, id]);
   return (
     <>
@@ -45,7 +46,7 @@ function PetPage() {
       
       </div>
       <br/>
-      <WhatsAppModal number={pet?.title}/>
+      <WhatsAppModal number={pet?.User?.tel}/>
       <Footer/>
 
     </>
