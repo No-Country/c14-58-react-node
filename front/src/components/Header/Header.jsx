@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import Button from "../../ui/Button";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaBars } from "react-icons/fa"; // Importa el ícono de hamburguesa
 import { useDispatch, useSelector } from "react-redux"
 import { logoutUser } from "../../redux/slices/user";
@@ -52,6 +52,8 @@ export default function Header() {
   const [sideNav, setSideNav] = useState(false);
 
   const {user} = useSelector(state => state.user)
+  const location = useLocation()
+  console.log(location.pathname)
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const handleLogout = () =>{
@@ -92,7 +94,7 @@ export default function Header() {
                   </button>
                   </>
                 ) : (
-                  <>
+                  (location.pathname !== '/login' && location.pathname !== '/signup') && (<>
                     <Link to="/login">
                       <Button type="secondary" size="small">
                         Login
@@ -103,7 +105,10 @@ export default function Header() {
                         Signup
                       </Button>
                     </Link>
-                  </>
+                  </>) 
+
+                  
+                  
                 )
               }
               
