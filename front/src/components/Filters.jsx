@@ -37,7 +37,8 @@ function Filters() {
   useEffect(() => {
     setFilterValues(deserializeFilters(searchParams));
   }, [searchParams]);
-
+  useEffect(()=>{
+  },[filterValues])
   const handleSubmit = (e) => {
     e.preventDefault();
     const params = serializeFilters(filterValues);
@@ -85,10 +86,11 @@ function Filters() {
               value={filterValues.specie}  
               onChange={handleInputChange}
             >
-              <option disabled={filterValues.gender}>Species...</option>
+              <option disabled={filterValues.specie}>Species...</option>
               <option>Cat</option>
               <option>Dog</option>
             </select>
+
             <select 
               name="gender"
               className="select select-bordered w-full md:max-w-[160px]"
@@ -101,7 +103,13 @@ function Filters() {
             </select>
             
           </div>
-          <Select className="w-full" options={statusOptions} setSearchParams={setSearchParams}/>
+          <Select 
+            className="w-full" 
+            options={statusOptions}
+            filterValues = {filterValues}
+            setFilterValues={setFilterValues}
+            serializeFilters={serializeFilters}
+            deserializeFilters={deserializeFilters}/>
         
       </form>
     

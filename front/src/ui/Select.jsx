@@ -1,10 +1,18 @@
 import { useState, useEffect, useRef } from "react";
 import {RiArrowDownSLine} from "react-icons/ri"
+import { useSearchParams } from "react-router-dom";
 
-export default function Select({ options, setSearchParams }) {
+export default function Select({ options}) {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
+  let [searchParams, setSearchParams] = useSearchParams();
+  const [filterValues, setFilterValues] = useState({
+    specie: '',
+    gender: '',
+    name: '',
+    status: '',
+  });
 
   const handleCheckboxChange = (option) => {
     if (selectedOptions.includes(option)) {
@@ -12,18 +20,54 @@ export default function Select({ options, setSearchParams }) {
     } else {
       setSelectedOptions([...selectedOptions, option]);
     }
-    
-    const statusParams = selectedOptions.join(";");
-    setSearchParams({ status: statusParams });
+    setFilterValues({ ...filterValues, 'status': [...selectedOptions, option].join('-') });
+    setSearchParams(serializeFilters({ ...filterValues, 'status': [...selectedOptions, option].join('-') }));
   };
 
   const handleRemoveOption = (option) => {
     setSelectedOptions(selectedOptions.filter((item) => item !== option));
+    const data = selectedOptions.filter((item) => item !== option)
+    if(data.length === 1){
+      setSearchParams(serializeFilters({ ...filterValues, 'status': data}));
+    }
+    if(data.length === 0){
+      const values = filterValues;
+      delete values.status
+      setSearchParams(serializeFilters({ ...values}));
+    }
   };
 
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
   };
+
+  const serializeFilters = (filters) => {
+    const params = new URLSearchParams();
+    for (const key in filters) {
+      if (filters[key]) {
+        params.set(key, filters[key]);
+      }
+    }
+    return params.toString();
+  };
+  const deserializeFilters = (searchParams) => {
+    const filters = {};
+    for (const key of searchParams.keys()) {
+      filters[key] = searchParams.get(key);
+    }
+    return filters;
+  };
+
+  
+  useEffect(()=>{
+    setFilterValues(deserializeFilters(searchParams));
+    if(!deserializeFilters(searchParams).status){
+      setSelectedOptions([])
+    }
+    else{
+      setSelectedOptions(deserializeFilters(searchParams).status.split("-"))
+    }
+  },[searchParams]) 
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -78,6 +122,8 @@ export default function Select({ options, setSearchParams }) {
                   } else {
                     setSelectedOptions([...options]);
                   }
+  
+
                 }}
               />
               Select All
