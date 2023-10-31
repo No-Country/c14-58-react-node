@@ -5,7 +5,9 @@ export const ContainerSignup = styled.div`
   display: flex;
   align-items: center;
   justify-content: start;
-  padding-top: 100px;
+  // padding-top: 100px;
+  padding: 100px 10px 0;
+  margin-bottom: 50px;
 `;
 export const Input = styled.div`
   display: flex;
@@ -27,7 +29,7 @@ export const Input = styled.div`
     line-height: 24px;
     letter-spacing: 0.5px;
     text-align: left;
-    color: #8e8e8e;
+    color: #444;
     padding: 8px;
     border-color: #f48fb1;
     border-radius: 8px;
