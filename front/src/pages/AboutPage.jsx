@@ -94,8 +94,10 @@ export default function AboutUs() {
           <Div>
             <RecommendationContainer>
               <RecommendationImage src={lost1} alt="User 1" />
+              <div>
               <p>John Doe</p>
               <p>"Thanks to Find Your Best Friend, I found my lost dog in just a few days. It's a lifesaver!"</p>
+              </div>
             </RecommendationContainer>
           </Div>
           <Div>
