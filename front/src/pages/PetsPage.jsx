@@ -51,7 +51,11 @@ const PetsWrapper = styled.div`
 function PetsPage() {
   let [searchParams, setSearchParams] = useSearchParams();
   const { pets, loading } = usePets();
-  const petsData = pets;
+  function setPetsData(obj) {
+    petsData = obj;
+    return;
+  }
+  let petsData = pets;
 
   const nameFilter = searchParams.get("name") || "";
   const specieFilter = searchParams.get("specie") || "";
@@ -86,17 +90,19 @@ function PetsPage() {
     <>
       <Header />
       <Container>
-        <Filters />
+        <Filters
+          setPage={setPage}
+          setPetsData={setPetsData}
+          petsData={petsData}
+        />
         <MainWrapper>
           <PetsWrapper>
             {petsDataFiltered.length === 0 ? (
               <NoPets />
             ) : (
-              petsDataFiltered
-                .slice((page - 1) * max, page * max)
-                .map((data) => {
-                  return <Card key={data.id} data={data} />;
-                })
+              petsData.slice((page - 1) * max, page * max).map((data) => {
+                return <Card key={data.id} data={data} />;
+              })
             )}
           </PetsWrapper>
 

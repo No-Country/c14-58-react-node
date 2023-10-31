@@ -9,7 +9,7 @@ const Container = styled.div`
   background-color: white;
   padding: 20px;
 `;
-function Filters({ setPage }) {
+function Filters({ setPage, setPetsData, petsData }) {
   const statusOptions = ["Lost", "Found"];
   let [searchParams, setSearchParams] = useSearchParams();
   const [filterValues, setFilterValues] = useState({
@@ -34,26 +34,43 @@ function Filters({ setPage }) {
     }
     return filters;
   };
+
   useEffect(() => {
     setFilterValues(deserializeFilters(searchParams));
   }, [searchParams]);
+
   const handleSubmit = (e) => {
     setPage(1);
     e.preventDefault();
     const params = serializeFilters(filterValues);
     setSearchParams(params);
   };
+
   const handleInputChange = (e) => {
     setPage(1);
     const { name, value } = e.target;
     setFilterValues({ ...filterValues, [name]: value });
     const params = serializeFilters({ ...filterValues, [name]: value });
     setSearchParams(params);
+    console.log(
+      "filter",
+      petsData.filter((pet) => pet[e.target.name] === e.target.value)
+    );
+    setPetsData(
+      petsData.filter((pet) => pet[e.target.name] === e.target.value)
+    );
   };
+
   const handleInputTextChange = (e) => {
     const { name, value } = e.target;
     setFilterValues({ ...filterValues, [name]: value });
   };
+
+  function handleReset() {
+    console.log(petsData);
+    setPage(1);
+    setPetsData(petsData);
+  }
 
   return (
     <Container>
@@ -90,8 +107,12 @@ function Filters({ setPage }) {
             onChange={handleInputChange}
           >
             <option disabled={filterValues.specie}>Species...</option>
-            <option>Cat</option>
-            <option>Dog</option>
+            <option name="specie" value="cat">
+              Cat
+            </option>
+            <option name="specie" value="dog">
+              Dog
+            </option>
           </select>
 
           <select
@@ -101,8 +122,12 @@ function Filters({ setPage }) {
             onChange={handleInputChange}
           >
             <option disabled={filterValues.gender}>Gender...</option>
-            <option>Male</option>
-            <option>Female</option>
+            <option name="genre" value="male">
+              Male
+            </option>
+            <option name="genre" value="female">
+              Female
+            </option>
           </select>
         </div>
         <Select
@@ -113,19 +138,8 @@ function Filters({ setPage }) {
           serializeFilters={serializeFilters}
           deserializeFilters={deserializeFilters}
         />
-        {/* 
-        <button
-          onClick={() => {
-            setPage(1);
-            setFilterValues({
-              ...filterValues,
-              specie: null,
-              gender: null,
-            });
-          }}
-        >
-          Reset Filters
-        </button> */}
+
+        <button onClick={handleReset}>Reset</button>
       </form>
     </Container>
   );
