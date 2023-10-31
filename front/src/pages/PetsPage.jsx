@@ -1,17 +1,17 @@
 import styled from "@emotion/styled";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { BsCaretLeftSquareFill, BsCaretRightSquareFill } from "react-icons/bs";
 import { Card } from "../components/AnimalsSection/Card/Card";
-// import { pets } from "../data/pets";
 import Footer from "../components/Footer/Footer";
 import Header from "../components/Header";
 import Filters from "../components/Filters";
 import usePets from "../hooks/usePets";
 import { useSearchParams } from "react-router-dom";
+import NoPets from "../components/NotFound/noPets";
 const Container = styled.div`
   /* width: 100vw; */
-  height: auto;
   padding-bottom: 32px;
+  width: 100%;
 `;
 
 const MainWrapper = styled.div`
@@ -21,9 +21,9 @@ const MainWrapper = styled.div`
   margin-right: auto;
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-direction: column;
   gap: 20px;
-
   padding-top: 32px;
   .disable-button {
     pointer-events: none;
@@ -35,7 +35,6 @@ const PetsWrapper = styled.div`
   /* display: flex; */
   /* display: grid;
   grid-template-columns: repeat(3, 1fr); */
-
   display: grid;
   grid-template-columns: repeat(3, minmax(320px, 1fr));
   @media (max-width: 1000px) {
@@ -91,7 +90,7 @@ function PetsPage() {
         <MainWrapper>
           <PetsWrapper>
             {petsDataFiltered.length === 0 ? (
-              <p>No hay mascotas para ver</p>
+              <NoPets />
             ) : (
               petsDataFiltered
                 .slice((page - 1) * max, page * max)
