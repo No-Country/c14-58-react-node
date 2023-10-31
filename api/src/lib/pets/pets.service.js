@@ -9,7 +9,10 @@ class PetService {
     try {
       const all_pets = await Pets.findAll({
         include: [
-          { model: User, attributes: ["id", "first_name", "surname", "email"] },
+          {
+            model: User,
+            attributes: ["id", "first_name", "surname", "email", "tel"],
+          },
         ],
       });
       return res.json(all_pets);
