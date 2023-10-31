@@ -23,7 +23,6 @@ function ListCards() {
   const token = localStorage.getItem("token");
   const { pets, loading } = usePets();
   const dispatch = useDispatch();
-  console.log(pets)
   useEffect(() => {
     if (token) {
       dispatch(fetchPets());
