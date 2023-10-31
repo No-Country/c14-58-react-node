@@ -40,7 +40,7 @@ const PetsWrapper = styled.div`
   grid-template-columns: repeat(3, minmax(320px, 1fr));
   @media (max-width: 1000px) {
     grid-template-columns: repeat(2, minmax(290px, 1fr));
-    gap: 10px
+    gap: 10px;
   }
   @media (max-width: 600px) {
     grid-template-columns: repeat(1, minmax(290px, 1fr));
@@ -53,12 +53,12 @@ function PetsPage() {
   let [searchParams, setSearchParams] = useSearchParams();
   const { pets, loading } = usePets();
   const petsData = pets;
-  
+
   const nameFilter = searchParams.get("name") || "";
   const specieFilter = searchParams.get("specie") || "";
   const genderFilter = searchParams.get("gender") || "";
   const statusFilter = searchParams.get("status") || "";
-  
+
   const petsDataFiltered = petsData.filter((pet) => {
     const petName = pet.title.toLowerCase();
     const petSpecie = pet.specie.toLowerCase();
@@ -66,16 +66,22 @@ function PetsPage() {
     const petStatus = pet.status.toLowerCase();
 
     const nameMatch = petName.includes(nameFilter.toLowerCase());
-    const specieMatch = specieFilter === "" || petSpecie === specieFilter.toLowerCase();
-    const genderMatch = genderFilter === "" || petGender === genderFilter.toLowerCase();
-    const statusMatch = statusFilter === "" || petStatus === statusFilter.toLowerCase();
-    
+    const specieMatch =
+      specieFilter === "" || petSpecie === specieFilter.toLowerCase();
+    const genderMatch =
+      genderFilter === "" || petGender === genderFilter.toLowerCase();
+    const statusMatch =
+      statusFilter === "" || petStatus === statusFilter.toLowerCase();
+
     return nameMatch && specieMatch && genderMatch && statusMatch;
   });
-  
+
   const [page, setPage] = useState(1);
   const max = 6;
-  const pages = 1 + parseInt(petsDataFiltered.length / 6);
+  const pages =
+    petsDataFiltered.length % max === 0
+      ? petsDataFiltered.length / max
+      : Math.floor(petsDataFiltered.length / max) + 1;
   const numbers = Array.from({ length: pages }, (_, index) => index + 1);
   return (
     <>
@@ -84,9 +90,15 @@ function PetsPage() {
         <Filters />
         <MainWrapper>
           <PetsWrapper>
-            {petsDataFiltered.slice((page - 1) * max, page * max).map((data) => {
-              return <Card key={data.id} data={data} />;
-            })}
+            {petsDataFiltered.length === 0 ? (
+              <p>No hay mascotas para ver</p>
+            ) : (
+              petsDataFiltered
+                .slice((page - 1) * max, page * max)
+                .map((data) => {
+                  return <Card key={data.id} data={data} />;
+                })
+            )}
           </PetsWrapper>
 
           <div style={{ display: "flex", alignItems: "center" }}>

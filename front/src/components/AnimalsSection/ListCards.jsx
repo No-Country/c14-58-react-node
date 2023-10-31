@@ -32,15 +32,15 @@ function ListCards() {
   const [currentIndex, setCurrentIndex] = useState(0)
      
   const prevSlider = ()=>{
-  const isFirstSlide = currentIndex === 0
-  const newIndex = isFirstSlide ? pets.length - 1 : currentIndex -1
-  setCurrentIndex(newIndex)
+    const isFirstSlide = currentIndex === 0
+    const newIndex = isFirstSlide ? pets.length - 1 : currentIndex -1
+    setCurrentIndex(newIndex)
   }  
   
   const nextSlider = ()=>{
-  const isLastSlide  = currentIndex === pets.length -1
-  const newIndex = isLastSlide  ? 0: currentIndex + 1
-  setCurrentIndex(newIndex)
+    const isLastSlide  = currentIndex === pets.length -1
+    const newIndex = isLastSlide  ? 0: currentIndex + 1
+    setCurrentIndex(newIndex)
   }
   // const moveToNextSlide = (slideIndex) =>{
   //   setCurrentIndex(slideIndex)

@@ -1,17 +1,17 @@
 import { useState, useEffect, useRef } from "react";
-import {RiArrowDownSLine} from "react-icons/ri"
+import { RiArrowDownSLine } from "react-icons/ri";
 import { useSearchParams } from "react-router-dom";
 
-export default function Select({ options}) {
+export default function Select({ options }) {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
   let [searchParams, setSearchParams] = useSearchParams();
   const [filterValues, setFilterValues] = useState({
-    specie: '',
-    gender: '',
-    name: '',
-    status: '',
+    specie: "",
+    gender: "",
+    name: "",
+    status: "",
   });
 
   const handleCheckboxChange = (option) => {
@@ -20,20 +20,28 @@ export default function Select({ options}) {
     } else {
       setSelectedOptions([...selectedOptions, option]);
     }
-    setFilterValues({ ...filterValues, 'status': [...selectedOptions, option].join('-') });
-    setSearchParams(serializeFilters({ ...filterValues, 'status': [...selectedOptions, option].join('-') }));
+    setFilterValues({
+      ...filterValues,
+      status: [...selectedOptions, option].join("-"),
+    });
+    setSearchParams(
+      serializeFilters({
+        ...filterValues,
+        status: [...selectedOptions, option].join("-"),
+      })
+    );
   };
 
   const handleRemoveOption = (option) => {
     setSelectedOptions(selectedOptions.filter((item) => item !== option));
-    const data = selectedOptions.filter((item) => item !== option)
-    if(data.length === 1){
-      setSearchParams(serializeFilters({ ...filterValues, 'status': data}));
+    const data = selectedOptions.filter((item) => item !== option);
+    if (data.length === 1) {
+      setSearchParams(serializeFilters({ ...filterValues, status: data }));
     }
-    if(data.length === 0){
+    if (data.length === 0) {
       const values = filterValues;
-      delete values.status
-      setSearchParams(serializeFilters({ ...values}));
+      delete values.status;
+      setSearchParams(serializeFilters({ ...values }));
     }
   };
 
@@ -58,16 +66,14 @@ export default function Select({ options}) {
     return filters;
   };
 
-  
-  useEffect(()=>{
+  useEffect(() => {
     setFilterValues(deserializeFilters(searchParams));
-    if(!deserializeFilters(searchParams).status){
-      setSelectedOptions([])
+    if (!deserializeFilters(searchParams).status) {
+      setSelectedOptions([]);
+    } else {
+      setSelectedOptions(deserializeFilters(searchParams).status.split("-"));
     }
-    else{
-      setSelectedOptions(deserializeFilters(searchParams).status.split("-"))
-    }
-  },[searchParams]) 
+  }, [searchParams]);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -95,7 +101,9 @@ export default function Select({ options}) {
           style={{ width: "200px" }}
           onClick={toggleDropdown}
         >
-          {selectedOptions.length === 0 ? "Select options..." : (
+          {selectedOptions.length === 0 ? (
+            "Select options..."
+          ) : (
             <div className="space-x-2">
               {selectedOptions.map((option, index) => (
                 <button
@@ -122,14 +130,15 @@ export default function Select({ options}) {
                   } else {
                     setSelectedOptions([...options]);
                   }
-  
-
                 }}
               />
               Select All
             </label>
             {options.map((option, index) => (
-              <label key={index} className="cursor-pointer flex items-center justify-between">
+              <label
+                key={index}
+                className="cursor-pointer flex items-center justify-between"
+              >
                 <div>
                   <input
                     type="checkbox"
