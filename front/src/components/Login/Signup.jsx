@@ -7,6 +7,7 @@ import { createUser, getUser } from "../../redux/slices/user";
 import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
 
 import { ContainerSignup, Input,FormContainer,Form, TitleForm } from "./FormComponents";
+import PhoneInputUI from "../../ui/PhoneInputUI";
 
 function Signup() {
   const token = localStorage.getItem("token");
@@ -22,6 +23,7 @@ function Signup() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const [phone, setPhone] = useState('')
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword)
   }
@@ -32,12 +34,14 @@ function Signup() {
           <TitleForm>Create your Account</TitleForm>
           <Form
             onSubmit={handleSubmit((data) => {
+              Object.assign(data, {tel: phone})
               dispatch(createUser(data)).then((result) => {
                 dispatch(getUser());
                 if (result.payload.token) {
                   navigate("/home");
                 }
               });
+
             })}
           >
             <Input>
@@ -49,8 +53,14 @@ function Signup() {
               <input {...register("surname")} placeholder="Doe" />
             </Input>
             <Input>
+              <label htmlFor="">PHONE</label>
+              <PhoneInputUI setPhone={setPhone}/>
+            </Input>
+            
+            <Input>
               <label htmlFor="">EMAIL</label>
               <input {...register("email")} placeholder="user@mail.com" />
+             
             </Input>
             <Input>
               <label htmlFor="">PASSWORD</label>
