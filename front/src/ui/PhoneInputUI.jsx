@@ -46,6 +46,7 @@ function PhoneInputUI({setPhone}) {
           value={phoneNumber}
           onChange={handleChange}
           inputProps={{required:true}}
+          placeholder="123 456 789"
         />
       </label>
     </div>
