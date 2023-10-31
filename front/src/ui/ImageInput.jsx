@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-export default function ImageInput() {
+// eslint-disable-next-line react/prop-types
+export default function ImageInput({ setUserExtra }) {
   const [imagePreview, setImagePreview] = useState(null);
 
   const handleImageChange = (e) => {
@@ -10,13 +11,18 @@ export default function ImageInput() {
     if (file) {
       reader.onload = () => {
         setImagePreview(reader.result);
+        setUserExtra((prev) => {
+          return { ...prev, image: reader.result };
+        });
       };
       reader.readAsDataURL(file);
     } else {
       setImagePreview(null);
     }
     reader.onloadend = () => {
-      console.log("base64", reader.result);
+      setUserExtra((prev) => {
+        return { ...prev, image: reader.result };
+      });
     };
   };
 
@@ -43,16 +49,20 @@ export default function ImageInput() {
 
   return (
     <>
-      <form className='w-full p-0'>
-        <input style={{ fontSize: '12px' }} type="file" onChange={handleImageChange} />
+      <form className="w-full p-0">
+        <input
+          style={{ fontSize: "12px" }}
+          type="file"
+          onChange={handleImageChange}
+        />
       </form>
       <div
         onDrop={handleDrop}
         onDragOver={handleDragOver}
-        className='border border-dashed border-gray-300 p-4 text-center cursor-pointer w-full h-40 flex place-items-center'
+        className="border border-dashed border-gray-300 p-4 text-center cursor-pointer w-full h-40 flex place-items-center"
       >
         {imagePreview ? (
-          <img src={imagePreview} alt="Image Preview" className='h-full' />
+          <img src={imagePreview} alt="Image Preview" className="h-full" />
         ) : (
           <p>Drag and drop an image or select one using the file input.</p>
         )}

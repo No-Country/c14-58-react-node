@@ -10,10 +10,11 @@ import ContactPage from "../pages/ContactPage";
 import PostPetPage from "../pages/PostPetPage";
 import HomePage from "../pages/HomePage";
 import ImageInput from "../ui/ImageInput";
+import NotFound from "../components/NotFound/notFound";
 
 const router = createBrowserRouter([
   {
-    errorElement: <div>Not Found 404</div>,
+    errorElement: <NotFound />,
     children: [
       {
         path: "/",

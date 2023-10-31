@@ -84,18 +84,19 @@ const TitleForm = styled.h1`
 
 function PostPetForm() {
   const specieOptions = [
-    { label: 'Choose a specie', value: '' },
-    {label: "Cat", value: "cat"},
-    {label: "Dog", value: "dog"},
-  ]
+    { label: "Choose a specie", value: "" },
+    { label: "Cat", value: "cat" },
+    { label: "Dog", value: "dog" },
+  ];
   const genderOptions = [
-    { label: 'Choose a gender', value: '' },
-    {label: "Male", value: "male"},
-    {label: "Female", value: "female"},
-  ]
+    { label: "Choose a gender", value: "" },
+    { label: "Male", value: "male" },
+    { label: "Female", value: "female" },
+  ];
   const { control, register, handleSubmit, setValue } = useForm();
   const [characterCount, setCharacterCount] = useState(0);
-  const { user } = useSelector((state) => state.user)
+  const [userExtra, setUserExtra] = useState({});
+  const { user } = useSelector((state) => state.user);
   const { loading } = useSelector((state) => state.user);
   const { error } = useSelector((state) => state.user);
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -109,28 +110,28 @@ function PostPetForm() {
 
   const handleFormSubmit = (data) => {
     if (!token) {
-      console.log(data)
-      localStorage.setItem('petPost', JSON.stringify(data))
+      console.log(data);
+      localStorage.setItem("petPost", JSON.stringify(data));
       document.getElementById("my_modal_4").showModal();
     } else {
+      Object.assign(data, userExtra); // combinamos data + los atributos que faltan
       dispatch(postPet(data)).then(() => {
         dispatch(getUser());
       });
-      localStorage.removeItem('petPost')
+      localStorage.removeItem("petPost");
       navigate("/home");
     }
   };
-  useEffect(()=>{
-    const storedPetData = JSON.parse(localStorage.getItem('petPost'));
+  useEffect(() => {
+    const storedPetData = JSON.parse(localStorage.getItem("petPost"));
 
     if (storedPetData) {
-      setValue('title', storedPetData.title);
-      setValue('description', storedPetData.description);
-      setValue('status', storedPetData.status);
-      setCharacterCount(storedPetData.description.length)
+      setValue("title", storedPetData.title);
+      setValue("description", storedPetData.description);
+      setValue("status", storedPetData.status);
+      setCharacterCount(storedPetData.description.length);
     }
-
-  },[setValue])
+  }, [setValue]);
   return (
     <>
       <ContainerSignup>
@@ -158,7 +159,9 @@ function PostPetForm() {
                 onChange={handleDescriptionChange}
                 style={{ width: "100%", height: "250px" }}
               />
-              <p className="text-end text-xs">Character Count: {characterCount}/150</p>
+              <p className="text-end text-xs">
+                Character Count: {characterCount}/150
+              </p>
             </Input>
 
             <Input>
@@ -185,60 +188,81 @@ function PostPetForm() {
             {user && (
               <>
                 <div className="flex gap-6">
-
                   <Input className="w-full">
                     <label>Choose Specie:</label>
                     <Controller
                       name="specie"
                       control={control}
                       render={({ field }) => (
-                        <select {...field} className="border p-2">
+                        <select
+                          onChange={(e) =>
+                            setUserExtra((prev) => {
+                              return {
+                                ...prev,
+                                [e.target.name]: e.target.value,
+                              };
+                            })
+                          }
+                          {...field}
+                          className="border p-2"
+                        >
                           {specieOptions.map((option) => (
-                            <option 
-                            key={option.value} 
-                            value={option.value}
-                            disabled={option.value === ''}
-                            selected={option.value === ''}
+                            <option
+                              key={option.value}
+                              value={option.value}
+                              disabled={option.value === ""}
+                              selected={option.value === ""}
+                              name="specie"
                             >
                               {option.label}
                             </option>
                           ))}
                         </select>
                       )}
-                      />
+                    />
                   </Input>
 
                   <Input className="w-full">
                     <label>Choose Gender:</label>
                     <Controller
-                      name="gender"
+                      name="genre"
                       control={control}
                       render={({ field }) => (
-                        <select {...field} className="border p-2">
+                        <select
+                          onChange={(e) =>
+                            setUserExtra((prev) => {
+                              return {
+                                ...prev,
+                                [e.target.name]: e.target.value,
+                              };
+                            })
+                          }
+                          {...field}
+                          className="border p-2"
+                        >
                           {genderOptions.map((option) => (
-                            <option 
-                            key={option.value} 
-                            value={option.value}
-                            disabled={option.value === ''}
-                            selected={option.value === ''}
+                            <option
+                              key={option.value}
+                              value={option.value}
+                              disabled={option.value === ""}
+                              selected={option.value === ""}
+                              name="genre"
                             >
                               {option.label}
                             </option>
                           ))}
                         </select>
                       )}
-                      />
+                    />
                   </Input>
-                  </div>
+                </div>
 
-
-                  <Input>
+                <Input>
                   <label>Attach a photo:</label>
-                  <ImageInput/>
-                  </Input>
+                  <ImageInput setUserExtra={setUserExtra} />
+                </Input>
               </>
             )}
-            
 
             <Button type="primary">{loading ? "Loading..." : "POST"}</Button>
             {error && token && (
