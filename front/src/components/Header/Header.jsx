@@ -2,13 +2,12 @@ import styled from "@emotion/styled";
 import Button from "../../ui/Button";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaBars } from "react-icons/fa"; // Importa el ícono de hamburguesa
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../redux/slices/user";
 import { useState } from "react";
 import { AiOutlineClose, AiOutlinePoweroff } from "react-icons/ai";
 import { BsPerson } from "react-icons/bs";
 import { MdHelp, MdOutlinePets } from "react-icons/md";
-
 
 const Container = styled.div`
   position: sticky;
@@ -24,8 +23,6 @@ const Navbar = styled.div`
   display: flex;
   justify-content: space-between;
 `;
-
-
 
 const Options = styled.ul`
   display: flex;
@@ -51,39 +48,46 @@ const HamburgerMenu = styled.div`
 export default function Header() {
   const [sideNav, setSideNav] = useState(false);
 
-  const {user} = useSelector(state => state.user)
-  const location = useLocation()
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-  const handleLogout = () =>{
+  const { user } = useSelector((state) => state.user);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    dispatch(logoutUser())
-    navigate('/')
-  }
+    dispatch(logoutUser());
+    navigate("/");
+  };
   return (
     <Container>
       <Navbar>
-        <Link to="/"><h2 className='text-2xl p-4'>Mascotopia 🐾</h2></Link>
-        
-        <HamburgerMenu onClick={() => setSideNav(!sideNav)} className="cursor-pointer">
-          <FaBars size={30} /> 
-        </HamburgerMenu>  
+        <Link to="/">
+          <h2 className="text-2xl p-4">Mascotopia 🐾</h2>
+        </Link>
+
+        <HamburgerMenu
+          onClick={() => setSideNav(!sideNav)}
+          className="cursor-pointer"
+        >
+          <FaBars size={30} />
+        </HamburgerMenu>
 
         <Options>
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/post">Add pet</Link>
           </li>
           <li>
-          <Link to="/about">About Us</Link></li>
-          <li><Link to="/contact">Contact</Link></li>
+            <Link to="/about">About Us</Link>
+          </li>
+          <li>
+            <Link to="/contact">Contact</Link>
+          </li>
           <li>
             <div style={{ display: "flex", gap: "8px" }}>
-              {
-                user ? (
-                  <>
-                  <p style={{fontWeight:"800"}}>
-                    Hi {user.name.charAt(0).toUpperCase() + user.name.slice(1)} 
+              {user ? (
+                <>
+                  <p style={{ fontWeight: "800" }}>
+                    Hi {user.name.charAt(0).toUpperCase() + user.name.slice(1)}
                   </p>
                   <button
                     onClick={() => handleLogout()}
@@ -91,9 +95,11 @@ export default function Header() {
                   >
                     Logout
                   </button>
-                  </>
-                ) : (
-                  (location.pathname !== '/login' && location.pathname !== '/signup') && (<>
+                </>
+              ) : (
+                location.pathname !== "/login" &&
+                location.pathname !== "/signup" && (
+                  <>
                     <Link to="/login">
                       <Button type="secondary" size="small">
                         Login
@@ -104,20 +110,17 @@ export default function Header() {
                         Signup
                       </Button>
                     </Link>
-                  </>) 
-
-                  
-                  
+                  </>
                 )
-              }
-              
+              )}
             </div>
           </li>
         </Options>
       </Navbar>
       {sideNav ? (
-        <div className="bg-black/60 fixed w-full h-screen z-10 top-0 left-0"
-        onClick={() => setSideNav(!sideNav)} 
+        <div
+          className="bg-black/60 fixed w-full h-screen z-10 top-0 left-0"
+          onClick={() => setSideNav(!sideNav)}
         ></div>
       ) : (
         ""
@@ -130,71 +133,83 @@ export default function Header() {
             : "fixed top-0 left-[-100%] w-[300px] h-screen bg-white z-10 duration-300"
         }
       >
-        <AiOutlineClose onClick={() => setSideNav(!sideNav)} size={25}
-        className='absolute right-4 top-4 cursor-pointer'
+        <AiOutlineClose
+          onClick={() => setSideNav(!sideNav)}
+          size={25}
+          className="absolute right-4 top-4 cursor-pointer"
         />
         <Link to="/">
-          <h2 className='text-2xl p-4'>Mascotopia 🐾</h2>
+          <h2 className="text-2xl p-4">Mascotopia 🐾</h2>
         </Link>
-          <nav>
-            <ul className="flex flex-col p-4 text-gray-900">
-               <Link to="/about">
-               <li className="text-xl py-4 flex">
-                <MdOutlinePets size={25}
-                className='mr-4 text-white bg-black rounded-full'
+        <nav>
+          <ul className="flex flex-col p-4 text-gray-900">
+            <Link to="/about">
+              <li className="text-xl py-4 flex">
+                <MdOutlinePets
+                  size={25}
+                  className="mr-4 text-white bg-black rounded-full"
                 />
                 About Us
-               </li>
-              </Link>
+              </li>
+            </Link>
 
-              <Link to="/pets">
-               <li className="text-xl py-4 flex">
-                <MdOutlinePets size={25}
-                className='mr-4 text-white bg-black rounded-full'
+            <Link to="/pets">
+              <li className="text-xl py-4 flex">
+                <MdOutlinePets
+                  size={25}
+                  className="mr-4 text-white bg-black rounded-full"
                 />
                 More Pets
-               </li>
-                </Link>
-  <hr className="h-[2px] bg-gray-400 border-0 rounded"/>
+              </li>
+            </Link>
+            <hr className="h-[2px] bg-gray-400 border-0 rounded" />
 
-               <li className="text-xl py-4 flex">
-                <MdHelp size={25}
-                className='mr-4 text-white bg-black rounded-full'
-                />
-                Contact
-               </li>
-               
-               {user && (
-                <>
+            <li className="text-xl py-4 flex">
+              <MdHelp
+                size={25}
+                className="mr-4 text-white bg-black rounded-full"
+              />
+              Contact
+            </li>
+
+            {user && (
+              <>
                 <li className="text-xl py-4 flex">
-                <BsPerson size={25}
-                className='mr-4 text-white bg-black rounded-full'
-                />
-                My Account
-               </li>
-               <li className="text-xl py-4 flex cursor-pointer" onClick={() => handleLogout()}>
-                <AiOutlinePoweroff size={25}
-                className='mr-4 text-white bg-black rounded-full'
-                />
-                Logout
-               </li>
-                </>
-               )}
+                  <BsPerson
+                    size={25}
+                    className="mr-4 text-white bg-black rounded-full"
+                  />
+                  My Account
+                </li>
+                <li
+                  className="text-xl py-4 flex cursor-pointer"
+                  onClick={() => handleLogout()}
+                >
+                  <AiOutlinePoweroff
+                    size={25}
+                    className="mr-4 text-white bg-black rounded-full"
+                  />
+                  Logout
+                </li>
+              </>
+            )}
 
-               {!user && <div className="flex justify-around">
-                    <Link to="/login">
-                      <Button type="secondary" size="small">
-                        Login
-                      </Button>
-                    </Link>
-                    <Link to="/signup">
-                      <Button type="primary" size="small">
-                        Signup
-                      </Button>
-                    </Link>
-                </div>}
-            </ul>
-          </nav>
+            {!user && (
+              <div className="flex justify-around">
+                <Link to="/login">
+                  <Button type="secondary" size="small">
+                    Login
+                  </Button>
+                </Link>
+                <Link to="/signup">
+                  <Button type="primary" size="small">
+                    Signup
+                  </Button>
+                </Link>
+              </div>
+            )}
+          </ul>
+        </nav>
       </div>
     </Container>
   );
