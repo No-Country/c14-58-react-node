@@ -1,72 +1,15 @@
-import styled from "@emotion/styled";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Button from "../../ui/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { createUser, getUser } from "../../redux/slices/user";
+import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
 
-const ContainerSignup = styled.div`
-  padding: 0 16px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  padding-top: 50px;
-`;
-const Input = styled.div`
-  display: flex;
-  flex-direction: column;
-  color: #373737;
-  gap: 4px;
-  label {
-    font-family: Inter;
-    font-size: 10px;
-    font-weight: 400;
-    line-height: 12px;
-    letter-spacing: 1.5px;
-    text-align: left;
-  }
-  input {
-    font-family: Inter;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 24px;
-    letter-spacing: 0.5px;
-    text-align: left;
-    color: #8e8e8e;
-    padding: 8px;
-    border-color: #f48fb1;
-    border-radius: 8px;
-  }
-`;
-const FormContainer = styled.div`
-  max-width: 600px;
-  width: 200%;
-  background-color: white;
-  padding: 32px;
-  padding-bottom: 48px;
-  margin: 0 auto;
-`;
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  button {
-    margin: 16px auto 0;
-  }
-`;
-const TitleForm = styled.h1`
-  text-align: center;
-  font-family: Montserrat;
-  font-size: 24px;
-  font-weight: 400;
-  line-height: 32px;
-  letter-spacing: 0px;
-`;
+import { ContainerSignup, Input,FormContainer,Form, TitleForm } from "./FormComponents";
+
 function Signup() {
   const token = localStorage.getItem("token");
-  // // console.log(token)
   useEffect(() => {
     if (token) {
       navigate("/home");
@@ -78,7 +21,10 @@ function Signup() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const [showPassword, setShowPassword] = useState(false);
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword)
+  }
   return (
     <>
       <ContainerSignup>
@@ -108,26 +54,31 @@ function Signup() {
             </Input>
             <Input>
               <label htmlFor="">PASSWORD</label>
-              <input
-                {...register("password")}
-                type="password"
-                placeholder="******"
-              />
-            </Input>
-            {/* <Input>
-              <label htmlFor="">PASSWORD CONFIRMATION</label>
-              <input {...register("password_confirmation")} placeholder="******" />
-            </Input> */}
+              <div className="flex justify-between items-center border-[#f48fb1] border-[1px] rounded-[8px] ">
 
-            <Button type="primary">
+              <input className="border-none w-full p-0"
+                {...register("password")}
+                placeholder="******"
+                type={showPassword ? 'text' : 'password'}
+                />
+
+                <button className="mt-0 border-none pr-2 text-gray-500" type="button" onClick={togglePasswordVisibility}>
+                  {showPassword ? (<BsEyeSlashFill size={24}/>): (<BsEyeFill size={24}/>)}
+                </button>
+              </div>
+            </Input>
+
+
+
+            <Button className = "mt-4 mx-auto" type="primary">
               {loading ? "Loading..." : "CREATE ACCOUNT"}
             </Button>
             {error && (<p style={{background:"#ccc",padding:"4px 8px", color:"red", textAlign: "center", marginTop: "8px"}}>{error}</p>)}
 
           </Form>
           <span className="absolute right-4 bottom-2 text-sm">
-            ¿Ya tienes una cuenta? <Link to="/login" className="text-[#1b74e4] font-semibold text-sm">
-                        Iniciar sesión
+            Already have an account? <Link to="/login" className="text-[#1b74e4] font-semibold text-sm">
+                        Login here
                       </Link>
           </span>
         </FormContainer>
