@@ -5,7 +5,7 @@ const userSchema = Joi.object({
   surname: Joi.string().required(),
   email: Joi.string().email().required(),
   password: Joi.string().required(),
+  tel: Joi.string().required(),
 });
-
 
 module.exports = { userSchema };
