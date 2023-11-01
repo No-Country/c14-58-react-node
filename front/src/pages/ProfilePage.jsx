@@ -4,14 +4,30 @@ import { useEffect } from "react";
 import { getUser } from "../redux/slices/user";
 import useToken from "../hooks/useToken";
 import { Card } from "../components/AnimalsSection/Card/Card";
+import Header from "../components/Header";
+import Footer from "../components/Footer/Footer";
 
 const ProfileContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: center;
   text-align: center;
   gap: 32px;
   padding: 16px 40px;
+`;
+
+const Wrapper = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, minmax(320px, 1fr));
+  @media (max-width: 1000px) {
+    grid-template-columns: repeat(2, minmax(290px, 1fr));
+    gap: 10px;
+  }
+  @media (max-width: 600px) {
+    grid-template-columns: repeat(1, minmax(290px, 1fr));
+  }
+  place-items: center;
+  gap: 16px;
 `;
 
 function Profile() {
@@ -29,10 +45,9 @@ function Profile() {
     }
   }, [token, dispatch, errors]);
 
-  console.log("profile log", data);
-
   return (
     <ProfileContainer>
+      <Header />
       {token ? (
         <>
           <h1 className="text-3xl font-extrabold">Info</h1>
@@ -41,13 +56,19 @@ function Profile() {
           <h1 className="text-3xl font-extrabold">
             My Pets ({data?.Pets.length})
           </h1>
-          {data?.Pets.map((pet, index) => (
-            <Card key={index} data={pet} />
-          ))}
+          <Wrapper>
+            {data?.Pets.map((pet, index) => (
+              <div key={index}>
+                <Card data={pet} />
+                <button>Complete!</button>
+              </div>
+            ))}
+          </Wrapper>
         </>
       ) : (
         <p>LogIn to see this</p>
       )}
+      <Footer />
     </ProfileContainer>
   );
 }
