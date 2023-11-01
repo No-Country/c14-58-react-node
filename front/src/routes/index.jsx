@@ -9,9 +9,10 @@ import AboutPage from "../pages/AboutPage";
 import ContactPage from "../pages/ContactPage";
 import PostPetPage from "../pages/PostPetPage";
 import HomePage from "../pages/HomePage";
-import ImageInput from "../ui/ImageInput";
 import NotFound from "../components/NotFound/notFound";
 import Profile from "../pages/ProfilePage";
+import AIChat from "../pages/AIChat";
+// import ImageInput from "../ui/ImageInput";
 
 const router = createBrowserRouter([
   {
@@ -54,8 +55,8 @@ const router = createBrowserRouter([
         element: <PetPage />,
       },
       {
-        path: "test-file",
-        element: <ImageInput />,
+        path: "test-chat",
+        element: <AIChat />,
       },
       {
         path: "profile",
