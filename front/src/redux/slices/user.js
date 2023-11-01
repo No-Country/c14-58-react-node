@@ -10,7 +10,15 @@ export const loginUser = createAsyncThunk(
       await axios
         .post("http://localhost:3000/users/signin", userCredentials)
         .then((res) => {
+
+
           useToken(res.data.token, new Date().getTime() + 3 * 60 * 60 * 1000);
+
+
+
+
+
+          
           localStorage.setItem("user", JSON.stringify(res.data));
           response = res.data;
         });

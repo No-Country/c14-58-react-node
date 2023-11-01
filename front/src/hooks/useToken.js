@@ -1,6 +1,6 @@
 export default function useToken(desiredToken, expiration) {
   if (desiredToken && expiration) {
-    console.log("guardando")
+    console.log("guardando");
     localStorage.setItem("token", JSON.stringify(desiredToken));
     localStorage.setItem("tokenExpiration", expiration);
   }
@@ -13,6 +13,7 @@ export default function useToken(desiredToken, expiration) {
     // token expirado
     localStorage.removeItem("token");
     localStorage.removeItem("tokenExpiration");
+    localStorage.removeItem("user");
     errors = true;
     token = null;
   }
