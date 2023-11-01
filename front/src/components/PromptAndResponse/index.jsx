@@ -24,6 +24,9 @@ const Response = styled.textarea`
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
+  resize: none;
+  pointer-events: none;
+  outline: none;
 `;
 
 export default function PromptAndResponse() {
@@ -34,7 +37,7 @@ export default function PromptAndResponse() {
     // Aquí iría el código para obtener la respuesta de la API de OpenAI
     // Por ahora, solo devolveremos una respuesta simulada
     console.log(prompt);
-    return "Aquí va la respuesta de la inteligencia artificial...";
+    return "Response...";
   };
 
   const handleInputChange = async (event) => {
@@ -46,7 +49,7 @@ export default function PromptAndResponse() {
   return (
     <Chat>
       <Input
-        placeholder="¿Cómo puedo enseñar a mi gato a no subirse a los sofás?..."
+        placeholder="How can I teach my cat not to climb on the sofa?..."
         onChange={handleInputChange}
       />
       <Response value={response} readOnly />

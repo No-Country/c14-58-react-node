@@ -96,6 +96,7 @@ export default function AboutUs() {
               <RecommendationImage src={lost1} alt="User 1" />
               <div>
               <p>John Doe</p>
+              {/* eslint-disable-next-line react/no-unescaped-entities */}
               <p>"Thanks to Find Your Best Friend, I found my lost dog in just a few days. It's a lifesaver!"</p>
               </div>
             </RecommendationContainer>
@@ -105,7 +106,8 @@ export default function AboutUs() {
               <RecommendationImage src={lost2} alt="User 2" />
               <div>
               <p>Jane Smith</p>
-              <p>"The support from the community here is incredible. It's a place of hope and comfort for pet owners."</p>
+              {/* eslint-disable-next-line react/no-unescaped-entities */}
+              <p>"The support from the community here is incredible. A place of hope and comfort for pet owners."</p>
 
               </div>
             </RecommendationContainer>

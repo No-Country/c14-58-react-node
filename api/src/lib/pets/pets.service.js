@@ -3,6 +3,7 @@ const { BadRequest } = require("../../errorClasses");
 const { petSchema } = require("./pets.validations");
 const jwt = require("jsonwebtoken");
 const { cloudinary } = require("../../helpers/cloudinaryConfig");
+const axios = require("axios");
 
 class PetService {
   static async getAllPets(req, res, next) {
@@ -71,6 +72,37 @@ class PetService {
     } catch (err) {
       next(err);
     }
+  }
+
+  static async prompter(req, res, next) {
+    const { prompt } = req.body;
+
+    try {
+      const response = await axios(
+        "https://api.openai.com/v1/chat/completions",
+        {
+          model: "gpt-3.5-turbo-0301",
+          messages: [
+            {
+              role: "user",
+              content: prompt,
+            },
+          ],
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${process.env.AI_KEY}`,
+          },
+        }
+      );
+
+      console.log(response.data);
+
+      res.json({
+        msg: "ok",
+        response: "response",
+      });
+    } catch (error) {}
   }
 }
 
