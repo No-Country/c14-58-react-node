@@ -78,31 +78,32 @@ class PetService {
     const { prompt } = req.body;
 
     try {
-      const response = await axios(
-        "https://api.openai.com/v1/chat/completions",
+      const response = await axios.post(
+        process.env.AI_URL,
         {
-          model: "gpt-3.5-turbo-0301",
-          messages: [
-            {
-              role: "user",
-              content: prompt,
-            },
-          ],
+          max_tokens: 512,
+          mode: "python",
+          model: process.env.AI_MODEL,
+          n: 1,
+          temperature: 0,
+          text: `Answer this: ${prompt} `,
         },
         {
           headers: {
-            Authorization: `Bearer ${process.env.AI_KEY}`,
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${process.env.TEXT_CORTEX_K}`,
           },
         }
       );
 
-      console.log(response.data);
 
       res.json({
         msg: "ok",
-        response: "response",
+        response: "response.data.data.outputs[0].text",
       });
-    } catch (error) {}
+    } catch (error) {
+      console.log("HHH Algo falló", error);
+    }
   }
 }
 
