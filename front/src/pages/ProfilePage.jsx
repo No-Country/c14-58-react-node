@@ -77,10 +77,10 @@ function Profile() {
             <h1 className="text-3xl font-extrabold">Info</h1>
             <p>{data?.name}</p>
             <p>{data?.email}</p>
-            <h1 className="text-3xl font-extrabold">
-              My Pets ({data?.Pets.length})
-            </h1>
           </InfoCard>
+          <h1 className="text-3xl font-extrabold">
+            My Pets ({data?.Pets.length})
+          </h1>
           <Wrapper>
             {data?.Pets.map((pet, index) => (
               <div key={index}>
