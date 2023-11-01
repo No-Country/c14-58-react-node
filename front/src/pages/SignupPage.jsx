@@ -1,7 +1,6 @@
-import React from 'react'
-import Header from '../components/Header'
-import Footer from '../components/Footer/Footer'
-import Signup from '../components/Login/Signup'
+import Header from "../components/Header";
+import Footer from "../components/Footer/Footer";
+import Signup from "../components/Login/Signup";
 
 function SignupPage() {
   return (
@@ -10,7 +9,7 @@ function SignupPage() {
       <Signup />
       <Footer />
     </>
-  )
+  );
 }
 
-export default SignupPage
+export default SignupPage;

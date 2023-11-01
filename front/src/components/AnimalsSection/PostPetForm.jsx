@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { postPet } from "../../redux/slices/pets";
 import { getUser } from "../../redux/slices/user";
 import ImageInput from "../../ui/ImageInput";
+import useToken from "../../hooks/useToken";
 
 const ContainerSignup = styled.div`
   width: 100%;
@@ -99,7 +100,7 @@ function PostPetForm() {
   const { user } = useSelector((state) => state.user);
   const { loading } = useSelector((state) => state.user);
   const { error } = useSelector((state) => state.user);
-  const [token, setToken] = useState(localStorage.getItem("token"));
+  const { token } = useToken();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -110,7 +111,6 @@ function PostPetForm() {
 
   const handleFormSubmit = (data) => {
     if (!token) {
-      console.log(data);
       localStorage.setItem("petPost", JSON.stringify(data));
       document.getElementById("my_modal_4").showModal();
     } else {
