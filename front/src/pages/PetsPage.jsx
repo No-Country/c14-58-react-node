@@ -100,7 +100,7 @@ function PetsPage() {
             {petsDataFiltered.length === 0 ? (
               <NoPets />
             ) : (
-              petsData.slice((page - 1) * max, page * max).map((data) => {
+              petsDataFiltered.slice((page - 1) * max, page * max).map((data) => {
                 return <Card key={data.id} data={data} />;
               })
             )}
