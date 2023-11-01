@@ -42,7 +42,6 @@ function Filters({ setPage, setPetsData, petsData }) {
   const handleSubmit = (e) => {
     setPage(1);
     e.preventDefault();
-    console.log(filterValues)
     const params = serializeFilters(filterValues);
     setSearchParams(params);
   };
@@ -68,9 +67,22 @@ function Filters({ setPage, setPetsData, petsData }) {
   };
 
   function handleReset() {
-    console.log(petsData);
     setPage(1);
-    setPetsData(petsData);
+    const params = serializeFilters({
+      specie: "",
+      gender: "",
+      name: "",
+      status: "",
+    });
+    setFilterValues({
+      specie: "",
+      gender: "",
+      name: "",
+      status: "",
+    });
+
+    setSearchParams(params);
+
   }
 
   return (
@@ -139,9 +151,10 @@ function Filters({ setPage, setPetsData, petsData }) {
           serializeFilters={serializeFilters}
           deserializeFilters={deserializeFilters}
         />
+        <a className="cursor-pointer" onClick={handleReset}>Reset</a>
 
-        <button onClick={handleReset}>Reset</button>
       </form>
+
     </Container>
   );
 }
