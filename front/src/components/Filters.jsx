@@ -42,6 +42,7 @@ function Filters({ setPage, setPetsData, petsData }) {
   const handleSubmit = (e) => {
     setPage(1);
     e.preventDefault();
+    console.log(filterValues)
     const params = serializeFilters(filterValues);
     setSearchParams(params);
   };
