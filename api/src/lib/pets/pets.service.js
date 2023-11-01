@@ -99,7 +99,7 @@ class PetService {
 
       res.json({
         msg: "ok",
-        response: "response.data.data.outputs[0].text",
+        response: response.data.data.outputs[0].text,
       });
     } catch (error) {
       console.log("HHH Algo falló", error);
