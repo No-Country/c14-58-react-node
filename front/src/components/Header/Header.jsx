@@ -178,16 +178,16 @@ export default function Header() {
         </Link>
         <nav>
           <ul className="flex flex-col p-4 text-gray-900">
-            <Link to="/about">
+
+          <Link to="/post">
               <li className="text-xl py-4 flex">
                 <MdOutlinePets
                   size={25}
                   className="mr-4 text-white bg-black rounded-full"
                 />
-                About Us
+                Add Pet
               </li>
             </Link>
-
             <Link to="/pets">
               <li className="text-xl py-4 flex">
                 <MdOutlinePets
@@ -197,15 +197,26 @@ export default function Header() {
                 More Pets
               </li>
             </Link>
-            <hr className="h-[2px] bg-gray-400 border-0 rounded" />
 
-            <li className="text-xl py-4 flex">
-              <MdHelp
-                size={25}
-                className="mr-4 text-white bg-black rounded-full"
-              />
-              Contact
-            </li>
+            <Link to="/about">
+              <li className="text-xl py-4 flex">
+                <MdOutlinePets
+                  size={25}
+                  className="mr-4 text-white bg-black rounded-full"
+                />
+                About Us
+              </li>
+            </Link>
+            <hr className="h-[2px] bg-gray-400 border-0 rounded" />
+            <Link to="/contact">
+              <li className="text-xl py-4 flex">
+                <MdHelp
+                  size={25}
+                  className="mr-4 text-white bg-black rounded-full"
+                  />
+                Contact
+              </li>
+            </Link>
 
             {user && (
               <>
