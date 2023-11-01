@@ -75,7 +75,7 @@ function ListCards() {
       )}
 
       <Button type="primary" size="large">
-        <Link to="/pets">Otras mascotas perdidas</Link>
+        <Link to="/pets">More Missing Pets</Link>
       </Button>
     </Container>
   );

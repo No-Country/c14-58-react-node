@@ -96,6 +96,9 @@ export default function Header() {
           <li className={location.pathname === "/post" && "bg-slate-400"}>
             <Link to="/post">Add pet</Link>
           </li>
+          <li className={location.pathname === "/pets" && "bg-slate-400"}>
+            <Link to="/pets">More pets</Link>
+          </li>
           <li className={location.pathname === "/about" && "bg-slate-400"}>
             <Link to="/about">About Us</Link>
           </li>
