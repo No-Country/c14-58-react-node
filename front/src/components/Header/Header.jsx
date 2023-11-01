@@ -12,7 +12,7 @@ import { MdHelp, MdOutlinePets } from "react-icons/md";
 const Container = styled.div`
   position: sticky;
   top: 0;
-  padding: 8px 32px;
+  padding: 0px 32px;
   background: #cecece;
   z-index: 1000;
 `;
@@ -22,16 +22,44 @@ const Navbar = styled.div`
   max-width: 1200px;
   display: flex;
   justify-content: space-between;
+
 `;
+
+const Session = styled.div`
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  @media (max-width: 768px) {
+    display: none;
+
+  }
+`
+
+const NavbarPhone = styled.div`
+  display: none;
+  @media (max-width: 768px) {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+` 
 
 const Options = styled.ul`
   display: flex;
-  gap: 48px;
   align-items: center;
+  justify-content: end;
   li {
     cursor: pointer;
+    padding: 0 12px;
+    height: 100%;
+    display: flex;
+    align-items: center;
   }
-  @media (max-width: 800px) {
+  @media (max-width: 1200px) {
+    margin-left: 0;
+
+  }
+  @media (max-width: 768px) {
     display: none;
   }
 `;
@@ -39,7 +67,7 @@ const Options = styled.ul`
 const HamburgerMenu = styled.div`
   display: none;
 
-  @media (max-width: 800px) {
+  @media (max-width: 768px) {
     display: flex;
     align-items: center;
   }
@@ -62,29 +90,38 @@ export default function Header() {
   return (
     <Container>
       <Navbar>
-        <Link to="/">
-          <h2 className="text-2xl p-4">Mascotopia 🐾</h2>
-        </Link>
-
-        <HamburgerMenu
-          onClick={() => setSideNav(!sideNav)}
-          className="cursor-pointer"
-        >
-          <FaBars size={30} />
-        </HamburgerMenu>
 
         <Options>
           <li>
+            <Link to="/">
+              <h2 className="text-2xl py-4 ">Mascotopia 🐾</h2>
+            </Link>
+          </li>
+          <li className={(location.pathname === "/post") && "bg-slate-400"}>
             <Link to="/post">Add pet</Link>
           </li>
-          <li>
+          <li className={(location.pathname === "/about") && "bg-slate-400"}>
             <Link to="/about">About Us</Link>
           </li>
-          <li>
+          <li className={(location.pathname === "/contact") && "bg-slate-400"}>
             <Link to="/contact">Contact</Link>
           </li>
-          <li>
-            <div style={{ display: "flex", gap: "8px" }}>
+
+
+
+        </Options>
+        <NavbarPhone>
+          <Link to="/">
+            <h2 className="text-2xl py-4">Mascotopia 🐾</h2>
+          </Link>
+          <HamburgerMenu
+            onClick={() => setSideNav(!sideNav)}
+            className="cursor-pointer"
+            >
+            <FaBars size={30} />
+          </HamburgerMenu>
+        </NavbarPhone>
+        <Session>
               {user ? (
                 <>
                   <Link to="/profile">
@@ -105,21 +142,19 @@ export default function Header() {
                 location.pathname !== "/signup" && (
                   <>
                     <Link to="/login">
-                      <Button type="secondary" size="small">
+                      <Button type="secondary" style={{marginTop:"0"}} size="small">
                         Login
                       </Button>
                     </Link>
                     <Link to="/signup">
-                      <Button type="primary" size="small">
+                      <Button type="primary" style={{marginTop:"0"}} size="small">
                         Signup
                       </Button>
                     </Link>
                   </>
                 )
               )}
-            </div>
-          </li>
-        </Options>
+        </Session>
       </Navbar>
       {sideNav ? (
         <div
@@ -147,16 +182,16 @@ export default function Header() {
         </Link>
         <nav>
           <ul className="flex flex-col p-4 text-gray-900">
-            <Link to="/about">
+
+          <Link to="/post">
               <li className="text-xl py-4 flex">
                 <MdOutlinePets
                   size={25}
                   className="mr-4 text-white bg-black rounded-full"
                 />
-                About Us
+                Add Pet
               </li>
             </Link>
-
             <Link to="/pets">
               <li className="text-xl py-4 flex">
                 <MdOutlinePets
@@ -166,15 +201,26 @@ export default function Header() {
                 More Pets
               </li>
             </Link>
-            <hr className="h-[2px] bg-gray-400 border-0 rounded" />
 
-            <li className="text-xl py-4 flex">
-              <MdHelp
-                size={25}
-                className="mr-4 text-white bg-black rounded-full"
-              />
-              Contact
-            </li>
+            <Link to="/about">
+              <li className="text-xl py-4 flex">
+                <MdOutlinePets
+                  size={25}
+                  className="mr-4 text-white bg-black rounded-full"
+                />
+                About Us
+              </li>
+            </Link>
+            <hr className="h-[2px] bg-gray-400 border-0 rounded" />
+            <Link to="/contact">
+              <li className="text-xl py-4 flex">
+                <MdHelp
+                  size={25}
+                  className="mr-4 text-white bg-black rounded-full"
+                  />
+                Contact
+              </li>
+            </Link>
 
             {user && (
               <>

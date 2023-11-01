@@ -13,7 +13,6 @@ const ProfileContainer = styled.div`
   justify-content: center;
   text-align: center;
   gap: 32px;
-  padding: 16px 40px;
 `;
 
 const Wrapper = styled.div`
