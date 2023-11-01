@@ -17,7 +17,7 @@ function Profile() {
   const data = useSelector((state) => state.user.user);
 
   const { token, errors } = useToken();
-  
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -27,6 +27,8 @@ function Profile() {
       alert("Vuelve a iniciar sesion");
     }
   }, [token, dispatch, errors]);
+
+  console.log("profile log", data);
 
   return (
     <ProfileContainer>
@@ -39,9 +41,9 @@ function Profile() {
             My Pets ({data?.Pets.length})
           </h1>
           {data?.Pets.map((pet) => (
-            <div key={pet.id}>
-              <p>{pet.name}</p>
-              <p>{pet.breed}</p>
+            <div key={pet.UserId}>
+              <p>{pet.title}</p>
+              <p>{pet.post_date}</p>
             </div>
           ))}
         </>
