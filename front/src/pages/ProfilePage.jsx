@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getUser } from "../redux/slices/user";
 import useToken from "../hooks/useToken";
+import { Card } from "../components/AnimalsSection/Card/Card";
 
 const ProfileContainer = styled.div`
   display: flex;
@@ -40,11 +41,8 @@ function Profile() {
           <h1 className="text-3xl font-extrabold">
             My Pets ({data?.Pets.length})
           </h1>
-          {data?.Pets.map((pet) => (
-            <div key={pet.UserId}>
-              <p>{pet.title}</p>
-              <p>{pet.post_date}</p>
-            </div>
+          {data?.Pets.map((pet, index) => (
+            <Card key={index} data={pet} />
           ))}
         </>
       ) : (
