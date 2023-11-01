@@ -6,15 +6,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { createUser, getUser } from "../../redux/slices/user";
 import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
 
-import { ContainerSignup, Input,FormContainer,Form, TitleForm } from "./FormComponents";
+import {
+  ContainerSignup,
+  Input,
+  FormContainer,
+  Form,
+  TitleForm,
+} from "./FormComponents";
 import PhoneInputUI from "../../ui/PhoneInputUI";
+import useToken from "../../hooks/useToken";
 
 function Signup() {
-  const token = localStorage.getItem("token");
+  const { token } = useToken();
   useEffect(() => {
     if (token) {
       navigate("/home");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const { register, handleSubmit } = useForm();
   const { loading } = useSelector((state) => state.user);
@@ -23,10 +31,10 @@ function Signup() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-  const [phone, setPhone] = useState('')
+  const [phone, setPhone] = useState("");
   const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword)
-  }
+    setShowPassword(!showPassword);
+  };
   return (
     <>
       <ContainerSignup>
@@ -34,14 +42,13 @@ function Signup() {
           <TitleForm>Create your Account</TitleForm>
           <Form
             onSubmit={handleSubmit((data) => {
-              Object.assign(data, {tel: phone})
+              Object.assign(data, { tel: phone });
               dispatch(createUser(data)).then((result) => {
                 dispatch(getUser());
                 if (result.payload.token) {
                   navigate("/home");
                 }
               });
-
             })}
           >
             <Input>
@@ -54,42 +61,59 @@ function Signup() {
             </Input>
             <Input>
               <label htmlFor="">PHONE</label>
-              <PhoneInputUI setPhone={setPhone}/>
+              <PhoneInputUI setPhone={setPhone} />
             </Input>
-            
+
             <Input>
               <label htmlFor="">EMAIL</label>
               <input {...register("email")} placeholder="user@mail.com" />
-             
             </Input>
             <Input>
               <label htmlFor="">PASSWORD</label>
               <div className="flex justify-between items-center border-[#f48fb1] border-[1px] rounded-[8px] ">
-
-              <input className="border-none w-full p-0"
-                {...register("password")}
-                placeholder="******"
-                type={showPassword ? 'text' : 'password'}
+                <input
+                  className="border-none w-full p-0"
+                  {...register("password")}
+                  placeholder="******"
+                  type={showPassword ? "text" : "password"}
                 />
 
-                <button className="mt-0 border-none pr-2 text-gray-500" type="button" onClick={togglePasswordVisibility}>
-                  {showPassword ? (<BsEyeSlashFill size={24}/>): (<BsEyeFill size={24}/>)}
+                <button
+                  className="mt-0 border-none pr-2 text-gray-500"
+                  type="button"
+                  onClick={togglePasswordVisibility}
+                >
+                  {showPassword ? (
+                    <BsEyeSlashFill size={24} />
+                  ) : (
+                    <BsEyeFill size={24} />
+                  )}
                 </button>
               </div>
             </Input>
 
-
-
-            <Button className = "mt-4 mx-auto" type="primary">
+            <Button className="mt-4 mx-auto" type="primary">
               {loading ? "Loading..." : "CREATE ACCOUNT"}
             </Button>
-            {error && (<p style={{background:"#ccc",padding:"4px 8px", color:"red", textAlign: "center", marginTop: "8px"}}>{error}</p>)}
-
+            {error && (
+              <p
+                style={{
+                  background: "#ccc",
+                  padding: "4px 8px",
+                  color: "red",
+                  textAlign: "center",
+                  marginTop: "8px",
+                }}
+              >
+                {error}
+              </p>
+            )}
           </Form>
           <span className="absolute right-4 bottom-2 text-sm">
-            Already have an account? <Link to="/login" className="text-[#1b74e4] font-semibold text-sm">
-                        Login here
-                      </Link>
+            Already have an account?{" "}
+            <Link to="/login" className="text-[#1b74e4] font-semibold text-sm">
+              Login here
+            </Link>
           </span>
         </FormContainer>
       </ContainerSignup>

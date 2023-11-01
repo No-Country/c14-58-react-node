@@ -11,6 +11,7 @@ import PostPetPage from "../pages/PostPetPage";
 import HomePage from "../pages/HomePage";
 import ImageInput from "../ui/ImageInput";
 import NotFound from "../components/NotFound/notFound";
+import Profile from "../pages/ProfilePage";
 
 const router = createBrowserRouter([
   {
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
       {
         path: "test-file",
         element: <ImageInput />,
+      },
+      {
+        path: "profile",
+        element: <Profile />,
       },
     ],
   },

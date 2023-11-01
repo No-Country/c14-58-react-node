@@ -8,7 +8,6 @@ function HomePage() {
     <>
       <Header />
       <HeroSection/>
-      
       <ListCards />
       <Footer />
     </>
