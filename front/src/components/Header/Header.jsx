@@ -55,7 +55,7 @@ export default function Header() {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    localStorage.removeItem("tokenExpiration")
+    localStorage.removeItem("tokenExpiration");
     dispatch(logoutUser());
     navigate("/");
   };
@@ -87,9 +87,12 @@ export default function Header() {
             <div style={{ display: "flex", gap: "8px" }}>
               {user ? (
                 <>
-                  <p style={{ fontWeight: "800" }}>
-                    Hi {user.name.charAt(0).toUpperCase() + user.name.slice(1)}
-                  </p>
+                  <Link to="/profile">
+                    <p style={{ fontWeight: "800" }}>
+                      {user.name.charAt(0).toUpperCase() + user.name.slice(1)}{" "}
+                      Profile
+                    </p>
+                  </Link>
                   <button
                     onClick={() => handleLogout()}
                     style={{ cursor: "pointer" }}

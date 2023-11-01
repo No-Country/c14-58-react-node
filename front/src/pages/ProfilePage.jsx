@@ -30,6 +30,30 @@ const Wrapper = styled.div`
   gap: 16px;
 `;
 
+const InfoCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 32px;
+`;
+
+const CompleteButton = styled.button`
+  background-color: #4caf50; /* Verde */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+`;
+
 function Profile() {
   const data = useSelector((state) => state.user.user);
 
@@ -50,17 +74,19 @@ function Profile() {
       <Header />
       {token ? (
         <>
-          <h1 className="text-3xl font-extrabold">Info</h1>
-          <p>{data?.name}</p>
-          <p>{data?.email}</p>
-          <h1 className="text-3xl font-extrabold">
-            My Pets ({data?.Pets.length})
-          </h1>
+          <InfoCard>
+            <h1 className="text-3xl font-extrabold">Info</h1>
+            <p>{data?.name}</p>
+            <p>{data?.email}</p>
+            <h1 className="text-3xl font-extrabold">
+              My Pets ({data?.Pets.length})
+            </h1>
+          </InfoCard>
           <Wrapper>
             {data?.Pets.map((pet, index) => (
               <div key={index}>
                 <Card data={pet} />
-                <button>Complete!</button>
+                <CompleteButton>Complete!</CompleteButton>
               </div>
             ))}
           </Wrapper>
