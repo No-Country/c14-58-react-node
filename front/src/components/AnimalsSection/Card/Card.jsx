@@ -11,14 +11,14 @@ import { convertDate } from "../../../../utils/convertDate";
 export function Card({ data }) {
   const navigate = useNavigate();
   const location = useLocation();
-  
+  const isCompleted = data.completed;
   return (
     <Link to={`/pets/${data.id}`}>
-      <div className="card" style={{ cursor: "pointer" }}>
+      <div className={`card ${isCompleted && location.pathname === "/profile" ? "completed" : ""}`} style={{ cursor: "pointer" }}>
         <img src={data.image} alt="pet" className="card__photo" />
         <div
           className="card__type"
-          style={{ background: `${data.status == "found" ? "green" : "red"}` }}
+          style={{ background: `${data.status == "found" ? "#0D9488" : "#E48483"}` }}
         >
           <IconContext.Provider value={{ size: "1.25rem" }}>
             <FaPaw />

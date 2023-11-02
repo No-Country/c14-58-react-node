@@ -144,3 +144,6 @@
   display: flex;
   align-items: center;
 }
+.card.completed {
+  filter: grayscale(100%);
+}
