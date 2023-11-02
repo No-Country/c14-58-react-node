@@ -145,5 +145,10 @@
   align-items: center;
 }
 .card.completed {
-  filter: grayscale(100%);
+  background-color: #a1db8b;
 }
+
+.card_completed{
+  display: none;
+}
+
