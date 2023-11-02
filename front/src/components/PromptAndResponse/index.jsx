@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import getPrompt from "../../hooks/usePrompt";
 
@@ -8,27 +8,33 @@ const Chat = styled.div`
   align-items: center;
   gap: 32px;
   height: 83vh;
-  padding-top: 50px;
+  padding: 50px 20px 0;
   margin-top: 20px;
+  margin-bottom: 20px;
+
 `;
 
 const Input = styled.input`
-  width: 700px;
+  max-width: 800px;
+  width: 100%;
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
 `;
 
 const Response = styled.textarea`
-  width: 50%;
+  background: white;
+  width: 100%;
+  max-width: 1024px;
   padding: 10px;
-  height: 100%;
+  height: ${props => props.autoHeight ? 'auto' : '100px'};
   border-radius: 5px;
   border: none;
+  resize: none;
 `;
 
 const Form = styled.form`
-  width: 100%;
+  width: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -55,6 +61,8 @@ const SubmitButton = styled.button`
 export default function PromptAndResponse() {
   const [response, setResponse] = useState("");
   const [textInput, setTextInput] = useState("");
+  const [prevQuestion, setPreviousQuestion] = useState(""); //quería guardar la pregunta para colocarlo en el prompt de respuesta, para saber a q está respondiendo
+  
   const [loading, setLoading] = useState(false);
 
   const handleInputChange = async (event) => {
@@ -63,6 +71,8 @@ export default function PromptAndResponse() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setTextInput('') // intento re reiniciar el texto
+    
     setLoading(true);
     const text = await getPrompt(textInput);
     if (!text) alert("Algo salio mal");
@@ -70,8 +80,16 @@ export default function PromptAndResponse() {
       setResponse(text);
       setLoading(false);
     }
+    setPreviousQuestion(textInput)
   };
+  useEffect(() => {
+    if (response && !loading) {
+      const responseElement = document.getElementById("response-textarea");
+      responseElement.style.height = "auto";
+      responseElement.style.height = responseElement.scrollHeight + "px";
 
+    }
+  }, [response, loading]);
   return (
     <Chat>
       <Form onSubmit={handleSubmit}>
@@ -84,7 +102,7 @@ export default function PromptAndResponse() {
       {loading ? (
         <span>Generating... Please wait</span>
       ) : (
-        <Response value={response} readOnly />
+          <Response id="response-textarea" value={response} readOnly autoHeight/>
       )}
     </Chat>
   );
