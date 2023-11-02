@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import styled from "@emotion/styled";
 import getPrompt from "../../hooks/usePrompt";
 
@@ -11,7 +11,6 @@ const Chat = styled.div`
   padding: 50px 20px 0;
   margin-top: 20px;
   margin-bottom: 20px;
-
 `;
 
 const Input = styled.input`
@@ -27,7 +26,7 @@ const Response = styled.textarea`
   width: 100%;
   max-width: 1024px;
   padding: 10px;
-  height: ${props => props.autoHeight ? 'auto' : '100px'};
+  height: ${(props) => (props.autoHeight ? "auto" : "100px")};
   border-radius: 5px;
   border: none;
   resize: none;
@@ -59,10 +58,10 @@ const SubmitButton = styled.button`
 `;
 
 export default function PromptAndResponse() {
+  const inputRef = useRef(); // Agrega esta línea
   const [response, setResponse] = useState("");
   const [textInput, setTextInput] = useState("");
-  const [prevQuestion, setPreviousQuestion] = useState(""); //quería guardar la pregunta para colocarlo en el prompt de respuesta, para saber a q está respondiendo
-  
+
   const [loading, setLoading] = useState(false);
 
   const handleInputChange = async (event) => {
@@ -71,38 +70,39 @@ export default function PromptAndResponse() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setTextInput('') // intento re reiniciar el texto
-    
     setLoading(true);
     const text = await getPrompt(textInput);
-    if (!text) alert("Algo salio mal");
+    if (!text) alert("Something went wrong, try again later.");
     else {
-      setResponse(text);
+      setResponse(textInput + "\n\n" + text); // incluimos la pregunta en la respuesta antes de borrar el input
       setLoading(false);
     }
-    setPreviousQuestion(textInput)
+    setTextInput(""); // Reiniciamos el texto del input
   };
   useEffect(() => {
+    inputRef.current.focus();
     if (response && !loading) {
       const responseElement = document.getElementById("response-textarea");
       responseElement.style.height = "auto";
       responseElement.style.height = responseElement.scrollHeight + "px";
-
     }
   }, [response, loading]);
   return (
     <Chat>
       <Form onSubmit={handleSubmit}>
         <Input
+          ref={inputRef}
           placeholder="How can I teach my cat to not climb on the sofa?..."
           onChange={handleInputChange}
+          value={textInput}
+          // El input muestra lo que diga el estado (value)
         />
         <SubmitButton type="submit">Send to Mascotop-IA</SubmitButton>
       </Form>
       {loading ? (
         <span>Generating... Please wait</span>
       ) : (
-          <Response id="response-textarea" value={response} readOnly autoHeight/>
+        <Response id="response-textarea" value={response} readOnly autoHeight />
       )}
     </Chat>
   );
