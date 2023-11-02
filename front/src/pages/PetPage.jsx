@@ -23,8 +23,8 @@ function PetPage() {
       <Header/>
       <div className='mx-auto max-w-7xl px-8'>
 
-      <Link to={'/pets'}>
-        <Button>Atrás</Button>
+      <Link to={-1}>
+        <Button>Back</Button>
       </Link>
       <h1 className='text-6xl'>{pet?.title}</h1>
       {loading ? <h1>Loading...</h1>: (<img style={{width:"20%", margin: "0 auto"}} src={pet?.image} alt="" />)}
