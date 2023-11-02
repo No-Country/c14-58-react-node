@@ -67,10 +67,9 @@ const Title = styled.h2`
 `;
 
 export default function PromptAndResponse() {
-  const inputRef = useRef(); // Agrega esta línea
+  const inputRef = useRef();
   const [response, setResponse] = useState("");
   const [textInput, setTextInput] = useState("");
-
   const [loading, setLoading] = useState(false);
 
   const handleInputChange = async (event) => {
@@ -110,7 +109,17 @@ export default function PromptAndResponse() {
         <SubmitButton type="submit">Send to Mascotop-IA</SubmitButton>
       </Form>
       {loading ? (
-        <span>Generating... Please wait</span>
+        <div
+          style={{
+            height: "25vh",
+            backgroundColor: "#fff",
+            width: "55%",
+            textAlign: "center",
+            borderRadius: "10px",
+          }}
+        >
+          Generating... Please wait
+        </div>
       ) : (
         <Response id="response-textarea" value={response} readOnly />
       )}
