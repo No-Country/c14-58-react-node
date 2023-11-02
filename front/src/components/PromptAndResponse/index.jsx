@@ -122,6 +122,7 @@ export default function PromptAndResponse() {
         //   Generating... Please wait
         // </div>
         <svg
+        className="svg-load"
           version="1.1"
           id="L9"
           xmlns="http://www.w3.org/2000/svg"
