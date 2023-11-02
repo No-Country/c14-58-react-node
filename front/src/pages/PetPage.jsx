@@ -7,7 +7,7 @@ import Button from '../ui/Button';
 import WhatsAppModal from '../components/WhatsAppModal';
 import {TbArrowBackUp} from "react-icons/tb"
 import { editPet } from '../../utils/editPet';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchPets } from '../redux/slices/pets';
 
 function PetPage() {
@@ -22,6 +22,10 @@ function PetPage() {
     setPet(petFiltered);
   }, [pets, id]);
 
+    const {user} = useSelector((state) => state.user)
+    // const {user} = useSelector((state) => state.user)
+
+
   return (
     <>
       <Header />
@@ -30,14 +34,10 @@ function PetPage() {
         <Link to={-1} >
             <Button className='my-4'><TbArrowBackUp size={24}/><span className='text-2xl font-semibold'>Back</span></Button>
         </Link>
-        <div className="form-control w-52">
-          <label className="cursor-pointer flex gap-4 items-center">
-            <span className="text-xl font-semibold">Open/Close</span> 
-            <input 
-              type="checkbox" 
-              className="toggle toggle-primary" 
-              checked={!pet?.completed}
-              onChange={()=>{
+        {console.log(user?.Pets.map(obj=>obj.id).includes(id))}
+        {user?.Pets.map(obj=>obj.id).includes(id) && (
+          <div className="form-control w-52">
+          <label className="cursor-pointer flex gap-4 items-center" onClick={()=>{
                 editPet({
                   "id": id,
                   "pet": {
@@ -46,7 +46,13 @@ function PetPage() {
                 })
                 dispatch(fetchPets());
                 
-              }}
+              }}>
+            <span className="text-xl font-semibold">Open/Close</span> 
+            <input 
+              type="checkbox" 
+              className="toggle toggle-primary" 
+              checked={!pet?.completed}
+              
               style={{
                 backgroundColor: !pet?.completed ? '#047857' : '#CCC',
                 borderColor: !pet?.completed ? '#047857' : '#CCC',
@@ -54,6 +60,9 @@ function PetPage() {
             />
           </label>
         </div>
+        )}
+
+
 
       </div>
       <div className='mx-auto max-w-7xl px-8'>
