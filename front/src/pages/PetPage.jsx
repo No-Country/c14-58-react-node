@@ -1,57 +1,69 @@
-import React, { useEffect, useState } from 'react'
-import ImageSlider from '../components/ImageSlider'
-import Header from '../components/Header'
-import Footer from '../components/Footer/Footer'
+import { useEffect, useState } from 'react';
+import Header from '../components/Header';
+import Footer from '../components/Footer/Footer';
 import usePets from '../hooks/usePets';
 import { Link, useParams } from 'react-router-dom';
 import Button from '../ui/Button';
 import WhatsAppModal from '../components/WhatsAppModal';
-
+import {TbArrowBackUp} from "react-icons/tb"
 
 function PetPage() {
   const { id } = useParams();
   const { pets, loading } = usePets();
-  const [pet, setPet] = useState({})
+  const [pet, setPet] = useState({});
+
   useEffect(() => {
-    const petFiltered = pets.find(pet => pet.id === id);
+    const petFiltered = pets.find((pet) => pet.id === id);
     setPet(petFiltered);
-    console.log(petFiltered)
-    // console.log(petFiltered)
   }, [pets, id]);
+
   return (
     <>
-      <Header/>
+      <Header />
+      <div className="max-w-5xl mx-auto w-full">
+     
+      <Link to={-1} >
+          <Button className='my-4'><TbArrowBackUp size={24}/><span className='text-2xl font-semibold'>Back</span></Button>
+      </Link>
+      </div>
       <div className='mx-auto max-w-7xl px-8'>
 
-      <Link to={-1}>
-        <Button>Back</Button>
-      </Link>
-      <h1 className='text-6xl'>{pet?.title}</h1>
-      {loading ? <h1>Loading...</h1>: (<img style={{width:"20%", margin: "0 auto"}} src={pet?.image} alt="" />)}
-      
-      <p>Fecha: {pet?.post_date}</p>
-      <p>Status: {pet?.status}</p>
+        
+        <h1 className='text-6xl font-bold text-center mb-8'>{pet?.title}</h1>
+        {loading ? (
+          <h1 className='text-center text-2xl'>Loading...</h1>
+        ) : (
+          <div className='h-[200px] md:h-[300px]'>
 
-      <br />
-      <h3  className='text-4xl'>Descripción de la mascota</h3>
-      <p>{pet?.description}</p>
+          <img className='h-full mx-auto rounded-lg' src={pet?.image} alt={pet?.title} />
+          </div>
+        )}
+        </div>
+      <div className="max-w-2xl mx-auto w-full pl-20 pb-5">
+     
+     
+          <p className='text-xl mt-4'>Date: {pet?.post_date}</p>
+          <p className='text-xl'>Status: {pet?.status}</p>
 
-      <br/>
-      <h3  className='text-2xl'>Contacto</h3>
-      <p>Nombre: {pet?.User?.first_name} {pet?.User?.surname}</p>
-      <p>Correo: {pet?.User?.email} {pet?.User?.surname}</p>
+          <div className='my-8'>
+            <h3 className='text-4xl font-bold'>Pet Description</h3>
+            <p className='text-xl'>{pet?.description}</p>
+          </div>
 
-      
-      <br/>
-      
-      </div>
-      <br/>
-      <WhatsAppModal number={pet?.User?.tel}/>
-      <Footer/>
+          <div className='my-2'>
+            <h3 className='text-2xl font-bold'>Contact</h3>
+            <p className='text-xl'>Name: {pet?.User?.first_name} {pet?.User?.surname}</p>
+            <p className='text-xl'>Email: {pet?.User?.email}</p>
+          </div>
+
+          <WhatsAppModal number={pet?.User?.tel}/>
+
+        </div>
+    
+      <Footer />
 
     </>
-
-  )
+  );
 }
 
-export default PetPage
+export default PetPage;
