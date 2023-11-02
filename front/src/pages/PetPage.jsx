@@ -77,19 +77,24 @@ function PetPage() {
         )}
       </div>
       <div className="max-w-2xl m-auto w-full pl-20 pb-5">
-        <p className="text-xl mt-4">Date: {pet?.post_date}</p>
-        <p className="text-xl">Status: {pet?.status}</p>
+        <p className="text-xl">
+          <b>{pet?.status}</b>
+        </p>
+        <p className="text-xl mt-4">
+          <b>{pet?.post_date}</b>
+        </p>
 
         <div className="my-8">
-          <h3 className="text-4xl font-bold">Pet Description</h3>
+          <h4 className="text-4xl font-bold">Description</h4>
           <p className="text-xl">{pet?.description}</p>
         </div>
 
         <div className="my-2">
-          <h3 className="text-2xl font-bold">Contact</h3>
+          <h4 className="text-2xl font-bold">Contact</h4>
           <p className="text-xl">
             {pet?.User?.first_name} {pet?.User?.surname}
           </p>
+          <p>{pet?.User?.email}</p>
         </div>
 
         <WhatsAppModal number={pet?.User?.tel} />
