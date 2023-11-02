@@ -5,6 +5,7 @@ import ListCards from "../components/AnimalsSection/ListCards";
 import Footer from "../components/Footer/Footer";
 import Header from "../components/Header";
 import HeroSection from "../components/HeroSection";
+import AIInfo from "../components/AInfo";
 import { useNavigate } from "react-router-dom";
 import useToken from "../hooks/useToken";
 
@@ -23,6 +24,7 @@ function LandingPage() {
       <HeroSection />
       <About />
       <ListCards />
+      <AIInfo />
       <Footer />
     </>
   );

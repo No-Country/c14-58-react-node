@@ -3,7 +3,12 @@ import { Link } from "react-router-dom";
 export default function About() {
   return (
     <div
-      style={{ background: "#ffe6e9", padding: "16px 32px", color: "#330014", marginBottom: "30px"}}
+      style={{
+        background: "#f2f2f2",
+        padding: "16px 32px",
+        color: "#330014",
+        marginBottom: "30px",
+      }}
     >
       <div
         style={{
