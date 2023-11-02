@@ -110,7 +110,7 @@ function Filters({ setPage, setPetsData, petsData }) {
             value={filterValues.specie}
             onChange={handleInputChange}
           >
-            <option disabled={filterValues.specie}>Species...</option>
+            <option value="">Species...</option>
             <option name="specie" value="cat">
               Cat
             </option>
@@ -135,14 +135,28 @@ function Filters({ setPage, setPetsData, petsData }) {
           </select>
         </div>
         <div className="flex items-center justify-between gap-3">
-          <Select
+        <select
+            name="status"
+            className="select select-bordered w-full md:max-w-[160px] bg-white"
+            value={filterValues.status}
+            onChange={handleInputChange}
+          >
+            <option name="status" value="">Status...</option>
+            <option name="status" value="lost">
+              Lost
+            </option>
+            <option name="status" value="found">
+              Found
+            </option>
+          </select>
+          {/* <Select
             className="bg-red-200"
             options={statusOptions}
             filterValues={filterValues}
             setFilterValues={setFilterValues}
             serializeFilters={serializeFilters}
             deserializeFilters={deserializeFilters}
-            />
+            /> */}
           <a className="cursor-pointer py-2 px-4 outline-1 outline rounded-md" onClick={handleReset}>Reset</a>
         </div>
 

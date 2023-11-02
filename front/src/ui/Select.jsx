@@ -101,7 +101,7 @@ export default function Select({ options }) {
           onClick={toggleDropdown}
         >
           {selectedOptions.length === 0 ? (
-            "Select options..."
+            "Status..."
           ) : (
             <div className="space-x-2">
               {selectedOptions.map((option, index) => (
