@@ -9,7 +9,6 @@ import { BiFemaleSign, BiMaleSign } from "react-icons/bi";
 import { convertDate } from "../../../../utils/convertDate";
 
 export function Card({ data }) {
-  const navigate = useNavigate();
   const location = useLocation();
   const isCompleted = data.completed;
   return (
@@ -22,7 +21,13 @@ export function Card({ data }) {
         <div
           className={`card__type ${isCompleted ? "card_completed" : ""}`}
           style={{
-            background: `${data.status == "found" ? "#0D9488" : "#E48483"}`,
+            background: `${
+              data.completed
+                ? "#7ED0ED"
+                : data.status == "found"
+                ? "#0D9488"
+                : "#E48483"
+            }`,
           }}
         >
           <IconContext.Provider value={{ size: "1.25rem" }}>
@@ -30,7 +35,7 @@ export function Card({ data }) {
           </IconContext.Provider>
           <p className="card__type-sale" style={{ fontSize: "32px" }}>
             {" "}
-            {data.status}
+            {data.completed ? "Solved" : data.status}
           </p>
         </div>
         <div>
