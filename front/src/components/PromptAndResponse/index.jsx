@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import styled from "@emotion/styled";
 import getPrompt from "../../hooks/usePrompt";
 import RecommendationsSection from "./RecommendationsSection";
+import "./prompt.css";
 
 const Chat = styled.div`
   display: flex;
@@ -109,17 +110,61 @@ export default function PromptAndResponse() {
         <SubmitButton type="submit">Send to Mascotop-IA</SubmitButton>
       </Form>
       {loading ? (
-        <div
-          style={{
-            height: "25vh",
-            backgroundColor: "#fff",
-            width: "55%",
-            textAlign: "center",
-            borderRadius: "10px",
-          }}
+        // <div
+        //   style={{
+        //     height: "25vh",
+        //     backgroundColor: "#fff",
+        //     width: "55%",
+        //     textAlign: "center",
+        //     borderRadius: "10px",
+        //   }}
+        // >
+        //   Generating... Please wait
+        // </div>
+        <svg
+          version="1.1"
+          id="L9"
+          xmlns="http://www.w3.org/2000/svg"
+          x="0px"
+          y="0px"
+          viewBox="0 0 100 100"
+          enableBackground="new 0 0 0 0"
+          xmlSpace="preserve"
         >
-          Generating... Please wait
-        </div>
+          <rect x="20" y="50" width="6" height="10" fill="#f48fb1">
+            <animateTransform
+              attributeType="xml"
+              attributeName="transform"
+              type="translate"
+              values="0 0; 0 20; 0 0"
+              begin="0"
+              dur="0.6s"
+              repeatCount="indefinite"
+            />
+          </rect>
+          <rect x="30" y="50" width="6" height="10" fill="#f48fb1">
+            <animateTransform
+              attributeType="xml"
+              attributeName="transform"
+              type="translate"
+              values="0 0; 0 20; 0 0"
+              begin="0.2s"
+              dur="0.6s"
+              repeatCount="indefinite"
+            />
+          </rect>
+          <rect x="40" y="50" width="6" height="10" fill="#f48fb1">
+            <animateTransform
+              attributeType="xml"
+              attributeName="transform"
+              type="translate"
+              values="0 0; 0 20; 0 0"
+              begin="0.4s"
+              dur="0.6s"
+              repeatCount="indefinite"
+            />
+          </rect>
+        </svg>
       ) : (
         <Response id="response-textarea" value={response} readOnly />
       )}

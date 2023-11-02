@@ -1,0 +1,12 @@
+svg{
+    width: 100px;
+    height: 100px;
+    margin-left: 25px;
+    display:inline-block;
+    
+  }
+
+  rect{
+    background-color: #f48fb1;
+    color: #f48fb1;
+  }
