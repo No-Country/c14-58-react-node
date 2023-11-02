@@ -43,6 +43,9 @@ function ListCards() {
     const newIndex = isLastSlide ? 0 : currentIndex + 1;
     setCurrentIndex(newIndex);
   };
+
+  console.log("pets data", data?.Pets);
+
   // const moveToNextSlide = (slideIndex) =>{
   //   setCurrentIndex(slideIndex)
   //  }
