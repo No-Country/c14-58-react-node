@@ -33,6 +33,7 @@ const RecommendationCardContent = styled.div`
   border: none;
   resize: none;
   overflow: hidden;
+  text-align: center;
 `;
 
 let items = [
