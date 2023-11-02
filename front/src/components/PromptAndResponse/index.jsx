@@ -1,13 +1,14 @@
 import { useEffect, useState, useRef } from "react";
 import styled from "@emotion/styled";
 import getPrompt from "../../hooks/usePrompt";
+import RecommendationsSection from "./RecommendationsSection";
 
 const Chat = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 32px;
-  height: 83vh;
+  height: 100%;
   padding: 50px 20px 0;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -26,7 +27,7 @@ const Response = styled.textarea`
   width: 100%;
   max-width: 1024px;
   padding: 10px;
-  height: ${(props) => (props.autoHeight ? "auto" : "100px")};
+  height: 30vh;
   border-radius: 5px;
   border: none;
   resize: none;
@@ -55,6 +56,14 @@ const SubmitButton = styled.button`
     opacity: 0.7;
     cursor: default;
   }
+`;
+
+const Title = styled.h2`
+  font-family: sans-serif;
+  font-size: 24px;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
 `;
 
 export default function PromptAndResponse() {
@@ -89,6 +98,7 @@ export default function PromptAndResponse() {
   }, [response, loading]);
   return (
     <Chat>
+      <Title>How can I care for my pet? Ask or write about a problem</Title>
       <Form onSubmit={handleSubmit}>
         <Input
           ref={inputRef}
@@ -102,8 +112,10 @@ export default function PromptAndResponse() {
       {loading ? (
         <span>Generating... Please wait</span>
       ) : (
-        <Response id="response-textarea" value={response} readOnly autoHeight />
+        <Response id="response-textarea" value={response} readOnly />
       )}
+      <Title>Users recommendations</Title>
+      <RecommendationsSection />
     </Chat>
   );
 }
