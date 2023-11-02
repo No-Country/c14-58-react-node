@@ -28,14 +28,14 @@ const Session = styled.div`
   display: flex;
   gap: 8px;
   align-items: center;
-  @media (max-width: 768px) {
+  @media (max-width: 956px) {
     display: none;
   }
 `;
 
 const NavbarPhone = styled.div`
   display: none;
-  @media (max-width: 768px) {
+  @media (max-width: 956px) {
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -56,7 +56,7 @@ const Options = styled.ul`
   @media (max-width: 1200px) {
     margin-left: 0;
   }
-  @media (max-width: 768px) {
+  @media (max-width: 956px) {
     display: none;
   }
 `;
@@ -64,7 +64,7 @@ const Options = styled.ul`
 const HamburgerMenu = styled.div`
   display: none;
 
-  @media (max-width: 768px) {
+  @media (max-width: 956px) {
     display: flex;
     align-items: center;
   }
@@ -93,20 +93,20 @@ export default function Header() {
               <h2 className="text-2xl py-4 ">Mascotopia 🐾</h2>
             </Link>
           </li>
-          <li className={location.pathname === "/post" ? "bg-slate-400" : ""}>
+          <li className={location.pathname === "/post" ? "font-bold text-slate-200 bg-slate-400" : ""}>
             <Link to="/post">Add pet</Link>
           </li>
-          <li className={location.pathname === "/pets" ? "bg-slate-400" : ""}>
+          <li className={location.pathname === "/pets" ? "font-bold text-slate-200 bg-slate-400" : ""}>
             <Link to="/pets">More pets</Link>
           </li>
-          <li className={location.pathname === "/about" ? "bg-slate-400" : ""}>
+          <li className={location.pathname === "/about" ? "font-bold text-slate-200 bg-slate-400" : ""}>
             <Link to="/about">About Us</Link>
           </li>
-          <li className={location.pathname === "/contact" ? "bg-slate-400" : ""}>
+          <li className={location.pathname === "/contact" ? "font-bold text-slate-200 bg-slate-400" : ""}>
             <Link to="/contact">Contact</Link>
           </li>
           <li
-            className={location.pathname === "/mascotop-IA" ? "bg-slate-400" : ""}
+            className={location.pathname === "/mascotop-IA" ? "font-bold text-slate-200 bg-slate-400" : ""}
           >
             <Link to="/mascotop-IA">Ask our AI</Link>
           </li>
