@@ -3,6 +3,7 @@ const { BadRequest } = require("../../errorClasses");
 const { petSchema } = require("./pets.validations");
 const jwt = require("jsonwebtoken");
 const { cloudinary } = require("../../helpers/cloudinaryConfig");
+const axios = require("axios");
 
 class PetService {
   static async getAllPets(req, res, next) {
@@ -70,6 +71,38 @@ class PetService {
       return res.json(pet);
     } catch (err) {
       next(err);
+    }
+  }
+
+  static async prompter(req, res, next) {
+    const { prompt } = req.body;
+
+    try {
+      const response = await axios.post(
+        process.env.AI_URL,
+        {
+          max_tokens: 512,
+          mode: "python",
+          model: process.env.AI_MODEL,
+          n: 1,
+          temperature: 0,
+          text: `Answer this: ${prompt} `,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${process.env.TEXT_CORTEX_K}`,
+          },
+        }
+      );
+
+
+      res.json({
+        msg: "ok",
+        response: response.data.data.outputs[0].text,
+      });
+    } catch (error) {
+      console.log("HHH Algo falló", error);
     }
   }
 }
