@@ -6,6 +6,7 @@ import useToken from "../hooks/useToken";
 import { Card } from "../components/AnimalsSection/Card/Card";
 import Header from "../components/Header";
 import Footer from "../components/Footer/Footer";
+import { useLocation } from "react-router-dom";
 
 const ProfileContainer = styled.div`
   display: flex;
@@ -40,7 +41,6 @@ const InfoCard = styled.div`
 `;
 
 const CompleteButton = styled.button`
-  background-color: #4caf50; /* Verde */
   border: none;
   color: white;
   padding: 15px 32px;
@@ -49,13 +49,11 @@ const CompleteButton = styled.button`
   display: inline-block;
   font-size: 16px;
   margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 4px;
+  border-radius: 8px;
 `;
 
 function Profile() {
   const data = useSelector((state) => state.user.user);
-
   const { token, errors } = useToken();
 
   const dispatch = useDispatch();
@@ -69,32 +67,37 @@ function Profile() {
   }, [token, dispatch, errors]);
 
   return (
-    <ProfileContainer>
+    <>
       <Header />
-      {token ? (
-        <>
-          <InfoCard>
-            <h1 className="text-3xl font-extrabold">Info</h1>
-            <p>{data?.name}</p>
-            <p>{data?.email}</p>
-          </InfoCard>
-          <h1 className="text-3xl font-extrabold">
-            My Pets ({data?.Pets.length})
-          </h1>
-          <Wrapper>
-            {data?.Pets.map((pet, index) => (
-              <div key={index}>
-                <Card data={pet} />
-                <CompleteButton>Complete!</CompleteButton>
-              </div>
-            ))}
-          </Wrapper>
-        </>
-      ) : (
-        <p>LogIn to see this</p>
-      )}
+      <ProfileContainer>
+        {token ? (
+          <>
+            <InfoCard>
+              <h1 className="text-3xl font-extrabold">Info</h1>
+              <p>{data?.name}</p>
+              <p>{data?.email}</p>
+            </InfoCard>
+            <h1 className="text-3xl font-extrabold">
+              My Pets ({data?.Pets.length})
+            </h1>
+            <Wrapper>
+              {data?.Pets.map((pet, index) => (
+                <div key={index}>
+                  <Card data={pet} />
+                  <CompleteButton className={`text-red ${pet.completed ? 'bg-gray-300 cursor-not-allowed' : 'bg-teal-600 cursor-pointer'}`}
+>
+  {pet.completed ? 'Closed' : 'Open'}
+</CompleteButton>
+                </div>
+              ))}
+            </Wrapper>
+          </>
+        ) : (
+          <p>LogIn to see this</p>
+          )}
+      </ProfileContainer>
       <Footer />
-    </ProfileContainer>
+    </>
   );
 }
 
