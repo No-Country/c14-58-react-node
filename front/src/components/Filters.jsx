@@ -91,16 +91,7 @@ function Filters({ setPage, setPetsData, petsData }) {
         className="max-w-7xl  m-auto flex flex-col gap-2 md:flex-row md:justify-between"
         onSubmit={handleSubmit}
       >
-        <div className="dropdown md: bg-red-400">
-          <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-            <li>
-              <a>Item 1</a>
-            </li>
-            <li>
-              <a>Item 2</a>
-            </li>
-          </ul>
-        </div>
+
         <div className="flex border justify-between p-2 border-gray-300 rounded-lg px-2 items-center">
           <input
             type="text"
@@ -134,7 +125,7 @@ function Filters({ setPage, setPetsData, petsData }) {
             value={filterValues.gender}
             onChange={handleInputChange}
           >
-            <option disabled={filterValues.gender}>Gender...</option>
+            <option name="genre" value="">Gender...</option>
             <option name="genre" value="male">
               Male
             </option>
@@ -143,15 +134,17 @@ function Filters({ setPage, setPetsData, petsData }) {
             </option>
           </select>
         </div>
-        <Select
-          className="w-full"
-          options={statusOptions}
-          filterValues={filterValues}
-          setFilterValues={setFilterValues}
-          serializeFilters={serializeFilters}
-          deserializeFilters={deserializeFilters}
-        />
-        <a className="cursor-pointer" onClick={handleReset}>Reset</a>
+        <div className="flex items-center justify-between gap-3">
+          <Select
+            className="bg-red-200"
+            options={statusOptions}
+            filterValues={filterValues}
+            setFilterValues={setFilterValues}
+            serializeFilters={serializeFilters}
+            deserializeFilters={deserializeFilters}
+            />
+          <a className="cursor-pointer py-2 px-4 outline-1 outline rounded-md" onClick={handleReset}>Reset</a>
+        </div>
 
       </form>
 

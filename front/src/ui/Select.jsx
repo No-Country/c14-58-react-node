@@ -94,11 +94,10 @@ export default function Select({ options }) {
   }, [showDropdown]);
 
   return (
-    <div className="max-w-lg z-50 ">
+    <div className="w-full z-50 ">
       <div className="relative" ref={dropdownRef}>
         <div
-          className="p-2 border rounded cursor-pointer flex justify-between items-center"
-          style={{ width: "200px" }}
+          className="w-full lg:w-[200px] p-2 border rounded cursor-pointer flex justify-between items-center"
           onClick={toggleDropdown}
         >
           {selectedOptions.length === 0 ? (
