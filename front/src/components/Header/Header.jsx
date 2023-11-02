@@ -232,13 +232,16 @@ export default function Header() {
 
             {user && (
               <>
-                <li className="text-xl py-4 flex">
-                  <BsPerson
-                    size={25}
-                    className="mr-4 text-white bg-black rounded-full"
-                  />
-                  My Account
-                </li>
+                <Link to="/profile">
+
+                  <li className="text-xl py-4 flex">
+                    <BsPerson
+                      size={25}
+                      className="mr-4 text-white bg-black rounded-full"
+                    />
+                    My Profile
+                  </li>
+                </Link>
                 <li
                   className="text-xl py-4 flex cursor-pointer"
                   onClick={() => handleLogout()}
