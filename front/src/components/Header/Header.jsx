@@ -93,20 +93,20 @@ export default function Header() {
               <h2 className="text-2xl py-4 ">Mascotopia 🐾</h2>
             </Link>
           </li>
-          <li className={location.pathname === "/post" && "bg-slate-400"}>
+          <li className={location.pathname === "/post" ? "bg-slate-400" : ""}>
             <Link to="/post">Add pet</Link>
           </li>
-          <li className={location.pathname === "/pets" && "bg-slate-400"}>
+          <li className={location.pathname === "/pets" ? "bg-slate-400" : ""}>
             <Link to="/pets">More pets</Link>
           </li>
-          <li className={location.pathname === "/about" && "bg-slate-400"}>
+          <li className={location.pathname === "/about" ? "bg-slate-400" : ""}>
             <Link to="/about">About Us</Link>
           </li>
-          <li className={location.pathname === "/contact" && "bg-slate-400"}>
+          <li className={location.pathname === "/contact" ? "bg-slate-400" : ""}>
             <Link to="/contact">Contact</Link>
           </li>
           <li
-            className={location.pathname === "/mascotop-IA" && "bg-slate-400"}
+            className={location.pathname === "/mascotop-IA" ? "bg-slate-400" : ""}
           >
             <Link to="/mascotop-IA">Ask our AI</Link>
           </li>
