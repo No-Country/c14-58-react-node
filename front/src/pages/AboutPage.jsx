@@ -26,7 +26,6 @@ const HeroContent = styled.div`
 
 const Title = styled.h1`
    font-size: 64px;
-  font-weight: 600px;
   margin-bottom: 10px;
 `;
 
@@ -49,6 +48,10 @@ const Description = styled.p`
   font-size: 16px;
   line-height: 1.5;
   margin-bottom: 20px;
+  h3{
+    font-size: 24px;
+    font-weight:600;
+  }
 `;
 
 const RecommendationContainer = styled.div`
@@ -76,21 +79,19 @@ export default function AboutUs() {
       <Header/>
       <HeroSection>
         <HeroContent>
-          <Title>Find Your Best Friend</Title>
+          <Title style={{fontWeight: "500"}}>Find Your Best Friend</Title>
           <Subtitle>Saving Lives, One Pet at a Time</Subtitle>
         </HeroContent>
       </HeroSection>
       <AboutUsContainer>
       <AboutUsContent>
-        <Title>About Us</Title>
+        <Title  style={{fontWeight: "700"}}>Our Story</Title>
         <Description>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Porro voluptate veniam tempora reiciendis pariatur dicta. Provident ratione alias adipisci, eius deleniti commodi, nisi nostrum molestias vel impedit facilis ipsa sint!
+        At Mascotopia, our journey is built on love, compassion, and the simple belief that every pet deserves to find their way back home. We're more than just a platform; we're a community of pet lovers dedicated to reuniting lost pets with their families.
           
         </Description>
-        <Description>
-        Debitis neque sapiente molestias pariatur illum dolores libero sed mollitia officia repudiandae architecto earum voluptatem, impedit unde quaerat voluptate recusandae voluptatum nam harum autem. Consectetur, fugiat. Dolorem neque architecto magni.
-        </Description>
-        <Carousel>
+       
+        <Carousel autoPlay interval={5000} infiniteLoop={true}>
           <Div>
             <RecommendationContainer>
               <RecommendationImage src={lost1} alt="User 1" />
@@ -113,17 +114,14 @@ export default function AboutUs() {
             </RecommendationContainer>
           </Div>
         </Carousel>
+      
         <Description>
-          What sets us apart:
-          <ul>
-            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. </li>
-            <li>Iure consequuntur dignissimos rem esse iste? </li>
-            <li>Omo inventore vitae cum, quibusdam nobis tempora accusantium?</li>
-          </ul>
+        <h3>Our Mission</h3>
+        Mascotopia's mission is to provide a safe and user-friendly space for pet owners and caring finders to connect. We believe that every pet has a unique story, and our platform ensures that these stories have happy endings.
         </Description>
         <Description>
-
-          Ab architecto aliquid consequuntur molestiae delectus possimus voluptatibus ducimus distinctio tempore eius ad ex reprehenderit fugit perspiciatis neque recusandae, velit tenetur officia dicta cupiditate accusamus. Iure doloremque pariatur rerum dicta?
+        <h3>Join Our Community</h3>
+        Become a part of the Mascotopia community and help us make a difference, one paw at a time. Share your pet's story or lend a helping hand to reunite lost pets with their families. Together, we create heartwarming reunions.
         </Description>
       </AboutUsContent>
     </AboutUsContainer>
