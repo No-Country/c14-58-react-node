@@ -153,5 +153,9 @@
   align-items: center;
 }
 .card.completed {
-  background-color: #d7ecf3;
+  background-color: #baf5c9;
 }
+
+.card_completed{
+  display: none;
+} 
