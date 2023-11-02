@@ -52,10 +52,10 @@ function ListCards() {
 
   return (
     <Container>
-      {token && (
-        <h1 className="text-3xl font-extrabold">
-          {data?.Pets.length > 0 ? "Your Pets" : "Recent Pets"}
-        </h1>
+      {token ? (
+        <h1 className="text-3xl font-extrabold">Your Pets</h1>
+      ) : (
+        <h1 className="text-3xl font-extrabold">Recent pets</h1>
       )}
       <div className="gap-2 justify-center hidden  lg:grid lg:grid-cols-3 ">
         {token && data?.Pets.length > 0
@@ -78,7 +78,7 @@ function ListCards() {
       )}
 
       <Button type="primary" size="large">
-        <Link to="/pets">More Missing Pets</Link>
+        <Link to="/pets">View more</Link>
       </Button>
     </Container>
   );

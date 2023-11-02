@@ -25,13 +25,13 @@ const LeftContainer = styled.div`
     }
   }
   img {
-    display: none;
     @media (max-width: 1000px) {
       display: block;
     }
   }
 `;
 const RightContainer = styled.div`
+  max-width: 600px;
   img {
     display: block;
     @media (max-width: 1000px) {
@@ -62,6 +62,9 @@ function AIInfo() {
     <Container>
       <HeroContainer>
         <LeftContainer>
+          <img src={imgUrl} alt="animalitos" />
+        </LeftContainer>
+        <RightContainer>
           <TitleContainer>
             <Title>Empower your pet care with our AI assistance</Title>
             <BlackBar></BlackBar>
@@ -82,9 +85,6 @@ function AIInfo() {
               Consult our AI now
             </Button>
           </Link>
-        </LeftContainer>
-        <RightContainer>
-          <img src={imgUrl} alt="animalitos" />
         </RightContainer>
       </HeroContainer>
     </Container>

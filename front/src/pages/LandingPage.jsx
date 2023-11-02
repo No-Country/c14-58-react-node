@@ -23,8 +23,8 @@ function LandingPage() {
       <Header />
       <HeroSection />
       <About />
-      <ListCards />
       <AIInfo />
+      <ListCards />
       <Footer />
     </>
   );
