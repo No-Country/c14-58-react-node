@@ -7,7 +7,7 @@ const Chat = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 32px;
-  height: 100vh;
+  height: 83vh;
   padding-top: 50px;
   margin-top: 20px;
 `;
@@ -22,14 +22,40 @@ const Input = styled.input`
 const Response = styled.textarea`
   width: 50%;
   padding: 10px;
-  height: auto;
+  height: 100%;
   border-radius: 5px;
   border: none;
+`;
+
+const Form = styled.form`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+`;
+
+const SubmitButton = styled.button`
+  background-color: #f48fb1;
+  color: white;
+  font-family: sans-serif;
+  font-size: 14px;
+  padding: 10px 60px;
+  border-radius: 16px;
+  border: none;
+  margin: 10px 0px;
+  cursor: pointer;
+  &:disabled {
+    color: grey;
+    opacity: 0.7;
+    cursor: default;
+  }
 `;
 
 export default function PromptAndResponse() {
   const [response, setResponse] = useState("");
   const [textInput, setTextInput] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleInputChange = async (event) => {
     setTextInput(event.target.value);
@@ -37,23 +63,29 @@ export default function PromptAndResponse() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true);
     const text = await getPrompt(textInput);
-    console.log("textito", text);
     if (!text) alert("Algo salio mal");
-    else setResponse(text);
+    else {
+      setResponse(text);
+      setLoading(false);
+    }
   };
 
   return (
     <Chat>
-      <form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <Input
-          placeholder="How can I teach my cat not to climb on the sofa?..."
+          placeholder="How can I teach my cat to not climb on the sofa?..."
           onChange={handleInputChange}
         />
-        <button type="submit">Send</button>
-      </form>
-      <span>Response</span>
-      <Response value={response} readOnly />
+        <SubmitButton type="submit">Send to Mascotop-IA</SubmitButton>
+      </Form>
+      {loading ? (
+        <span>Loading... Can take up to 10 seconds</span>
+      ) : (
+        <Response value={response} readOnly />
+      )}
     </Chat>
   );
 }
