@@ -42,6 +42,11 @@ const NoPets = () => {
       <NoPetsMessage>
         Oops! There are no pets available at the moment.
       </NoPetsMessage>
+      <Link to="/post">
+        <Button type="primary" size="small">
+          ADD PET
+        </Button>
+      </Link>
       <Link to="/home">
         <Button type="primary" size="small">
           Go Back Home

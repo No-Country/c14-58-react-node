@@ -80,6 +80,7 @@ class UserService {
         name: user.first_name,
         surname: user.surname,
         email: user.email,
+        tel: user.tel,
         Pets: user.Pets,
       });
     } catch (err) {

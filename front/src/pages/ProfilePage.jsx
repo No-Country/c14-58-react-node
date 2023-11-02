@@ -6,7 +6,7 @@ import useToken from "../hooks/useToken";
 import { Card } from "../components/AnimalsSection/Card/Card";
 import Header from "../components/Header";
 import Footer from "../components/Footer/Footer";
-import { useLocation } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const ProfileContainer = styled.div`
   display: flex;
@@ -60,7 +60,7 @@ function Profile() {
 
   useEffect(() => {
     if (token) {
-      dispatch(getUser()).then((r) => console.log(r));
+      dispatch(getUser()).then(r => console.log("data", data, r));
     } else if (errors) {
       alert("Vuelve a iniciar sesion");
     }
@@ -76,6 +76,7 @@ function Profile() {
               <h1 className="text-3xl font-extrabold">Info</h1>
               <p>{data?.name}</p>
               <p>{data?.email}</p>
+              <p>✆ {data?.tel}</p>
             </InfoCard>
             <h1 className="text-3xl font-extrabold">
               My Pets ({data?.Pets.length})
@@ -84,17 +85,22 @@ function Profile() {
               {data?.Pets.map((pet, index) => (
                 <div key={index}>
                   <Card data={pet} />
-                  <CompleteButton className={`text-red ${pet.completed ? 'bg-gray-300 cursor-not-allowed' : 'bg-teal-600 cursor-pointer'}`}
->
-  {pet.completed ? 'Closed' : 'Open'}
-</CompleteButton>
+                  <CompleteButton
+                    className={`text-red ${
+                      pet.completed
+                        ? "bg-gray-300 cursor-not-allowed"
+                        : "bg-teal-600 cursor-pointer"
+                    }`}
+                  >
+                    {pet.completed ? "Closed" : "Open"}
+                  </CompleteButton>
                 </div>
               ))}
             </Wrapper>
           </>
         ) : (
           <p>LogIn to see this</p>
-          )}
+        )}
       </ProfileContainer>
       <Footer />
     </>
