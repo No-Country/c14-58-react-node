@@ -87,26 +87,53 @@ export default function Header() {
   return (
     <Container>
       <Navbar>
+        <Link to="/">
+          <h2 className="text-2xl py-4 ">Mascotopia 🐾</h2>
+        </Link>
         <Options>
-          <li>
-            <Link to="/">
-              <h2 className="text-2xl py-4 ">Mascotopia 🐾</h2>
-            </Link>
-          </li>
-          <li className={location.pathname === "/post" ? "font-bold text-slate-200 bg-slate-400" : ""}>
+          <li></li>
+          <li
+            className={
+              location.pathname === "/post"
+                ? "font-bold text-slate-200 bg-slate-400"
+                : ""
+            }
+          >
             <Link to="/post">Add pet</Link>
           </li>
-          <li className={location.pathname === "/pets" ? "font-bold text-slate-200 bg-slate-400" : ""}>
+          <li
+            className={
+              location.pathname === "/pets"
+                ? "font-bold text-slate-200 bg-slate-400"
+                : ""
+            }
+          >
             <Link to="/pets">More pets</Link>
           </li>
-          <li className={location.pathname === "/about" ? "font-bold text-slate-200 bg-slate-400" : ""}>
+          <li
+            className={
+              location.pathname === "/about"
+                ? "font-bold text-slate-200 bg-slate-400"
+                : ""
+            }
+          >
             <Link to="/about">About Us</Link>
           </li>
-          <li className={location.pathname === "/contact" ? "font-bold text-slate-200 bg-slate-400" : ""}>
+          <li
+            className={
+              location.pathname === "/contact"
+                ? "font-bold text-slate-200 bg-slate-400"
+                : ""
+            }
+          >
             <Link to="/contact">Contact</Link>
           </li>
           <li
-            className={location.pathname === "/mascotop-IA" ? "font-bold text-slate-200 bg-slate-400" : ""}
+            className={
+              location.pathname === "/mascotop-IA"
+                ? "font-bold text-slate-200 bg-slate-400"
+                : ""
+            }
           >
             <Link to="/mascotop-IA">Ask our AI</Link>
           </li>
@@ -233,7 +260,6 @@ export default function Header() {
             {user && (
               <>
                 <Link to="/profile">
-
                   <li className="text-xl py-4 flex">
                     <BsPerson
                       size={25}
