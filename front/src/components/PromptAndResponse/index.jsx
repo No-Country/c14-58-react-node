@@ -82,7 +82,7 @@ export default function PromptAndResponse() {
         <SubmitButton type="submit">Send to Mascotop-IA</SubmitButton>
       </Form>
       {loading ? (
-        <span>Loading... Can take up to 10 seconds</span>
+        <span>Generating... Please wait</span>
       ) : (
         <Response value={response} readOnly />
       )}

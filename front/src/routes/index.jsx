@@ -55,7 +55,7 @@ const router = createBrowserRouter([
         element: <PetPage />,
       },
       {
-        path: "test-chat",
+        path: "mascotop-IA",
         element: <AIChat />,
       },
       {

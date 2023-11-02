@@ -105,6 +105,11 @@ export default function Header() {
           <li className={location.pathname === "/contact" && "bg-slate-400"}>
             <Link to="/contact">Contact</Link>
           </li>
+          <li
+            className={location.pathname === "/mascotop-IA" && "bg-slate-400"}
+          >
+            <Link to="/mascotop-IA">Ask our AI</Link>
+          </li>
         </Options>
         <NavbarPhone>
           <Link to="/">
