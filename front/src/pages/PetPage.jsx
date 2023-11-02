@@ -14,7 +14,6 @@ function PetPage() {
   const { id } = useParams();
   const { pets, loading } = usePets();
   const [pet, setPet] = useState({});
-  const [isChecked, setIsChecked] = useState(true);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,7 +22,6 @@ function PetPage() {
   }, [pets, id]);
 
   const { user } = useSelector((state) => state.user);
-  // const {user} = useSelector((state) => state.user)
 
   return (
     <>
@@ -78,7 +76,7 @@ function PetPage() {
           </div>
         )}
       </div>
-      <div className="max-w-2xl mx-auto w-full pl-20 pb-5">
+      <div className="max-w-2xl m-auto w-full pl-20 pb-5">
         <p className="text-xl mt-4">Date: {pet?.post_date}</p>
         <p className="text-xl">Status: {pet?.status}</p>
 
@@ -90,9 +88,8 @@ function PetPage() {
         <div className="my-2">
           <h3 className="text-2xl font-bold">Contact</h3>
           <p className="text-xl">
-            Name: {pet?.User?.first_name} {pet?.User?.surname}
+            {pet?.User?.first_name} {pet?.User?.surname}
           </p>
-          <p className="text-xl">Email: {pet?.User?.email}</p>
         </div>
 
         <WhatsAppModal number={pet?.User?.tel} />

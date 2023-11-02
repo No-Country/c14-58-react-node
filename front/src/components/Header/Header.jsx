@@ -70,6 +70,16 @@ const HamburgerMenu = styled.div`
   }
 `;
 
+const Title = styled.h2`
+  font-size: 2rem;
+  padding: 1rem;
+  display: block;
+
+  @media (max-width: 958px) {
+    display: none;
+  }
+`;
+
 export default function Header() {
   const [sideNav, setSideNav] = useState(false);
 
@@ -88,7 +98,7 @@ export default function Header() {
     <Container>
       <Navbar>
         <Link to="/">
-          <h2 className="text-2xl py-4 ">Mascotopia 🐾</h2>
+          <Title className="text-2xl py-4 title-main ">Mascotopia 🐾</Title>
         </Link>
         <Options>
           <li></li>
