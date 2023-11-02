@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState, useEffect, useRef } from "react";
 import { RiArrowDownSLine } from "react-icons/ri";
 import { useSearchParams } from "react-router-dom";

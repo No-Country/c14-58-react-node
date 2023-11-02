@@ -131,3 +131,5 @@ export const global = css`
     color: ${colors.gray[900]};
   }
 `;
+
+export const GATEWAY = "https://c14-58-react-node-production.up.railway.app";

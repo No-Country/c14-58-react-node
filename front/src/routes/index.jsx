@@ -12,7 +12,6 @@ import HomePage from "../pages/HomePage";
 import NotFound from "../components/NotFound/notFound";
 import Profile from "../pages/ProfilePage";
 import AIChat from "../pages/AIChat";
-// import ImageInput from "../ui/ImageInput";
 
 const router = createBrowserRouter([
   {

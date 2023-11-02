@@ -1,9 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { GATEWAY } from "../../assets/globals";
 
 const fetchPets = createAsyncThunk("pets/getAll", async () => {
   try {
-    const info = await axios.get("http://localhost:3000/pets");
+    const info = await axios.get(GATEWAY + "/pets");
     return info.data;
   } catch (error) {
     console.error(error);
@@ -19,7 +20,7 @@ export const postPet = createAsyncThunk(
 
       const config = {
         method: "post",
-        url: "http://localhost:3000/pets",
+        url: GATEWAY + "/pets",
         headers: {
           Authorization: `Bearer ${cleanedToken}`,
           "Content-Type": "application/json",

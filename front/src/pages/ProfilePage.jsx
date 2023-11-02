@@ -6,7 +6,6 @@ import useToken from "../hooks/useToken";
 import { Card } from "../components/AnimalsSection/Card/Card";
 import Header from "../components/Header";
 import Footer from "../components/Footer/Footer";
-// import { useNavigate } from "react-router-dom";
 
 const ProfileContainer = styled.div`
   display: flex;

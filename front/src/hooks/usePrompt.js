@@ -1,8 +1,9 @@
 import axios from "axios";
+import { GATEWAY } from "../assets/globals";
 
 export default async function getPrompt(prompt) {
   try {
-    const api = await axios.post("http://localhost:3000/pets/prompt", {
+    const api = await axios.post(GATEWAY + "/pets/prompt", {
       prompt: prompt,
     });
 

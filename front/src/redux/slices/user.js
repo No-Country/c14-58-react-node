@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import useToken from "../../hooks/useToken";
+import { GATEWAY } from "../../assets/globals";
 
 export const loginUser = createAsyncThunk(
   "user/loginUser",
@@ -8,7 +9,7 @@ export const loginUser = createAsyncThunk(
     try {
       let response;
       await axios
-        .post("http://localhost:3000/users/signin", userCredentials)
+        .post(GATEWAY + "/users/signin", userCredentials)
         .then((res) => {
           useToken(res.data.token, new Date().getTime() + 3 * 60 * 60 * 1000);
 
@@ -27,7 +28,7 @@ export const createUser = createAsyncThunk(
   async (userCredentials, { rejectWithValue }) => {
     try {
       const request = await axios.post(
-        "http://localhost:3000/users/signup",
+        GATEWAY + "/users/signup",
         userCredentials
       );
       useToken(request.data.token, new Date().getTime() + 3 * 60 * 60 * 1000);
@@ -48,7 +49,7 @@ export const getUser = createAsyncThunk(
         const cleanedToken = token.replace(/^"(.*)"$/, "$1");
         const config = {
           method: "get",
-          url: "http://localhost:3000/users/find",
+          url: GATEWAY + "/users/find",
           headers: {
             Authorization: `Bearer ${cleanedToken}`,
           },
