@@ -20,7 +20,8 @@ export const postPet = createAsyncThunk(
 
       const config = {
         method: "post",
-        url: GATEWAY + "/pets",
+        url: "http://localhost:3000" + "/pets",
+        // url: GATEWAY + "/pets",
         headers: {
           Authorization: `Bearer ${cleanedToken}`,
           "Content-Type": "application/json",
