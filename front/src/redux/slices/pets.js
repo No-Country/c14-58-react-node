@@ -20,8 +20,7 @@ export const postPet = createAsyncThunk(
 
       const config = {
         method: "post",
-        url: "http://localhost:3000" + "/pets",
-        // url: GATEWAY + "/pets",
+        url: GATEWAY + "/pets",
         headers: {
           Authorization: `Bearer ${cleanedToken}`,
           "Content-Type": "application/json",
@@ -29,7 +28,10 @@ export const postPet = createAsyncThunk(
         data: petCredentials,
       };
       const response = await axios(config);
-
+      if (response.data.msg) {
+        alert(response.data.msg);
+        return false;
+      }
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message);
