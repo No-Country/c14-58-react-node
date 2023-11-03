@@ -9,5 +9,6 @@ petsRouter.post("/", PetService.createPet);
 petsRouter.patch("/", PetService.editPet);
 
 petsRouter.post("/prompt", PetService.prompter);
+petsRouter.post("/test", PetService.test);
 
 module.exports = petsRouter;

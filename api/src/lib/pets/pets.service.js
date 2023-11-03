@@ -4,6 +4,8 @@ const { petSchema } = require("./pets.validations");
 const jwt = require("jsonwebtoken");
 const { cloudinary } = require("../../helpers/cloudinaryConfig");
 const axios = require("axios");
+const vision = require("@google-cloud/vision");
+const { CONFIG } = require("../../helpers/googleCloud");
 
 class PetService {
   static async getAllPets(req, res, next) {
@@ -37,14 +39,28 @@ class PetService {
         folder: "mascotopia",
       });
 
-      // Set image URL
-      value.image = uploadResponse.secure_url;
+      // start recon
+      const client = new vision.ImageAnnotatorClient(CONFIG);
 
-      const pet = await Pets.create({ ...value });
+      const recon = await client.labelDetection(uploadResponse.secure_url);
+      const labels = recon[0].labelAnnotations;
+      if (
+        !labels[0].description.toUpperCase() === "CAT" ||
+        !labels[0].description.toUpperCase() === "DOG"
+      ) {
+        return res
+          .status(401)
+          .json({ msg: "The image must be a cat or a dog" });
+      } else {
+        // Set image URL
+        value.image = uploadResponse.secure_url;
 
-      pet.setUser(decodedToken.userId);
+        const pet = await Pets.create({ ...value });
 
-      return res.json(pet);
+        pet.setUser(decodedToken.userId);
+
+        return res.json(pet);
+      }
     } catch (err) {
       next(err);
     }
@@ -96,7 +112,6 @@ class PetService {
         }
       );
 
-
       res.json({
         msg: "ok",
         response: response.data.data.outputs[0].text,
@@ -105,6 +120,8 @@ class PetService {
       console.log("HHH Algo falló", error);
     }
   }
+
+  static async test(req, res, next) {}
 }
 
 module.exports = PetService;
