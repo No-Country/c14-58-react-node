@@ -75,6 +75,7 @@ const Title = styled.h2`
   padding: 1rem;
   display: block;
 
+
   @media (max-width: 958px) {
     display: none;
   }

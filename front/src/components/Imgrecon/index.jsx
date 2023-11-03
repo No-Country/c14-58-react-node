@@ -1,5 +1,6 @@
+/* eslint-disable react/no-unescaped-entities */
 import styled from "@emotion/styled";
-import imgUrl from "../../assets/images/ai-dog.png";
+import imgUrl from "../../assets/images/recognition.png";
 import Button from "../../ui/Button";
 import { Link } from "react-router-dom";
 
@@ -46,40 +47,30 @@ const TitleContainer = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 65px;
-  font-weight: 600;
-`;
-
-const BlackBar = styled.div`
-  height: 4px;
-  background: black;
-  flex-grow: 1;
-  margin-left: 16px; /* Espacio entre el título y la barra */
+  font-size: 50px;
+  font-weight: 700;
 `;
 
 const Description = styled.p`
   font-size: 24px;
+  margin-top: 32px;
   margin-bottom: 16px;
 `;
 
-function AIInfo() {
+function Imgrecon() {
   return (
     <Container>
       <HeroContainer>
         <LeftContainer>
-          <img src={imgUrl} alt="animalitos" />
-        </LeftContainer>
-        <RightContainer>
           <TitleContainer>
-            <Title>AI care assistance</Title>
-            <BlackBar></BlackBar>
+            <Title>Dogs & Cats facial recognition</Title>
             <Description>
-              Let our AI assistance empower you to take the best care of your
-              furry friends!
+              Tired of searching through hundreds of photos? With our service,
+              you'll only see the photos you want to see
             </Description>
           </TitleContainer>
 
-          <Link to={"/mascotop-IA"}>
+          <Link to={"/post"}>
             <Button
               type="primary"
               size="small"
@@ -91,13 +82,16 @@ function AIInfo() {
                 paddingBottom: "10px",
               }}
             >
-              Consult our AI now
+              Publish pet
             </Button>
           </Link>
+        </LeftContainer>
+        <RightContainer>
+          <img src={imgUrl} alt="animalitos" style={{ borderRadius: "32px" }} />
         </RightContainer>
       </HeroContainer>
     </Container>
   );
 }
 
-export default AIInfo;
+export default Imgrecon;

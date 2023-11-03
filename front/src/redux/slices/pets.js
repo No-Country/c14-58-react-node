@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { GATEWAY } from "../../assets/globals";
-import { useNavigate } from "react-router-dom";
 
 const fetchPets = createAsyncThunk("pets/getAll", async () => {
   try {
@@ -30,9 +29,7 @@ export const postPet = createAsyncThunk(
       };
       const response = await axios(config);
       if (response.data.msg) {
-        const navigate = useNavigate();
         alert(response.data.msg);
-        navigate("/post");
         return false;
       }
       return response.data;

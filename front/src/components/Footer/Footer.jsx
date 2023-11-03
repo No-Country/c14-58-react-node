@@ -42,15 +42,14 @@ function Footer() {
             target="blank"
             style={{ color: "blue" }}
           >
-            Hernán Garcia
+            👨‍💻 Hernán Garcia
           </a>{" "}
-          &{" "}
           <a
             href="https://www.linkedin.com/in/opaucarq/"
             target="blank"
             style={{ color: "blue" }}
           >
-            Oliver Paucar
+            👨‍💻 Oliver Paucar
           </a>
         </div>
       </FooterContainer>

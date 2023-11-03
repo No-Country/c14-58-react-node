@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import styled from "@emotion/styled";
 import imgUrl from "../../assets/images/perritos.png";
 import Button from "../../ui/Button";
@@ -42,11 +43,11 @@ const TitleContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 32px;
 `;
 
 const Title = styled.h1`
-  font-size: 80px;
+  font-size: 60px;
+  font-weight: 700;
 `;
 
 const BlackBar = styled.div`
@@ -54,6 +55,11 @@ const BlackBar = styled.div`
   background: black;
   flex-grow: 1;
   margin-left: 16px; /* Espacio entre el título y la barra */
+`;
+
+const Description = styled.p`
+  font-size: 24px;
+  margin-bottom: 36px;
 `;
 
 function HeroSection() {
@@ -66,10 +72,10 @@ function HeroSection() {
             <BlackBar></BlackBar>
           </TitleContainer>
           <img src={imgUrl} alt="animalitos" />
-          <p>
-            We know how hard it is to lose your pet, that&apos;s why we want
-            to help you!
-          </p>
+          <Description>
+            We know how hard it is to lose a furry friend. That's why our
+            service is here to help you find it!
+          </Description>
           <Link to={"/post"}>
             <Button type="primary" size="small">
               FIND MY PET
