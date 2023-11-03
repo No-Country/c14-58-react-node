@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.TEXT,
         defaultValue:
           "https://maikaipets.com/wp-content/uploads/MAIKAI-HOME-DEF.jpg",
-        allowNull: false
+        allowNull: false,
       },
       status: {
         type: DataTypes.ENUM("lost", "found"),

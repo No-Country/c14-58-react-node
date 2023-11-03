@@ -84,11 +84,11 @@ const TitleForm = styled.h1`
 `;
 
 function PostPetForm() {
-  const specieOptions = [
-    { label: "Choose a specie", value: "" },
-    { label: "Cat", value: "cat" },
-    { label: "Dog", value: "dog" },
-  ];
+  // const specieOptions = [
+  //   { label: "Choose a specie", value: "" },
+  //   { label: "Cat", value: "cat" },
+  //   { label: "Dog", value: "dog" },
+  // ];
   const genderOptions = [
     { label: "Choose a gender", value: "" },
     { label: "Male", value: "male" },
@@ -188,7 +188,7 @@ function PostPetForm() {
             {user && (
               <>
                 <div className="flex gap-6">
-                  <Input className="w-full">
+                  {/* <Input className="w-full">
                     <label>Choose Specie:</label>
                     <Controller
                       name="specie"
@@ -220,7 +220,7 @@ function PostPetForm() {
                         </select>
                       )}
                     />
-                  </Input>
+                  </Input> */}
 
                   <Input className="w-full">
                     <label>Choose Gender:</label>

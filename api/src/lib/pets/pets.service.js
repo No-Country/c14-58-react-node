@@ -45,9 +45,14 @@ class PetService {
       const recon = await client.labelDetection(uploadResponse.secure_url);
       const labels = recon[0].labelAnnotations;
 
-      let hasDogOrCat = labels.some(
-        (item) => item.description === "Dog" || item.description === "Cat"
-      );
+      let flag = "";
+      let hasDogOrCat = labels.some((item) => {
+        if (item.description === "Dog" || item.description === "Cat") {
+          flag = item.description.toLowerCase();
+          return true;
+        }
+        return false;
+      });
 
       if (!hasDogOrCat) {
         return res.status(200).json({
@@ -56,7 +61,8 @@ class PetService {
       } else {
         // Set image URL
         value.image = uploadResponse.secure_url;
-
+        value.specie = flag;
+        
         const pet = await Pets.create({ ...value });
 
         pet.setUser(decodedToken.userId);
