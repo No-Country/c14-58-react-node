@@ -44,14 +44,14 @@ class PetService {
 
       const recon = await client.labelDetection(uploadResponse.secure_url);
       const labels = recon[0].labelAnnotations;
-      console.log("HERE", labels[0].description);
-      if (
-        labels[0].description.toUpperCase() !== "CAT" ||
-        labels[0].description.toUpperCase() !== "DOG"
-      ) {
+
+      let hasDogOrCat = labels.some(
+        (item) => item.description === "Dog" || item.description === "Cat"
+      );
+
+      if (!hasDogOrCat) {
         return res.status(200).json({
           msg: "The image must be a cat or a dog",
-          data: labels,
         });
       } else {
         // Set image URL
