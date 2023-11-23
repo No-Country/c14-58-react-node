@@ -8,6 +8,8 @@ Mascotopia is a platform dedicated to reuniting lost pets with their owners. Wit
 
 ## 📌 Upload Lost and Found Pets
 
+![pet cards](https://media.licdn.com/dms/image/D4D22AQH3o1hjm_Ka3A/feedshare-shrink_1280/0/1699290354658?e=1703721600&v=beta&t=XqrSbPWVKZDsBRMnJPMmUaskM1SsfCrTysIrQeYnwpw)
+
 Our platform allows users to upload information about lost and found pets. This increases the chances of reuniting pets with their owners.
 
 ## 🐶 Animal Facial Recognition
